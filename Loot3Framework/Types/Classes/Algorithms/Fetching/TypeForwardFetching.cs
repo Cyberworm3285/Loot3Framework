@@ -19,6 +19,11 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
             types = _types;
         }
 
+        public TypeForwardFetching(ILootable[] _types)
+        {
+            types = Type.GetTypeArray(_types);
+        }
+
         public Type[] GetAllLootableTypes()
         {
             return types;

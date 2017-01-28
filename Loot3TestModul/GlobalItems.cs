@@ -17,7 +17,7 @@ namespace Loot3Vorbereitung
     {
         private static GlobalItems instance = null;
 
-        private GlobalItems() : base(new FetchByNamespace(Assembly.GetExecutingAssembly(), "Loot3Vorbereitung.Items")) {}
+        private GlobalItems() : base(new FetchByInheritance(typeof(ILootable))) {}
 
         #region Properties
 

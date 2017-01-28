@@ -7,8 +7,8 @@
     <ProjectGuid>{60142E27-BC79-469A-B8FC-2344743D32F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LootLibrary</RootNamespace>
-    <AssemblyName>LootLibrary</AssemblyName>
+    <RootNamespace>Loot3Framework</RootNamespace>
+    <AssemblyName>Loot3Framework</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\ILootingAlgorithm.cs" />
     <Compile Include="Interfaces\ILootTypeFetcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\Classes\Algorithms\Fetching\FetchByInheritance.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\FetchByNamespace.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\TypeForwardFetching.cs" />
     <Compile Include="Types\Classes\Algorithms\Filter\ConfigurableFilter.cs" />

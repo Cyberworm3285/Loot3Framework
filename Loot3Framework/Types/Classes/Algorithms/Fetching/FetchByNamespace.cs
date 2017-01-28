@@ -13,17 +13,25 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
     public class FetchByNamespace : ILootTypeFetcher
     {
         string spaceName;
-        Assembly currAssembly;
+        Assembly[] currAssemblies;
 
-        public FetchByNamespace(Assembly _currAssembly, string _spaceName)
+        public FetchByNamespace(string _spaceName, Assembly[] _currAssemblies)
         {
             spaceName = _spaceName;
-            currAssembly = _currAssembly;
+            currAssemblies = _currAssemblies;
+        }
+
+        public FetchByNamespace(string _spaceName)
+        {
+            spaceName = _spaceName;
+            currAssemblies = AppDomain.CurrentDomain.GetAssemblies();
         }
 
         public Type[] GetAllLootableTypes()
         {
-            return currAssembly.GetTypes().Where(t => t.Namespace == spaceName && t.GetInterfaces().Contains(typeof(ILootable))).ToArray();
+            List<Type> types = new List<Type>();
+            currAssemblies.ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => t.Namespace == spaceName && t.GetInterfaces().Contains(typeof(ILootable))).ToArray()));
+            return types.ToArray();
         }
     }
 }
