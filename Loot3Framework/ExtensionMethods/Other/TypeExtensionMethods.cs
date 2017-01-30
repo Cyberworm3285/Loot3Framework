@@ -26,5 +26,10 @@ namespace Loot3Framework.ExtensionMethods.Other
             }
             return result;
         }
+
+        public static bool HasNonParameterConstructor(this Type t)
+        {
+            return (t.GetConstructors().Where(tt => tt.GetParameters().Length == 0).ToArray().Length > 0);
+        }
     }
 }

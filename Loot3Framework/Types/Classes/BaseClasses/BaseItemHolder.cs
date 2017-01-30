@@ -48,6 +48,32 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             }
         }
 
+        public string[] AllTypeNames
+        {
+            get
+            {
+                List<string> typeNames = new List<string>();
+                foreach (ILootable l in allLoot) 
+                {
+                    if (!typeNames.Contains(l.Type)) typeNames.Add(l.Type);
+                }
+                return typeNames.ToArray();
+            }
+        }
+
+        public string[] AllRarityNames
+        {
+            get
+            {
+                List<string> rarityNames = new List<string>();
+                foreach (ILootable l in allLoot)
+                {
+                    if (!rarityNames.Contains(l.RarityName)) rarityNames.Add(l.RarityName);
+                }
+                return rarityNames.ToArray();
+            }
+        }
+
         #endregion
     }
 }

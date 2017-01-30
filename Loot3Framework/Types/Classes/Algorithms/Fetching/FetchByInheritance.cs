@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
+using Loot3Framework.ExtensionMethods.Other;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
@@ -22,7 +23,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 
         public Type[] GetAllLootableTypes()
         {
-            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => baseType.IsAssignableFrom(t) && !t.IsAbstract)));
+            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => baseType.IsAssignableFrom(t) && !t.IsAbstract && t.HasNonParameterConstructor())));
             return types.ToArray();;
         }
     }

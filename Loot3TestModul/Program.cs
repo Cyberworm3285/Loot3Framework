@@ -14,19 +14,9 @@ namespace Loot3Vorbereitung
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 10; i++)
-                Console.WriteLine(GlobalItems.Instance.GetLoot(
-                    new PartitionLoot(),
-                    new ConfigurableFilter(
-                        StringComparing.NonCaseSensitiveInclude,
-                        StringComparing.NonCaseSensitiveEqual,
-                        StringComparing.CaseSensitiveEqual,
-                        "em",
-                        "dummy"
-                    )
-                ).Generate());
-
-            Console.ReadKey();
+            MainForm form = new MainForm();
+            form.ShowDialog();
+            Console.ReadLine();
         }
     }
 

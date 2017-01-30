@@ -20,6 +20,16 @@ namespace Loot3Framework.Interfaces
             get;
         }
 
+        string[] AllTypeNames
+        {
+            get;
+        }
+
+        string[] AllRarityNames
+        {
+            get;
+        }
+
         #endregion
     }
 }

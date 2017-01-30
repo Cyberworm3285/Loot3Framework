@@ -16,7 +16,7 @@ namespace Loot3Vorbereitung.Items
         public Item1()
         {
             name = "Item1";
-            type = "Dummy";
+            type = "Dummy1";
             attributes = new IItemProperty[]
             {
                 new NameOnlyProp("Unkaputtbar"),
@@ -34,6 +34,7 @@ namespace Loot3Vorbereitung.Items
         {
             name = "Item 2";
             rarity = 500;
+            type = "Dummy2";
             attributes = new IItemProperty[]
             {
                 new RandomMultiProp(

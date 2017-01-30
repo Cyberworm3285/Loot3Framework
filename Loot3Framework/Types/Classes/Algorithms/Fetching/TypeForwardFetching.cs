@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Loot3Framework.ExtensionMethods.Other;
+
 using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
@@ -14,7 +16,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 
         public TypeForwardFetching(Type[] _types)
         {
-            if (!_types.All(t => t.GetInterfaces().Contains(typeof(ILootable))))
+            if (!_types.All(t => t.GetInterfaces().Contains(typeof(ILootable)) && t.HasNonParameterConstructor()))
                 throw new Exception();
             types = _types;
         }

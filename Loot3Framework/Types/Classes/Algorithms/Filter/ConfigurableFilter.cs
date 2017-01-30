@@ -15,6 +15,8 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
         private string nameContains;
         private string typeContains;
         private string rarityName;
+        private string[] allowedTypes;
+        private string[] allowedRarities;
         private int rarityLowerBound;
         private int rarityUpperBound;
         private StringComparing[] modes;
@@ -23,13 +25,19 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
             StringComparing _modeName = StringComparing.NonCaseSensitiveInclude, 
             StringComparing _modeType = StringComparing.NonCaseSensitiveInclude, 
             StringComparing _modeRarity = StringComparing.NonCaseSensitiveInclude, 
-            string _nameContains = "", string _typeContains = "", string _rarityName= "", 
+            string _nameContains = "", 
+            string _typeContains = "", 
+            string _rarityName= "", 
+            string[] _allowedTypes = null ,
+            string[] _allowedRarities = null,
             int _rarityLowerBound = 0, int _rarityUpperBound = 1000)
         {
             modes = new StringComparing[] { _modeName, _modeType, _modeRarity };
             nameContains = _nameContains;
             typeContains = _typeContains;
             rarityName = _rarityName;
+            allowedTypes = _allowedTypes;
+            allowedRarities = _allowedRarities;
             rarityLowerBound = _rarityLowerBound;
             rarityUpperBound = _rarityUpperBound;
         }
@@ -41,6 +49,8 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
             ((l.Name.CompareToString(nameContains,      modes[0]))  || (nameContains == ""))    &&
             ((l.Type.CompareToString(typeContains,      modes[1]))  || (typeContains == ""))    &&
             ((l.RarityName.CompareToString(rarityName,  modes[2]))  || (rarityName == ""))      &&
+            ((allowedTypes==null)?true:(allowedTypes.Contains(l.Type)))                         &&
+            ((allowedRarities == null)?true:(allowedRarities.Contains(l.RarityName)))           &&
             ((l.Rarity >= rarityLowerBound && l.Rarity <= rarityUpperBound) || (rarityLowerBound == 0 && rarityUpperBound == 0))
 
             ).ToArray();
