@@ -16,7 +16,6 @@ namespace Loot3Vorbereitung
         {
             MainForm form = new MainForm();
             form.ShowDialog();
-            Console.ReadLine();
         }
     }
 

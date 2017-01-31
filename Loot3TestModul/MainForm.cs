@@ -41,7 +41,8 @@ namespace Loot3Vorbereitung
                             new ConfigurableFilter(
                                     _nameContains   : textBox1.Text,
                                     _allowedTypes   : aTN.ToArray(),
-                                    _allowedRarities: aN.ToArray() 
+                                    _allowedRarities: aN.ToArray(),
+                                    _allowQuestItems: checkBox1.Checked 
                                 )
                         ).Generate()
                 );

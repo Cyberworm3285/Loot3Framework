@@ -17,6 +17,7 @@ namespace Loot3Vorbereitung.Items
         {
             name = "Item1";
             type = "Dummy1";
+            isQuestItem = true;
             attributes = new IItemProperty[]
             {
                 new NameOnlyProp("Unkaputtbar"),
@@ -32,8 +33,9 @@ namespace Loot3Vorbereitung.Items
     {
         public Item2() : base()
         {
-            name = "Item 2";
+            name = "Item2";
             rarity = 500;
+            isQuestItem = false;
             type = "Dummy2";
             attributes = new IItemProperty[]
             {
