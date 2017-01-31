@@ -20,7 +20,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         protected string name = "[No Name]";
         protected int rarity = 1000;
         protected string type = "[No Type]";
-        protected string rarityName = "[Not Set]";
         protected ILootRarityTable rarityTable = new DefaultRarityTable();
 
         #endregion
@@ -31,7 +30,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
 
         public string Generate()
         {
-            return string.Join("|", new string[] { name, type, string.Join("|", attributes.ToStrings()) });
+            return string.Join("|", new string[] { name, type, string.Join("|", attributes.ToStrings()), "[" + RarityName + "]" });
         }
 
         public string ToRarityName(ILootRarityTable table)
