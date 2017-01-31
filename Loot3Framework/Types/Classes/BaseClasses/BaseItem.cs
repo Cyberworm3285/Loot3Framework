@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.TypeConversion;
+using Loot3Framework.Types.Classes.RarityTables;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
@@ -19,12 +20,24 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         protected string name = "[No Name]";
         protected int rarity = 1000;
         protected string type = "[No Type]";
+        protected string rarityName = "[Not Set]";
+        protected ILootRarityTable rarityTable = new DefaultRarityTable();
 
         #endregion
+
+        public BaseItem() { }
+        public BaseItem(string _name) { name = _name; }
+        public BaseItem(ILootRarityTable table) { rarityTable = table; }
 
         public string Generate()
         {
             return string.Join("|", new string[] { name, type, string.Join("|", attributes.ToStrings()) });
+        }
+
+        public string ToRarityName(ILootRarityTable table)
+        {
+            int index = Array.FindIndex(table.Chain.Intervalls, i => i.X < rarity && i.Y >= rarity);
+            return table.Values[index];
         }
 
         #region Properties
@@ -73,7 +86,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         {
             get
             {
-                return "Normal";
+                return ToRarityName(rarityTable);
             }
         }
 

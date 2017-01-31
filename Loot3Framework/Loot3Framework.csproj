@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\ILootable.cs" />
     <Compile Include="Interfaces\ILootFilter.cs" />
     <Compile Include="Interfaces\ILootingAlgorithm.cs" />
+    <Compile Include="Interfaces\ILootRarityTable.cs" />
     <Compile Include="Interfaces\ILootTypeFetcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\FetchByInheritance.cs" />
@@ -60,12 +61,14 @@
     <Compile Include="Types\Classes\Algorithms\Filter\StandardNCSFilter.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseItem.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseItemHolder.cs" />
+    <Compile Include="Types\Classes\RarityTables\DefaultRarityTable.cs" />
     <Compile Include="Types\Enums\StringComparing.cs" />
     <Compile Include="Types\Classes\ItemProperties\RandomMultiProp.cs" />
     <Compile Include="Types\Structs\Intervall.cs" />
     <Compile Include="Types\Classes\ItemProperties\MultiIntervallProp.cs" />
     <Compile Include="Types\Classes\ItemProperties\NameOnlyProp.cs" />
     <Compile Include="Types\Classes\ItemProperties\SingleIntervallProp.cs" />
+    <Compile Include="Types\Structs\IntervallChain.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

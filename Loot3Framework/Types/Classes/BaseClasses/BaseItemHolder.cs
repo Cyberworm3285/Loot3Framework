@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.Other;
+using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
@@ -37,6 +38,8 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         {
             return algo.Loot(filter.Filter(allLoot));
         }
+
+
 
         #region Properties
 
