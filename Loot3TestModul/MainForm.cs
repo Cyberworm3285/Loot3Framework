@@ -35,22 +35,34 @@ namespace Loot3Vorbereitung
             List<string> aN = new List<string>();
             foreach (object s in checkedListBox1.CheckedItems) aTN.Add(s as string);
             foreach (object s in checkedListBox2.CheckedItems) aN.Add(s as string);
-            listBox1.Items.Add(
-                    GlobalItems.Instance.GetLoot(
-                            new PartitionLoot(),
-                            new ConfigurableFilter(
-                                    _nameContains   : textBox1.Text,
-                                    _allowedTypes   : aTN.ToArray(),
-                                    _allowedRarities: aN.ToArray(),
-                                    _allowQuestItems: checkBox1.Checked 
-                                )
-                        ).Generate()
-                );
+            try
+            {
+                listBox1.Items.Add(
+                  GlobalItems.Instance.GetLoot(
+                          new PartitionLoot(),
+                          new ConfigurableFilter(
+                                  _nameContains: textBox1.Text,
+                                  _allowedTypes: aTN.ToArray(),
+                                  _allowedRarities: aN.ToArray(),
+                                  _allowQuestItems: checkBox1.Checked
+                              )
+                      ).Generate()
+              );
+            }
+            catch(Loot3Vorbereitung.Items.LootableExceptionLol ex)
+            {
+                listBox1.Items.Add(ex.Name);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.AddRange(new Loot3Framework.Types.Classes.Algorithms.Fetching.FetchByInheritance(typeof(Loot3Framework.Interfaces.ILootable)).GetAllLootableTypes());
         }
     }
 }

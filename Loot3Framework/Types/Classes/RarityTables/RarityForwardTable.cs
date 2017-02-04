@@ -9,15 +9,18 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.RarityTables
 {
-    public class DefaultRarityTable : ILootRarityTable
+    public class RarityForwardTable : ILootRarityTable
     {
-        protected IntervallChain chain = new IntervallChain(new int[] { 0, 100, 300, 600, 1000 });
-        protected string[] rarNames = new string[] { "Legendär", "Epic", "Selten", "Normal" };
+        string fixRarity;
+
+        public RarityForwardTable(string _fixRarity)
+        {
+            fixRarity = _fixRarity;
+        }
 
         public string ToRarityName(int rarity)
         {
-            int index = Array.FindIndex(Chain.Intervalls, i => i.X < rarity && i.Y >= rarity);
-            return Values[index];
+            return fixRarity;
         }
 
         #region Properties
@@ -26,7 +29,7 @@ namespace Loot3Framework.Types.Classes.RarityTables
         {
             get
             {
-                return chain;
+                return new IntervallChain(new int[] { int.MinValue, int.MaxValue });
             }
         }
 
@@ -34,10 +37,11 @@ namespace Loot3Framework.Types.Classes.RarityTables
         {
             get
             {
-                return rarNames;
+                return new string[] { fixRarity };
             }
         }
 
         #endregion
+
     }
 }

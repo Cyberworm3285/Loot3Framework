@@ -12,7 +12,6 @@ namespace Loot3Framework.Interfaces
 
         string Generate();
 
-        string ToRarityName(ILootRarityTable table);
 
         #endregion
 

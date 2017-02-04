@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,6 +63,7 @@
     <Compile Include="Types\Classes\BaseClasses\BaseItem.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseItemHolder.cs" />
     <Compile Include="Types\Classes\RarityTables\DefaultRarityTable.cs" />
+    <Compile Include="Types\Classes\RarityTables\RarityForwardTable.cs" />
     <Compile Include="Types\Enums\StringComparing.cs" />
     <Compile Include="Types\Classes\ItemProperties\RandomMultiProp.cs" />
     <Compile Include="Types\Structs\Intervall.cs" />

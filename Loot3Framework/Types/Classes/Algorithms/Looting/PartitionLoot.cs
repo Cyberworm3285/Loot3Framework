@@ -24,7 +24,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
                 intervalls[i] = new Intervall(prev, curr);
             }
             int rdm = GlobalRandom.Next(0, curr);
-            int index = Array.FindIndex(intervalls, i => i.X < rdm && i.Y > rdm);
+            int index = Array.FindIndex(intervalls, i => i.X <= rdm && i.Y > rdm);
 
             if (index.Equals(-1))
                 throw new Exception();

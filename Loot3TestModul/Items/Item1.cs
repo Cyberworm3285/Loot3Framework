@@ -8,6 +8,7 @@ using Loot3Framework.Types.Classes.BaseClasses;
 using Loot3Framework.Types.Classes.ItemProperties;
 using Loot3Framework.Interfaces;
 using Loot3Framework.Types.Structs;
+using Loot3Framework.Types.Classes.RarityTables;
 
 namespace Loot3Vorbereitung.Items
 {
@@ -34,7 +35,7 @@ namespace Loot3Vorbereitung.Items
         public Item2() : base()
         {
             name = "Item2";
-            rarity = 500;
+            rarity = 50;
             isQuestItem = false;
             type = "Dummy2";
             attributes = new IItemProperty[]
@@ -47,6 +48,73 @@ namespace Loot3Vorbereitung.Items
                     }
                     )
             };
+        }
+    }
+
+    public class Item3 : BaseItem
+    {
+        public Item3() : base("testnummertausend")
+        {
+            rarity = 400;
+            rarityTable = new RarityForwardTable("FischermensFriend");
+        }
+    }
+
+    public class LootableExceptionLol : Exception, ILootable
+    {
+        public LootableExceptionLol() : base("lol") { }
+
+        public string[] AllowedAreas
+        {
+            get
+            {
+                return new string[] { };
+            }
+        }
+
+        public bool IsQuestItem
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return "ExceptionItem";
+            }
+        }
+
+        public int Rarity
+        {
+            get
+            {
+                return 412;
+            }
+        }
+
+        public string RarityName
+        {
+            get
+            {
+                return "ExceptionalRarity";
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return "Exception";
+            }
+        }
+
+        public string Generate()
+        {
+            throw this;
         }
     }
 }

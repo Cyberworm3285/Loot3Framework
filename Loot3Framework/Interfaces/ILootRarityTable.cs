@@ -10,6 +10,8 @@ namespace Loot3Framework.Interfaces
 {
     public interface ILootRarityTable
     {
+        string ToRarityName(int rarity);
+
         #region Properties
 
         IntervallChain Chain

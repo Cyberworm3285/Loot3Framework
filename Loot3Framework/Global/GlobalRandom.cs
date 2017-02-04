@@ -14,7 +14,7 @@ namespace Loot3Framework.Global
 
         public static int Next(int a, int b)
         {
-            return random.Next(a,b);
+            return random.Next(a, b);
         }
 
         #endregion
