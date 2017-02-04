@@ -10,6 +10,7 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
+    [CLSCompliant(false)]
     public abstract class BaseLootHolder : IItemHolder
     {
         private ILootable[] allLoot;

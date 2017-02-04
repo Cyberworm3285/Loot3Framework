@@ -10,6 +10,7 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.ItemProperties
 {
+    [CLSCompliant(true)]
     public class SingleIntervallProp : IItemProperty
     {
         public Intervall intervall;

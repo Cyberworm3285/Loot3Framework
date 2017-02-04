@@ -8,6 +8,7 @@ using Loot3Framework.Global;
 
 namespace Loot3Framework.Types.Structs
 {
+    [CLSCompliant(true)]
     public struct Intervall
     {
         private int a;

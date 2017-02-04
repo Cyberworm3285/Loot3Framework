@@ -9,6 +9,7 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.RarityTables
 {
+    [CLSCompliant(true)]
     public class DefaultRarityTable : ILootRarityTable
     {
         protected IntervallChain chain = new IntervallChain(new int[] { 0, 100, 300, 600, 1000 });

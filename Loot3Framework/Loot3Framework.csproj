@@ -45,6 +45,7 @@
     <Compile Include="ExtensionMethods\Other\TypeExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\TypeConversion\ArrayConversion.cs" />
     <Compile Include="Global\GlobalRandom.cs" />
+    <Compile Include="Header.cs" />
     <Compile Include="Interfaces\IItemHolder.cs" />
     <Compile Include="Interfaces\IItemProperty.cs" />
     <Compile Include="Interfaces\ILootable.cs" />

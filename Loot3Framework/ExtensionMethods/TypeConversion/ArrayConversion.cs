@@ -8,6 +8,7 @@ using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.ExtensionMethods.TypeConversion
 {
+    [CLSCompliant(true)]
     public static class ArrayConversion
     {
         public static string[] ToStrings(this IItemProperty[] i)

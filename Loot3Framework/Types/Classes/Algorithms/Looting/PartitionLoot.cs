@@ -10,6 +10,7 @@ using Loot3Framework.Global;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
+    [CLSCompliant(true)]
     public class PartitionLoot : ILootingAlgorithm
     {
         public ILootable Loot(ILootable[] allLoot)

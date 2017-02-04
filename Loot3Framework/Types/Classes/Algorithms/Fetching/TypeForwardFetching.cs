@@ -10,6 +10,7 @@ using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
+    [CLSCompliant(true)]
     public class TypeForwardFetching : ILootTypeFetcher
     {
         Type[] types;

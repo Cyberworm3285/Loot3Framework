@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Loot3Framework.Types.Enums
 {
+    [CLSCompliant(true)]
     public enum StringComparing
     {
         CaseSensitiveInclude,

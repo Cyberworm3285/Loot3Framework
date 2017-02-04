@@ -10,6 +10,7 @@ using Loot3Framework.ExtensionMethods.Other;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
+    [CLSCompliant(true)]
     public class FetchByNamespace : ILootTypeFetcher
     {
         string spaceName;

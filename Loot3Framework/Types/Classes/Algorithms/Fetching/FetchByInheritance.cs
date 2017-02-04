@@ -9,6 +9,7 @@ using Loot3Framework.ExtensionMethods.Other;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
+    [CLSCompliant(true)]
     public class FetchByInheritance : ILootTypeFetcher
     {
         List<Type> types;

@@ -8,6 +8,7 @@ using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Interfaces
 {
+    [CLSCompliant(true)]
     public interface ILootFilter
     {
         ILootable[] Filter(ILootable[] allLoot);

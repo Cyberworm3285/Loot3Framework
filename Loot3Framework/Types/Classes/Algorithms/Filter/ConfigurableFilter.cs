@@ -10,6 +10,7 @@ using Loot3Framework.ExtensionMethods.Other;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Filter
 {
+    [CLSCompliant(true)]
     public class ConfigurableFilter : ILootFilter
     {
         private string nameContains;

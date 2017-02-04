@@ -8,6 +8,7 @@ using System.Reflection;
 
 namespace Loot3Framework.ExtensionMethods.Other
 {
+    [CLSCompliant(true)]
     public static class TypeExtensionMethods
     {
         public static object GetInstance(this Type t)

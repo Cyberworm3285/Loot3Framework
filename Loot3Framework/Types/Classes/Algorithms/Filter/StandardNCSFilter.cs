@@ -8,6 +8,7 @@ using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Filter
 {
+    [CLSCompliant(true)]
     public class StandardNCSFilter : ILootFilter
     {
         private string nameContains;

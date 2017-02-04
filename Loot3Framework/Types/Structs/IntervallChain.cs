@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Loot3Framework.Types.Structs
 {
+    [CLSCompliant(true)]
     public struct IntervallChain
     {
         private Intervall[] intervalls;

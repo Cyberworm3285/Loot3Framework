@@ -10,6 +10,7 @@ using Loot3Framework.Types.Classes.RarityTables;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
+    [CLSCompliant(false)]
     public abstract class BaseItem : ILootable
     {
         #region Attribute
