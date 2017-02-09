@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\ILootRarityTable.cs" />
     <Compile Include="Interfaces\ILootTypeFetcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\RuntimeCompiler.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\FetchByInheritance.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\FetchByNamespace.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\TypeForwardFetching.cs" />

@@ -13,7 +13,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     [CLSCompliant(false)]
     public abstract class BaseLootHolder : IItemHolder
     {
-        private ILootable[] allLoot;
+        protected ILootable[] allLoot;
 
         public BaseLootHolder(ILootTypeFetcher fetcher)
         {
