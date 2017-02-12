@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods\ArrayOperations\ArrayExtensions.cs" />
+    <Compile Include="ExtensionMethods\ArrayOperations\CollectionExtensions.cs" />
     <Compile Include="ExtensionMethods\Other\Comparision.cs" />
     <Compile Include="ExtensionMethods\Other\TypeExtensionMethods.cs" />
     <Compile Include="Global\GlobalRandom.cs" />
