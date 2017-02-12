@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Loot3Framework.ExtensionMethods.TypeConversion;
+using Loot3Framework.ExtensionMethods.ArrayOperations;
 
 namespace Loot3Framework.Types.Structs
 {
@@ -22,9 +22,19 @@ namespace Loot3Framework.Types.Structs
             }
         }
 
+        public IntervallChain(int[] values, int startValue)
+        {
+            intervalls = new Intervall[values.Length];
+            intervalls[0] = new Intervall(startValue, values.First());
+            for (int i = 0; i < values.Length - 1; i++)
+            {
+                intervalls[i+1] = new Intervall(values[i], values[i + 1]);
+            }
+        }
+
         public override string ToString()
         {
-            return "{" + string.Join("," , intervalls.ToStrings()) + "}";
+            return "{" + string.Join("," , intervalls.DoFunc(i => i.ToString())) + "}";
         }
 
         #region Properties

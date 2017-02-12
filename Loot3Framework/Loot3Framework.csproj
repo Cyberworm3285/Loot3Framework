@@ -44,7 +44,6 @@
     <Compile Include="ExtensionMethods\ArrayOperations\ArrayExtensions.cs" />
     <Compile Include="ExtensionMethods\Other\Comparision.cs" />
     <Compile Include="ExtensionMethods\Other\TypeExtensionMethods.cs" />
-    <Compile Include="ExtensionMethods\TypeConversion\ArrayConversion.cs" />
     <Compile Include="Global\GlobalRandom.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="Interfaces\IItemHolder.cs" />

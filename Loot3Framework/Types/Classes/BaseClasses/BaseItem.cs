@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
-using Loot3Framework.ExtensionMethods.TypeConversion;
 using Loot3Framework.Types.Classes.RarityTables;
+using Loot3Framework.ExtensionMethods.ArrayOperations;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
@@ -28,10 +28,15 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public BaseItem() { }
         public BaseItem(string _name) { name = _name; }
         public BaseItem(ILootRarityTable table) { rarityTable = table; }
+        public BaseItem(string _name, ILootRarityTable _table)
+        {
+            name = _name;
+            rarityTable = _table;
+        }
 
         public string Generate()
         {
-            return string.Join("|", new string[] { name, type, string.Join("|", attributes.ToStrings()), "[" + RarityName + "]" });
+            return string.Join("|", new string[] { name, type, string.Join("|", attributes.DoFunc(a => a.Generate())), "[" + RarityName + "]" });
         }
 
 

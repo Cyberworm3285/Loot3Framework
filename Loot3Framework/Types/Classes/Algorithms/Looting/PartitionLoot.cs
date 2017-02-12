@@ -20,9 +20,8 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             if (allLoot.Length.Equals(0))
                 throw new NoMatchingLootException("no input items");
             int counter = 0;
-            IntervallChain chain = new IntervallChain(new int[] { 0 }.Concat(allLoot.DoFunc(l => counter += l.Rarity)).ToArray());
+            IntervallChain chain = new IntervallChain((allLoot.DoFunc(l => counter += l.Rarity)).ToArray(), 0);
             int rdm = GlobalRandom.Next(0, counter);
-
             return allLoot[Array.FindIndex(chain.Intervalls, i => i.X <= rdm && i.Y > rdm)];
         }
     }
