@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Loot3Framework.Interfaces;
 using Loot3Framework.Types.Structs;
 using Loot3Framework.Global;
+using Loot3Framework.Types.Exceptions;
+using Loot3Framework.ExtensionMethods.ArrayOperations;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
@@ -15,22 +17,13 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
     {
         public ILootable Loot(ILootable[] allLoot)
         {
-            Intervall[] intervalls = new Intervall[allLoot.Length];
-            int prev;
-            int curr = 0;
-            for (int i = 0; i < allLoot.Length; i++)
-            {
-                prev = curr;
-                curr += allLoot[i].Rarity;
-                intervalls[i] = new Intervall(prev, curr);
-            }
-            int rdm = GlobalRandom.Next(0, curr);
-            int index = Array.FindIndex(intervalls, i => i.X <= rdm && i.Y > rdm);
+            if (allLoot.Length.Equals(0))
+                throw new NoMatchingLootException("no input items");
+            int counter = 0;
+            IntervallChain chain = new IntervallChain(new int[] { 0 }.Concat(allLoot.DoFunc(l => counter += l.Rarity)).ToArray());
+            int rdm = GlobalRandom.Next(0, counter);
 
-            if (index.Equals(-1))
-                throw new Exception();
-
-            return allLoot[index];
+            return allLoot[Array.FindIndex(chain.Intervalls, i => i.X <= rdm && i.Y > rdm)];
         }
     }
 }

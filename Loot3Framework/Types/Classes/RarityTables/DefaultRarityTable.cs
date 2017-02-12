@@ -12,7 +12,7 @@ namespace Loot3Framework.Types.Classes.RarityTables
     [CLSCompliant(true)]
     public class DefaultRarityTable : ILootRarityTable
     {
-        protected IntervallChain chain = new IntervallChain(new int[] { 0, 100, 300, 600, 1000 });
+        protected IntervallChain innerChain = new IntervallChain(new int[] { 0, 100, 300, 600, 1000 });
         protected string[] rarNames = new string[] { "Legendär", "Epic", "Selten", "Normal" };
 
         public string ToRarityName(int rarity)
@@ -27,7 +27,7 @@ namespace Loot3Framework.Types.Classes.RarityTables
         {
             get
             {
-                return chain;
+                return innerChain;
             }
         }
 

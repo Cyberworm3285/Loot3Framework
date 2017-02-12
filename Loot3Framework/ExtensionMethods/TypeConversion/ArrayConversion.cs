@@ -20,5 +20,15 @@ namespace Loot3Framework.ExtensionMethods.TypeConversion
             }
             return result;
         }
+
+        public static string[] ToStrings<T>(this T[] t) where T : struct
+        {
+            string[] result = new string[t.Length];
+            for (int i = 0; i < t.Length; i++)
+            {
+                result[i] = t.ToString();
+            }
+            return result;
+        }
     }
 }

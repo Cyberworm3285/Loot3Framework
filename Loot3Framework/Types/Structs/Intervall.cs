@@ -25,6 +25,11 @@ namespace Loot3Framework.Types.Structs
             return GlobalRandom.Next(a, b);
         }
 
+        public override string ToString()
+        {
+            return "[" + a + ";" + b + "]";
+        }
+
         public int X
         {
             get { return a; }

@@ -8,6 +8,8 @@ using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.IO;
 
+using Loot3Framework.Types.Exceptions;
+
 namespace Loot3Framework.Tools
 {
     [CLSCompliant(true)]
@@ -26,7 +28,7 @@ namespace Loot3Framework.Tools
 
             CompilerResults results = provider.CompileAssemblyFromSource(parameters, string.Join(" ", File.ReadAllLines(path)));
             if (results.Errors.HasErrors)
-                throw new Exception();
+                throw new RuntimeCompileException(results, "at: " + path);
 
             List<string> namespaces = new List<string>();
             results.CompiledAssembly.GetTypes().ToList().ForEach(t => { if (!namespaces.Contains(t.Namespace)) namespaces.Add(t.Namespace); });

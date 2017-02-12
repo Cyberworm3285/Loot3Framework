@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Loot3Framework.ExtensionMethods.TypeConversion;
+
 namespace Loot3Framework.Types.Structs
 {
     [CLSCompliant(true)]
@@ -18,6 +20,11 @@ namespace Loot3Framework.Types.Structs
             {
                 intervalls[i] = new Intervall(values[i], values[i + 1]); 
             }
+        }
+
+        public override string ToString()
+        {
+            return "{" + string.Join("," , intervalls.ToStrings()) + "}";
         }
 
         #region Properties

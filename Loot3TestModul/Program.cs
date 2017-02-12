@@ -17,7 +17,9 @@ namespace Loot3Vorbereitung
     {
         static void Main(string[] args)
         {
-            RuntimeCompiler.CompileFiles(Path.Combine(Environment.CurrentDirectory, "Item1.cs"), new string[] { "System.Linq.dll" });
+            string[] namespaces;
+            RuntimeCompiler.TryCompileFiles(Path.Combine(Environment.CurrentDirectory, "Item1.cs"), new string[] { "System.Linq.dll" }, out namespaces);
+            Console.WriteLine("namespaces: " + string.Join(",", namespaces));
             MainForm form = new MainForm();
             form.ShowDialog();
         }

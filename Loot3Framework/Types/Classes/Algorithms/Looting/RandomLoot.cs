@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.Global;
+using Loot3Framework.Types.Exceptions;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
@@ -14,6 +15,8 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
     {
         public ILootable Loot(ILootable[] allLoot)
         {
+            if (allLoot.Length.Equals(0))
+                throw new NoMatchingLootException("no input items");
             return allLoot[GlobalRandom.Next(0, allLoot.Length)];
         }
     }
