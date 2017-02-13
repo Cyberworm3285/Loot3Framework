@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.Types.Classes.RarityTables;
-using Loot3Framework.ExtensionMethods.ArrayOperations;
+using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {

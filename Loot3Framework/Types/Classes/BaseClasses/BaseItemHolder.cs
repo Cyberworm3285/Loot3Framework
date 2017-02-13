@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.Other;
+using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
@@ -23,11 +24,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public void InitLootables(ILootTypeFetcher fetcher)
         {
             Type[] types = fetcher.GetAllLootableTypes();
-            allLoot = new ILootable[types.Length];
-            for (int i = 0; i < types.Length; i++)
-            {
-                allLoot[i] = types[i].GetInstance() as ILootable;
-            }
+            allLoot = types.DoFunc(t => t.GetInstance() as ILootable);
         }
 
         public ILootable GetLoot(ILootingAlgorithm algo)

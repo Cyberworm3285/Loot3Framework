@@ -12,7 +12,7 @@ using System.Collections;
 
 using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.Types.Classes.Algorithms.Filter;
-using Loot3Framework.ExtensionMethods.ArrayOperations;
+using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 
 namespace Loot3Vorbereitung

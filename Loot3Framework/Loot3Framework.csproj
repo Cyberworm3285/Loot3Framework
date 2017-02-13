@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods\ArrayOperations\CollectionExtensions.cs" />
+    <Compile Include="ExtensionMethods\CollectionOperations\CollectionExtensions.cs" />
     <Compile Include="ExtensionMethods\Other\Comparision.cs" />
     <Compile Include="ExtensionMethods\Other\TypeExtensionMethods.cs" />
     <Compile Include="Global\GlobalRandom.cs" />
@@ -57,6 +57,7 @@
     <Compile Include="Tools\RuntimeCompiler.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\FetchByInheritance.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\FetchByNamespace.cs" />
+    <Compile Include="Types\Classes\Algorithms\Fetching\Multifetching.cs" />
     <Compile Include="Types\Classes\Algorithms\Fetching\TypeForwardFetching.cs" />
     <Compile Include="Types\Classes\Algorithms\Filter\ConfigurableFilter.cs" />
     <Compile Include="Types\Classes\Algorithms\Looting\PartitionLoot.cs" />
