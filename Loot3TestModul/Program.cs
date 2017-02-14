@@ -8,6 +8,7 @@ using System.IO;
 
 using Loot3Framework.Types.Classes.Algorithms.Filter;
 using Loot3Framework.Types.Classes.Algorithms.Looting;
+using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Types.Enums;
 using Loot3Framework.Tools;
 
@@ -17,9 +18,7 @@ namespace Loot3Vorbereitung
     {
         static void Main(string[] args)
         {
-            string[] namespaces;
-            RuntimeCompiler.TryCompileAllFilesInDirectory(Path.Combine(Environment.CurrentDirectory, "Items"), new string[] { "System.Linq.dll" }, out namespaces);
-            Console.WriteLine("namespaces: " + string.Join(",", namespaces));
+            RuntimeCompiler.CompileAllFilesInDirectory(Path.Combine(Environment.CurrentDirectory, "Items"), new string[] { "System.Linq.dll" }).DoAction(s => Console.WriteLine(s)); ;
             MainForm form = new MainForm();
             form.ShowDialog();
         }

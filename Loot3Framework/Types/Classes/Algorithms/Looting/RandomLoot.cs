@@ -11,9 +11,9 @@ using Loot3Framework.Types.Exceptions;
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
     [CLSCompliant(true)]
-    public class RandomLoot : ILootingAlgorithm
+    public class RandomLoot<T> : ILootingAlgorithm<T>
     {
-        public ILootable Loot(ILootable[] allLoot)
+        public ILootable<T> Loot(ILootable<T>[] allLoot)
         {
             if (allLoot.Length.Equals(0))
                 throw new NoMatchingLootException("no input items");

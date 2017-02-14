@@ -11,7 +11,7 @@ using Loot3Framework.ExtensionMethods.Other;
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
     [CLSCompliant(true)]
-    public class FetchByNamespace : ILootTypeFetcher
+    public class FetchByNamespace<T> : ILootTypeFetcher<T>
     {
         string[] spaceNames;
         Assembly[] currAssemblies;
@@ -31,7 +31,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
         public Type[] GetAllLootableTypes()
         {
             List<Type> types = new List<Type>();
-            currAssemblies.ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => spaceNames.Contains(t.Namespace) && t.GetInterfaces().Contains(typeof(ILootable)) && t.HasNonParameterConstructor()).ToArray()));
+            currAssemblies.ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => spaceNames.Contains(t.Namespace) && t.GetInterfaces().Contains(typeof(ILootable<T>)) && t.HasNonParameterConstructor()).ToArray()));
             return types.ToArray();
         }
     }

@@ -13,9 +13,9 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
     [CLSCompliant(true)]
-    public class PartitionLoot : ILootingAlgorithm
+    public class PartitionLoot<T> : ILootingAlgorithm<T>
     {
-        public ILootable Loot(ILootable[] allLoot)
+        public ILootable<T> Loot(ILootable<T>[] allLoot)
         {
             if (allLoot.Length.Equals(0))
                 throw new NoMatchingLootException("no input items");

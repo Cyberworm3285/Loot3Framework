@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Loot3Framework.Interfaces
 {
     [CLSCompliant(true)]
-    public interface ILootingAlgorithm
+    public interface ILootingAlgorithm<T>
     {
-        ILootable Loot(ILootable[] allLoot);
+        ILootable<T> Loot(ILootable<T>[] allLoot);
     }
 }

@@ -26,7 +26,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
             rarityUpperBound = _rarityUpperBound;
         }
 
-        public ILootable[] Filter(ILootable[] allLoot)
+        public ILootable<T>[] Filter<T>(ILootable<T>[] allLoot)
         {
             return allLoot.Where(l => 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Loot3Framework.Interfaces
 {
     [CLSCompliant(true)]
-    public interface ILootTypeFetcher
+    public interface ILootTypeFetcher<T>
     {
         Type[] GetAllLootableTypes(); 
     }

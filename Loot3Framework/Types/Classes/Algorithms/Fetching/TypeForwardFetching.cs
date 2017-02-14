@@ -11,7 +11,7 @@ using Loot3Framework.Interfaces;
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
     [CLSCompliant(true)]
-    public class TypeForwardFetching : ILootTypeFetcher
+    public class TypeForwardFetching<T> : ILootTypeFetcher<T>
     {
         Type[] types;
 
@@ -20,7 +20,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
             types = _types;
         }
 
-        public TypeForwardFetching(ILootable[] _types)
+        public TypeForwardFetching(ILootable<T>[] _types)
         {
             types = Type.GetTypeArray(_types);
         }

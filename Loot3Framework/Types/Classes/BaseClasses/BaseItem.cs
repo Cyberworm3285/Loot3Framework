@@ -11,7 +11,7 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
     [CLSCompliant(false)]
-    public abstract class BaseItem : ILootable
+    public abstract class BasePP_StringItem : ILootable<string>
     {
         #region Attribute
 
@@ -25,22 +25,24 @@ namespace Loot3Framework.Types.Classes.BaseClasses
 
         #endregion
 
-        public BaseItem() { }
-        public BaseItem(string _name) { name = _name; }
-        public BaseItem(ILootRarityTable table) { rarityTable = table; }
-        public BaseItem(string _name, ILootRarityTable _table)
+        public BasePP_StringItem() { }
+        public BasePP_StringItem(string _name) { name = _name; }
+        public BasePP_StringItem(ILootRarityTable table) { rarityTable = table; }
+        public BasePP_StringItem(string _name, ILootRarityTable _table)
         {
             name = _name;
             rarityTable = _table;
         }
 
-        public string Generate()
-        {
-            return string.Join("|", new string[] { name, type, string.Join("|", attributes.DoFunc(a => a.Generate())), "[" + RarityName + "]" });
-        }
-
-
         #region Properties
+
+        public string Item
+        {
+            get
+            {
+                return string.Join("|", new string[] { name, type, string.Join("|", attributes.DoFunc(a => a.Generate())), "[" + RarityName + "]" });
+            }
+        }
 
         public string[] AllowedAreas
         {

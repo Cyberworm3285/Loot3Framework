@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace Loot3Framework.Interfaces
 {
     [CLSCompliant(true)]
-    public interface IItemHolder
+    public interface IItemHolder<T>
     {
-        ILootable GetLoot(ILootingAlgorithm algo);
-        ILootable GetLoot(ILootingAlgorithm algo, ILootFilter filter);
+        ILootable<T> GetLoot(ILootingAlgorithm<T> algo);
+        ILootable<T> GetLoot(ILootingAlgorithm<T> algo, ILootFilter filter);
 
-        void InitLootables(ILootTypeFetcher fetcher);
+        void InitLootables(ILootTypeFetcher<T> fetcher);
 
         #region Properties
 
-        ILootable[] AllLoot
+        ILootable<T>[] AllLoot
         {
             get;
         }

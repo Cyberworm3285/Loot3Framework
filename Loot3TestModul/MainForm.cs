@@ -34,14 +34,14 @@ namespace Loot3Vorbereitung
         {
             listBox1.Items.Add(
                 GlobalItems.Instance.GetLoot(
-                    new PartitionLoot(),
+                    new PartitionLoot<string>(),
                     new ConfigurableFilter(
                         _nameContains: textBox1.Text,
                         _allowedTypes: checkedListBox1.CheckedItems.DoFunc(i => i as string),
                         _allowedRarities: checkedListBox2.CheckedItems.DoFunc(i => i as string),
                         _allowQuestItems: checkBox1.Checked
                     )
-                ).Generate()
+                ).Item
             );
         }
 

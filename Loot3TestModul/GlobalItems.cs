@@ -13,16 +13,25 @@ using Loot3Framework.Types.Classes.Algorithms.Fetching;
 
 namespace Loot3Vorbereitung
 {
-    public class GlobalItems : BaseLootHolder
+    public class GlobalItems : BaseLootHolder<string>
     {
         private static GlobalItems instance = null;
 
-        private GlobalItems() : base(new Multifetching(
-            new ILootTypeFetcher[] {
-                new FetchByInheritance(typeof(BaseItem)) } ))
+        private GlobalItems() : base(
+            new Multifetching<string>(
+                new ILootTypeFetcher<string>[] 
+                {
+                    new FetchByInheritance<string>(typeof(ILootable<string>))
+                }, 
+                new ILootTypeFetcher<string>[]
+                {
+                    new FetchByInheritance<string>(typeof(Exception))
+                }
+            )
+        )
         {
             int counter = 1;
-            allLoot.DoAction(l => Console.WriteLine(counter++ + ": " + l.Generate()));
+            allLoot.DoAction(l => Console.WriteLine(counter++ + ": " + l.Item));
         }
 
         #region Properties

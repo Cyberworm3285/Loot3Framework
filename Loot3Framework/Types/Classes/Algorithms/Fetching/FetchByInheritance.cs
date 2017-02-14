@@ -8,7 +8,7 @@ using Loot3Framework.ExtensionMethods.Other;
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
     [CLSCompliant(true)]
-    public class FetchByInheritance : ILootTypeFetcher
+    public class FetchByInheritance<T> : ILootTypeFetcher<T>
     {
         List<Type> types;
         Type baseType;
@@ -22,6 +22,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 
         public Type[] GetAllLootableTypes()
         {
+            Type typooo = typeof(Loot3Framework.Types.Classes.BaseClasses.BasePP_StringItem);
             AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => baseType.IsAssignableFrom(t) && !t.IsAbstract && t.HasNonParameterConstructor())));
             return types.ToArray();;
         }

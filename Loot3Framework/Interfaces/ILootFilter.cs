@@ -11,6 +11,6 @@ namespace Loot3Framework.Interfaces
     [CLSCompliant(true)]
     public interface ILootFilter
     {
-        ILootable[] Filter(ILootable[] allLoot);
+        ILootable<T>[] Filter<T>(ILootable<T>[] allLoot);
     }
 }

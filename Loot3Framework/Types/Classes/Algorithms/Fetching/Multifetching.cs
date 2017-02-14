@@ -10,18 +10,18 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 {
     [CLSCompliant(true)]
-    public class Multifetching : ILootTypeFetcher
+    public class Multifetching<T> : ILootTypeFetcher<T>
     {
-        ILootTypeFetcher[] fetchers;
-        ILootTypeFetcher[] excludeFetchers = null;
+        ILootTypeFetcher<T>[] fetchers;
+        ILootTypeFetcher<T>[] excludeFetchers = null;
 
-        public Multifetching(ILootTypeFetcher[] _fetchers, ILootTypeFetcher[] _excludeFetchers)
+        public Multifetching(ILootTypeFetcher<T>[] _fetchers, ILootTypeFetcher<T>[] _excludeFetchers)
         {
             fetchers = _fetchers;
             excludeFetchers = _excludeFetchers;
         }
 
-        public Multifetching(ILootTypeFetcher[] _fetchers)
+        public Multifetching(ILootTypeFetcher<T>[] _fetchers)
         {
             fetchers = _fetchers;
         }

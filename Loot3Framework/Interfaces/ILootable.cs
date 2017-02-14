@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 namespace Loot3Framework.Interfaces
 {
     [CLSCompliant(true)]
-    public interface ILootable
+    public interface ILootable<T>
     {
-        #region Methods
-
-        string Generate();
-
-
-        #endregion
-
         #region Properties
+
+        T Item { get; }
 
         int Rarity { get; }
         string RarityName { get; }

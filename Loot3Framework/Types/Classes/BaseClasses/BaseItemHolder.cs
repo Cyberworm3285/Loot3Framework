@@ -12,27 +12,27 @@ using Loot3Framework.Types.Structs;
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
     [CLSCompliant(false)]
-    public abstract class BaseLootHolder : IItemHolder
+    public abstract class BaseLootHolder<T> : IItemHolder<T>
     {
-        protected ILootable[] allLoot;
+        protected ILootable<T>[] allLoot;
 
-        public BaseLootHolder(ILootTypeFetcher fetcher)
+        public BaseLootHolder(ILootTypeFetcher<T> fetcher)
         {
             InitLootables(fetcher);
         }
 
-        public void InitLootables(ILootTypeFetcher fetcher)
+        public void InitLootables(ILootTypeFetcher<T> fetcher)
         {
             Type[] types = fetcher.GetAllLootableTypes();
-            allLoot = types.DoFunc(t => t.GetInstance() as ILootable);
+            allLoot = types.DoFunc(t => t.GetInstance() as ILootable<T>);
         }
 
-        public ILootable GetLoot(ILootingAlgorithm algo)
+        public ILootable<T> GetLoot(ILootingAlgorithm<T> algo)
         {
             return algo.Loot(allLoot);
         }
 
-        public ILootable GetLoot(ILootingAlgorithm algo, ILootFilter filter)
+        public ILootable<T> GetLoot(ILootingAlgorithm<T> algo, ILootFilter filter)
         {
             return algo.Loot(filter.Filter(allLoot));
         }
@@ -41,7 +41,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
 
         #region Properties
 
-        public ILootable[] AllLoot
+        public ILootable<T>[] AllLoot
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             get
             {
                 List<string> typeNames = new List<string>();
-                foreach (ILootable l in allLoot) 
+                foreach (ILootable<T> l in allLoot) 
                 {
                     if (!typeNames.Contains(l.Type)) typeNames.Add(l.Type);
                 }
@@ -67,7 +67,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             get
             {
                 List<string> rarityNames = new List<string>();
-                foreach (ILootable l in allLoot)
+                foreach (ILootable<T> l in allLoot)
                 {
                     if (!rarityNames.Contains(l.RarityName)) rarityNames.Add(l.RarityName);
                 }
