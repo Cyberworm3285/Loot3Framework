@@ -11,6 +11,8 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
     [CLSCompliant(true)]
     public static class CollectionExtensions
     {
+        #region DoFunc
+
         public static TResult[] DoFunc<T, TResult>(this T[] t, Func<T, TResult> func)
         {
             TResult[] result = new TResult[t.Length];
@@ -78,6 +80,10 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             return result;
         }
 
+        #endregion
+
+        #region DoAction
+
         public static void DoAction<T>(this T[] t, Action<T> action)
         {
             foreach (T tt in t) action(tt);
@@ -100,5 +106,103 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
                 action(enumerator.Current);
             }
         }
+
+        public static void DoConditionalAction<T>(this T[] t, Action<T> action, Func<T, bool> condition)
+        {
+            foreach (T tt in t)
+                if (condition(tt))
+                    action(tt);
+        }
+
+        public static void DoConditionalAction(this IEnumerable e, Action<object> action, Func<object, bool> condition)
+        {
+            IEnumerator enumerator = e.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (condition(enumerator.Current))
+                    action(enumerator.Current);
+            }
+        }
+
+        public static void DoConditionalAction<T>(this IEnumerable<T> e, Action<T> action, Func<T, bool> condition)
+        {
+            IEnumerator<T> enumerator = e.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (condition(enumerator.Current))
+                    action(enumerator.Current);
+            }
+        }
+
+        #endregion
+
+        #region ChainUp
+
+        public static T[] ChainUp<T>(this T[][] t)
+        {
+            List<T> result = new List<T>();
+            t.DoAction(tt => result.AddRange(tt));
+            return result.ToArray();
+        }
+
+        public static TResult ChainUp<T, TResult>(this T[][] t, TResult result) where TResult : ICollection<T>, new()
+        {
+            t.DoAction(tt => tt.DoAction(ttt => result.Add(ttt)));
+            return result;
+        }
+
+        #endregion
+
+        #region RemoveIf
+
+        public static T[] RemoveIf<T>(this T[] t, Func<T, bool> condition)
+        {
+            List<T> result = new List<T>();
+            t.DoConditionalAction(tt => result.Add(tt), tt => condition(tt));
+            return result.ToArray();
+        }
+
+        public static ICollection<T> RemoveIf<T>(this ICollection<T> c, Func<T, bool> condition)
+        {
+            List<T> temp = c.ToList();
+            List<T> result = new List<T>();
+            temp.ForEach(t => { if (!condition(t)) result.Add(t); });
+            c.Clear();
+            result.ForEach(r => c.Add(r));
+
+            return c;
+        }
+
+        #endregion
+
+        #region HasItemWhere
+
+        public static bool HasItemWhere<T>(this T[] t, Func<T, bool> condition)
+        {
+            return !t.All(tt => condition(tt));
+        }
+
+        public static bool HasItemWhere(this IEnumerable e, Func<object, bool> condition)
+        {
+            IEnumerator enumerator = e.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (condition(enumerator.Current)) return true;
+            }
+            return false;
+        }
+
+        public static bool HasItemWhere<T>(this IEnumerable<T> e, Func<T, bool> condition)
+        {
+            IEnumerator<T> enumerator = e.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (condition(enumerator.Current)) return true;
+            }
+            return false;
+        }
+
+
+        #endregion
     }
 }

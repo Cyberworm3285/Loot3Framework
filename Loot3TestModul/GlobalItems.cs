@@ -8,7 +8,7 @@ using System.Reflection;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.Types.Classes.BaseClasses;
-using Loot3Framework.ExtensionMethods.Other;
+using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Types.Classes.Algorithms.Fetching;
 
 namespace Loot3Vorbereitung
@@ -17,7 +17,13 @@ namespace Loot3Vorbereitung
     {
         private static GlobalItems instance = null;
 
-        private GlobalItems() : base(new FetchByInheritance(typeof(ILootable))) {}
+        private GlobalItems() : base(new Multifetching(
+            new ILootTypeFetcher[] {
+                new FetchByInheritance(typeof(BaseItem)) } ))
+        {
+            int counter = 1;
+            allLoot.DoAction(l => Console.WriteLine(counter++ + ": " + l.Generate()));
+        }
 
         #region Properties
 

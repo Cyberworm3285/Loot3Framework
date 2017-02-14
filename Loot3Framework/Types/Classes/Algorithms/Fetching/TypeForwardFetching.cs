@@ -17,8 +17,6 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 
         public TypeForwardFetching(Type[] _types)
         {
-            if (!_types.All(t => t.GetInterfaces().Contains(typeof(ILootable)) && t.HasNonParameterConstructor()))
-                throw new Exception();
             types = _types;
         }
 

@@ -12,7 +12,7 @@ using Loot3Framework.Types.Exceptions;
 
 namespace Loot3Framework.Tools
 {
-    [CLSCompliant(true)]
+    [CLSCompliant(false)]
     public static class RuntimeCompiler
     {
         public static string[] CompileFiles(string path, string[] dependencies)

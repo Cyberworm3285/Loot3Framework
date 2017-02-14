@@ -13,17 +13,31 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
     public class Multifetching : ILootTypeFetcher
     {
         ILootTypeFetcher[] fetchers;
+        ILootTypeFetcher[] excludeFetchers = null;
 
-        public Multifetching(params ILootTypeFetcher[] _fetchers)
+        public Multifetching(ILootTypeFetcher[] _fetchers, ILootTypeFetcher[] _excludeFetchers)
+        {
+            fetchers = _fetchers;
+            excludeFetchers = _excludeFetchers;
+        }
+
+        public Multifetching(ILootTypeFetcher[] _fetchers)
         {
             fetchers = _fetchers;
         }
 
         public Type[] GetAllLootableTypes()
         {
-            List<Type> result = new List<Type>();
-            fetchers.DoAction(f => result.AddRange(f.GetAllLootableTypes().DoConditionalFunc(t => t, t => !result.Contains(t))));
-            return result.ToArray();
+            HashSet<Type> set = new HashSet<Type>();
+            HashSet<Type> excludeSet = new HashSet<Type>();
+            fetchers.DoFunc(f => f.GetAllLootableTypes()).ChainUp(set);
+            if (!(excludeFetchers == null))
+            {
+                excludeFetchers.DoFunc(f => f.GetAllLootableTypes()).ChainUp(excludeSet);
+                set.RemoveIf(s => excludeSet.HasItemWhere(e => e.IsAssignableFrom(s)));
+            }
+
+            return set.ToArray();
         }
     }
 }
