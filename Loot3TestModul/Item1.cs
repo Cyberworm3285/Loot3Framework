@@ -9,6 +9,8 @@ using Loot3Framework.Types.Classes.ItemProperties;
 using Loot3Framework.Interfaces;
 using Loot3Framework.Types.Structs;
 using Loot3Framework.Types.Classes.RarityTables;
+using Loot3Framework.Global;
+using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Items
 {
@@ -180,6 +182,22 @@ namespace ExItems
             {
                 return new Exception();
             }
+        }
+    }
+}
+namespace Containers
+{
+    public class ContainerProvider : ILootObjectFetcher<string>
+    {
+        TCollection ILootObjectFetcher<string>.GetLootObjects<TCollection>()
+        {
+            TCollection result = new TCollection();
+            new ILootable<string>[]
+            {
+                new LootObjectContainer<string>("Mettwurst").SetProps(null, true, "Mettwurst", 599, "Artefakt"),
+                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen").SetProps(null, true, "Func", 400, "LootFunction"),
+            }.DoAction(l => result.Add(l));
+            return result;
         }
     }
 }

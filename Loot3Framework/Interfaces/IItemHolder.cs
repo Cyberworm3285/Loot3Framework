@@ -14,6 +14,14 @@ namespace Loot3Framework.Interfaces
 
         void InitLootables(ILootTypeFetcher<T> fetcher);
 
+        #region Methods
+
+        void Add(ILootable<T> item);
+
+        void AddRange(ILootable<T>[] items);
+
+        #endregion
+
         #region Properties
 
         ILootable<T>[] AllLoot

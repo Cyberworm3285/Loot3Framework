@@ -5,7 +5,7 @@ using System.Linq;
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.Other;
 
-namespace Loot3Framework.Types.Classes.Algorithms.Fetching
+namespace Loot3Framework.Types.Classes.Algorithms.TypeFetching
 {
     [CLSCompliant(true)]
     public class FetchByInheritance<T> : ILootTypeFetcher<T>

@@ -56,8 +56,9 @@ namespace Loot3Vorbereitung
 
         private void button3_Click(object sender, EventArgs e)
         {
-            GlobalItems.Instance.Add(new LootObjectContainer<string>("Mettwurst").SetProps(null, true, "Mettwurst", 599, "Artefakt"));
-            GlobalItems.Instance.Add(new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen").SetProps(null, true, "Func", 400, "LootFunction"));
+            GlobalItems.Instance.AddAllLootObjects();
+            //GlobalItems.Instance.Add(new LootObjectContainer<string>("Mettwurst").SetProps(null, true, "Mettwurst", 599, "Artefakt"));
+            //GlobalItems.Instance.Add(new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen").SetProps(null, true, "Func", 400, "LootFunction"));
             MainForm_Load(null, null);
         }
     }

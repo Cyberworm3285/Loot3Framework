@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.Other;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
-using Loot3Framework.Types.Structs;
+using Loot3Framework.Types.Classes.Algorithms.ObjectFetching;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
@@ -20,6 +20,8 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         {
             InitLootables(fetcher);
         }
+
+        #region Methods
 
         public void InitLootables(ILootTypeFetcher<T> fetcher)
         {
@@ -46,6 +48,13 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         {
             allLoot.AddRange(items);
         }
+
+        public void AddAllLootObjects()
+        {
+            AddRange(ObjectFetcher<T>.GetObjects());
+        }
+
+        #endregion
 
         #region Properties
 

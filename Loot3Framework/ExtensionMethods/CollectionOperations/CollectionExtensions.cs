@@ -152,6 +152,21 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             return result;
         }
 
+        public static TResult ChainUpToCollection<T, TResult>(this ICollection<ICollection<T>> c) where TResult : ICollection<T>, new()
+        {
+            TResult result = new TResult();
+            IEnumerator<ICollection<T>> enumerator = c.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                IEnumerator<T> enumerator2 = enumerator.Current.GetEnumerator();
+                while (enumerator2.MoveNext())
+                {
+                    result.Add(enumerator2.Current);
+                }
+            }
+            return result;
+        }
+
         #endregion
 
         #region RemoveIf

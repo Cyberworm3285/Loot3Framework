@@ -9,7 +9,7 @@ using System.Reflection;
 using Loot3Framework.Interfaces;
 using Loot3Framework.Types.Classes.BaseClasses;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
-using Loot3Framework.Types.Classes.Algorithms.Fetching;
+using Loot3Framework.Types.Classes.Algorithms.TypeFetching;
 
 namespace Loot3Vorbereitung
 {
