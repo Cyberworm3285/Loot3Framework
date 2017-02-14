@@ -13,6 +13,8 @@ using System.Collections;
 using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.Types.Classes.Algorithms.Filter;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
+using Loot3Framework.Types.Classes.BaseClasses;
+using Loot3Framework.Global;
 
 
 namespace Loot3Vorbereitung
@@ -26,6 +28,8 @@ namespace Loot3Vorbereitung
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            checkedListBox1.Items.Clear();
+            checkedListBox2.Items.Clear();
             GlobalItems.Instance.AllTypeNames.DoAction(n => checkedListBox1.Items.Add(n, true));
             GlobalItems.Instance.AllRarityNames.DoAction(r => checkedListBox2.Items.Add(r, true));
         }
@@ -48,6 +52,13 @@ namespace Loot3Vorbereitung
         private void button2_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            GlobalItems.Instance.Add(new LootObjectContainer<string>("Mettwurst").SetProps(null, true, "Mettwurst", 599, "Artefakt"));
+            GlobalItems.Instance.Add(new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen").SetProps(null, true, "Func", 400, "LootFunction"));
+            MainForm_Load(null, null);
         }
     }
 }

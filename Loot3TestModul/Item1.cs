@@ -146,7 +146,7 @@ namespace ExItems
         {
             get
             {
-                return "ExceptionItem";
+                return "ItemException";
             }
         }
 

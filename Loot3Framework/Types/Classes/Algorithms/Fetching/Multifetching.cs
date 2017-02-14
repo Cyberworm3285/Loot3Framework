@@ -28,12 +28,12 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
 
         public Type[] GetAllLootableTypes()
         {
-            HashSet<Type> set = new HashSet<Type>();
-            HashSet<Type> excludeSet = new HashSet<Type>();
-            fetchers.DoFunc(f => f.GetAllLootableTypes()).ChainUp(set);
+            HashSet<Type> set;
+            HashSet<Type> excludeSet;
+            set = fetchers.DoFunc(f => f.GetAllLootableTypes()).ChainUpToCollection<Type, HashSet<Type>>();
             if (!(excludeFetchers == null))
             {
-                excludeFetchers.DoFunc(f => f.GetAllLootableTypes()).ChainUp(excludeSet);
+                excludeSet = excludeFetchers.DoFunc(f => f.GetAllLootableTypes()).ChainUpToCollection<Type, HashSet<Type>>();
                 set.RemoveIf(s => excludeSet.HasItemWhere(e => e.IsAssignableFrom(s)));
             }
 

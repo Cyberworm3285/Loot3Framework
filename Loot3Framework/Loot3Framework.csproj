@@ -65,6 +65,8 @@
     <Compile Include="Types\Classes\Algorithms\Filter\StandardNCSFilter.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseItem.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseItemHolder.cs" />
+    <Compile Include="Types\Classes\BaseClasses\LootFunctionContainer.cs" />
+    <Compile Include="Types\Classes\BaseClasses\LootObjectContainer.cs" />
     <Compile Include="Types\Classes\RarityTables\DefaultRarityTable.cs" />
     <Compile Include="Types\Classes\RarityTables\RarityForwardTable.cs" />
     <Compile Include="Types\Enums\StringComparing.cs" />

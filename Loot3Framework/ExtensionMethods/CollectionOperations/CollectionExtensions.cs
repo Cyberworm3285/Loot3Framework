@@ -145,8 +145,9 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             return result.ToArray();
         }
 
-        public static TResult ChainUp<T, TResult>(this T[][] t, TResult result) where TResult : ICollection<T>, new()
+        public static TResult ChainUpToCollection<T, TResult>(this T[][] t) where TResult : ICollection<T>, new()
         {
+            TResult result = new TResult();
             t.DoAction(tt => tt.DoAction(ttt => result.Add(ttt)));
             return result;
         }

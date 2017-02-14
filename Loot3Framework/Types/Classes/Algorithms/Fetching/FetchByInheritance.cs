@@ -23,7 +23,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Fetching
         public Type[] GetAllLootableTypes()
         {
             Type typooo = typeof(Loot3Framework.Types.Classes.BaseClasses.BasePP_StringItem);
-            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => baseType.IsAssignableFrom(t) && !t.IsAbstract && t.HasNonParameterConstructor())));
+            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(a => types.AddRange(a.GetTypes().Where(t => baseType.IsAssignableFrom(t) && !t.IsAbstract && t.HasNonParameterConstructor() && !t.IsGenericType)));
             return types.ToArray();;
         }
     }

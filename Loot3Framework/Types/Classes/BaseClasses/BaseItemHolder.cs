@@ -14,7 +14,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     [CLSCompliant(false)]
     public abstract class BaseLootHolder<T> : IItemHolder<T>
     {
-        protected ILootable<T>[] allLoot;
+        protected List<ILootable<T>> allLoot;
 
         public BaseLootHolder(ILootTypeFetcher<T> fetcher)
         {
@@ -24,20 +24,28 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public void InitLootables(ILootTypeFetcher<T> fetcher)
         {
             Type[] types = fetcher.GetAllLootableTypes();
-            allLoot = types.DoFunc(t => t.GetInstance() as ILootable<T>);
+            allLoot = types.DoFunc(t => t.GetInstance() as ILootable<T>).ToList();
         }
 
         public ILootable<T> GetLoot(ILootingAlgorithm<T> algo)
         {
-            return algo.Loot(allLoot);
+            return algo.Loot(allLoot.ToArray());
         }
 
         public ILootable<T> GetLoot(ILootingAlgorithm<T> algo, ILootFilter filter)
         {
-            return algo.Loot(filter.Filter(allLoot));
+            return algo.Loot(filter.Filter(allLoot.ToArray()));
         }
 
+        public void Add(ILootable<T> item)
+        {
+            allLoot.Add(item);
+        }
 
+        public void AddRange(ILootable<T>[] items)
+        {
+            allLoot.AddRange(items);
+        }
 
         #region Properties
 
@@ -45,7 +53,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         {
             get
             {
-                return allLoot;
+                return allLoot.ToArray();
             }
         }
 
