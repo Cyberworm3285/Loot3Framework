@@ -13,7 +13,7 @@ using System.Collections;
 using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.Types.Classes.Algorithms.Filter;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
-using Loot3Framework.Types.Classes.BaseClasses;
+using Loot3Framework.Types.Classes.Algorithms.ObjectFetching;
 using Loot3Framework.Global;
 
 
@@ -28,6 +28,7 @@ namespace Loot3Vorbereitung
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            ObjectFetcher<int>.GetObjects().DoAction(o => Console.WriteLine(o));
             checkedListBox1.Items.Clear();
             checkedListBox2.Items.Clear();
             GlobalItems.Instance.AllTypeNames.DoAction(n => checkedListBox1.Items.Add(n, true));

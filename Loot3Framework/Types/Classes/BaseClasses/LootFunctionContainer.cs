@@ -152,5 +152,14 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         }
 
         #endregion
+
+        #region Overrides
+
+        public override string ToString()
+        {
+            return "Container [" + this.GetType().Name + "] containing [Func<" + typeof(T).Name + ">] (" + Name + ")";
+        }
+
+        #endregion
     }
 }

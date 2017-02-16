@@ -200,4 +200,18 @@ namespace Containers
             return result;
         }
     }
+
+    public class ContainerProvider2 : ILootObjectFetcher<int>
+    {
+        public TCollection GetLootObjects<TCollection>() where TCollection : ICollection<ILootable<int>>, new()
+        {
+            TCollection result = new TCollection();
+            new ILootable<int>[]
+            {
+                new LootObjectContainer<int>(13).SetProps(null, true, "Zahl", 400, "Integer"),
+                new LootFunctionContainer<int>(() => GlobalRandom.Next(0,501)).SetProps(null, true, "Func<Integer>",500, "Integer"),
+            }.DoAction(l => result.Add(l));
+            return result;
+        }
+    }
 }
