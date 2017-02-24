@@ -51,7 +51,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
 
         public void AddAllLootObjects()
         {
-            AddRange(ObjectFetcher<T>.GetObjects());
+            AddRange(ObjectFetcherAccess<T>.GetObjects());
         }
 
         #endregion

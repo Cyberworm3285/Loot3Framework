@@ -28,7 +28,7 @@ namespace Loot3Vorbereitung
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ObjectFetcher<int>.GetObjects().DoAction(o => Console.WriteLine(o));
+            ObjectFetcherAccess<int>.GetObjects().DoAction(o => Console.WriteLine(o));
             checkedListBox1.Items.Clear();
             checkedListBox2.Items.Clear();
             GlobalItems.Instance.AllTypeNames.DoAction(n => checkedListBox1.Items.Add(n, true));

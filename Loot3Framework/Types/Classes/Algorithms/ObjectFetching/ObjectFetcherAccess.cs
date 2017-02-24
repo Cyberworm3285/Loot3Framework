@@ -10,7 +10,7 @@ using Loot3Framework.ExtensionMethods.Other;
 
 namespace Loot3Framework.Types.Classes.Algorithms.ObjectFetching
 {
-    public static class ObjectFetcher<T> 
+    public static class ObjectFetcherAccess<T> 
     {
         public static ILootable<T>[] GetObjects()
         {

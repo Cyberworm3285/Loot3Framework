@@ -86,7 +86,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
 
         public static void DoAction<T>(this T[] t, Action<T> action)
         {
-            foreach (T tt in t) action(tt);
+            Array.ForEach(t, action);
         }
 
         public static void DoAction(this IEnumerable e, Action<object> action)

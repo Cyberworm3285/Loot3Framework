@@ -56,7 +56,8 @@
     <Compile Include="Interfaces\ILootTypeFetcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\RuntimeCompiler.cs" />
-    <Compile Include="Types\Classes\Algorithms\ObjectFetching\ObjectFetcher.cs" />
+    <Compile Include="Types\Classes\BaseClasses\DefaultObjectFetcher.cs" />
+    <Compile Include="Types\Classes\Algorithms\ObjectFetching\ObjectFetcherAccess.cs" />
     <Compile Include="Types\Classes\Algorithms\TypeFetching\FetchByInheritance.cs" />
     <Compile Include="Types\Classes\Algorithms\TypeFetching\FetchByNamespace.cs" />
     <Compile Include="Types\Classes\Algorithms\TypeFetching\Multifetching.cs" />

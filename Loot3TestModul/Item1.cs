@@ -11,6 +11,7 @@ using Loot3Framework.Types.Structs;
 using Loot3Framework.Types.Classes.RarityTables;
 using Loot3Framework.Global;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
+using Loot3Framework.Types.Classes.BaseClasses;
 
 namespace Items
 {
@@ -187,18 +188,13 @@ namespace ExItems
 }
 namespace Containers
 {
-    public class ContainerProvider : ILootObjectFetcher<string>
+    public class ContainerProvider : DefaultObjectFetcher<string>
     {
-        TCollection ILootObjectFetcher<string>.GetLootObjects<TCollection>()
-        {
-            TCollection result = new TCollection();
-            new ILootable<string>[]
+        public ContainerProvider() : base(new ILootable<string>[]
             {
-                new LootObjectContainer<string>("Mettwurst").SetProps(null, true, "Mettwurst", 599, "Artefakt"),
-                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen").SetProps(null, true, "Func", 400, "LootFunction"),
-            }.DoAction(l => result.Add(l));
-            return result;
-        }
+                new LootObjectContainer<string>("Mettwurst2").SetProps(null, true, "Mettwurst", 599, "Artefakt"),
+                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen2").SetProps(null, true, "Func", 400, "LootFunction"),
+            }) { }
     }
 
     public class ContainerProvider2 : ILootObjectFetcher<int>
