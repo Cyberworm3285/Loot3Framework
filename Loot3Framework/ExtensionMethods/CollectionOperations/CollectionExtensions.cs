@@ -12,7 +12,14 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
     public static class CollectionExtensions
     {
         #region DoFunc
-
+        /// <summary>
+        /// Wndet auf den gesamten Array die angegebene Funktion an
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
         public static TResult[] DoFunc<T, TResult>(this T[] t, Func<T, TResult> func)
         {
             TResult[] result = new TResult[t.Length];
@@ -132,6 +139,16 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
                 if (condition(enumerator.Current))
                     action(enumerator.Current);
             }
+        }
+
+        #endregion
+
+        #region Do
+
+        public static T Do<T>(this T t, Action<T> action)
+        {
+            action(t);
+            return t;
         }
 
         #endregion

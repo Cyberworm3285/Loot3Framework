@@ -15,7 +15,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.TypeFetching
     {
         Type[] types;
 
-        public TypeForwardFetching(Type[] _types)
+        public TypeForwardFetching(params Type[] _types)
         {
             types = _types;
         }

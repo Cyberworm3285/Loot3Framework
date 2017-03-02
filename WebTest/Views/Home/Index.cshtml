@@ -1,0 +1,42 @@
+﻿@using WebTest.Controllers;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="Wrapper">
+    <h1 id="output">-</h1>
+    <input type="button" id="button01" onclick="GetLoot()" value="Jo"/>
+    <input type="button" id="button02" onclick="Switch('Pirates')" value="Switch to Pirates" />
+    <input type="button" id="button03" onclick="Switch('Space')" value="Switch to Space" />
+</div>
+
+<script type="text/javascript">
+    function GetLoot() {
+        var t = document.getElementById("output");
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Loot")',
+            success: function (result) {
+                t.innerHTML = result;
+            },
+            error: function () {
+                t.innerHTML = "[ERROR]";
+            }
+        })
+    }
+
+    function Switch(value) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SwitchSplitMode")',
+            data: { newMode: value },
+            success: function (result) {
+                alert(result);
+            },
+            error: function () {
+                alert("Error");
+            }
+        })
+    }
+</script>

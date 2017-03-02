@@ -8,6 +8,7 @@ using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
+    [CLSCompliant(true)]
     public abstract class DefaultObjectFetcher<T> : ILootObjectFetcher<T>
     {
         protected ILootable<T>[] objects;
