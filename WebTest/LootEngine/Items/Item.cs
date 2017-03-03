@@ -15,12 +15,13 @@ using Loot3Framework.Types.Attributes;
 namespace Items
 {
     [LootTag("Space")]
+    [LootTag("Pirate")]
     public class Item : BasePP_StringItem
     {
         public Item()
         {
             name = "Item1";
-            type = "Space1";
+            type = "Both1";
             isQuestItem = true;
             attributes = new IItemProperty[]
             {

@@ -37,11 +37,17 @@ namespace Loot3Framework.Types.Classes.Algorithms.TypeFetching
                 foreach(Type t in a.GetTypes())
                 {
                     MemberInfo info = t;
-                    object att = info.GetCustomAttribute(typeof(LootTagAttribute));
-                    if (att != null)
+                    object[] atts = info.GetCustomAttributes(typeof(LootTagAttribute)).ToArray();
+                    foreach(Attribute att in atts)
                     {
-                        if (tags.Contains((att as LootTagAttribute).LootTag) && typeof(ILootable<T>).IsAssignableFrom(t) && !t.IsAbstract && t.HasNonParameterConstructor() && !t.IsGenericType)
-                            types.Add(t);
+                        if (att != null)
+                        {
+                            if (tags.Contains((att as LootTagAttribute).LootTag) && typeof(ILootable<T>).IsAssignableFrom(t) && !t.IsAbstract && t.HasNonParameterConstructor() && !t.IsGenericType)
+                            {
+                                types.Add(t);
+                                break;
+                            }
+                        }
                     }
                 }
             }
