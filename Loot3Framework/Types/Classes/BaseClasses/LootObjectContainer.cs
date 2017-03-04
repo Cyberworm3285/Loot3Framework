@@ -41,7 +41,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public LootObjectContainer(ILootable<T> item)
         {
             innerItem = item.Item;
-            containerAllowedAreas = item.AllowedAreas;
             containerIsQuestItem = item.IsQuestItem;
             containerName = item.Name;
             containerRarity = item.Rarity;
@@ -51,7 +50,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public LootObjectContainer(ILootable<T> item, ILootRarityTable _rarityTable)
         {
             innerItem = item.Item;
-            containerAllowedAreas = item.AllowedAreas;
             containerIsQuestItem = item.IsQuestItem;
             containerName = item.Name;
             containerRarity = item.Rarity;
@@ -170,6 +168,13 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             }
         }
 
+        public ILootRarityTable rarTable
+        {
+            get
+            {
+                return rarTable;
+            }
+        }
         #endregion
 
         #region Other Interfaces

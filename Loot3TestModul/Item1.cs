@@ -11,7 +11,6 @@ using Loot3Framework.Types.Structs;
 using Loot3Framework.Types.Classes.RarityTables;
 using Loot3Framework.Global;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
-using Loot3Framework.Types.Classes.BaseClasses;
 
 namespace Items
 {
@@ -38,7 +37,7 @@ namespace Items
         public Item2() : base()
         {
             name = "Item2";
-            rarity = 50;
+            rarity = 600;
             isQuestItem = false;
             type = "Dummy2";
             attributes = new IItemProperty[]
@@ -56,133 +55,19 @@ namespace Items
 
     public class Item3 : BasePP_StringItem
     {
-        public Item3() : base("testnummertausend")
+        public Item3() : base("WasGeht")
         {
-            rarity = 400;
-			type = "Ichhoffedasklappt";
-            rarityTable = new RarityForwardTable("FischermensFriend");
-        }
-    }
-}
-namespace ExItems
-{
-    public class LootableExceptionLol : Exception, ILootable<string>
-    {
-        public LootableExceptionLol() : base("lol") { }
-
-        public string[] AllowedAreas
-        {
-            get
-            {
-                return new string[] { };
-            }
-        }
-
-        public bool IsQuestItem
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return "ExceptionItem";
-            }
-        }
-
-        public int Rarity
-        {
-            get
-            {
-                return 10;
-            }
-        }
-
-        public string RarityName
-        {
-            get
-            {
-                return "ExceptionalRarity";
-            }
-        }
-
-        public string Type
-        {
-            get
-            {
-                return "Exception";
-            }
-        }
-
-        public string Item
-        {
-            get
-            {
-                throw this;
-            }
+            rarity = 250;
+			type = "Bla";
         }
     }
 
-    public class ExceptionLootLol : ILootable<Exception>
+    public class Item4 : BasePP_StringItem
     {
-        public string[] AllowedAreas
+        public Item4() : base("Jo")
         {
-            get
-            {
-                return new string[] { };
-            }
-        }
-
-        public bool IsQuestItem
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return "ItemException";
-            }
-        }
-
-        public int Rarity
-        {
-            get
-            {
-                return 10;
-            }
-        }
-
-        public string RarityName
-        {
-            get
-            {
-                return "ExceptionalRarity";
-            }
-        }
-
-        public string Type
-        {
-            get
-            {
-                return "Exception";
-            }
-        }
-
-        public Exception Item
-        {
-            get
-            {
-                return new Exception();
-            }
+            rarity = 10;
+            type = "Ichhoffedasklappt";
         }
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\RuntimeCompiler.cs" />
     <Compile Include="Types\Attributes\Attributes.cs" />
+    <Compile Include="Types\Classes\Algorithms\Looting\PR_PartionLoot.cs" />
     <Compile Include="Types\Classes\Algorithms\TypeFetching\FetchByLootTags.cs" />
     <Compile Include="Types\Classes\BaseClasses\DefaultObjectFetcher.cs" />
     <Compile Include="Types\Classes\Algorithms\ObjectFetching\ObjectFetcherAccess.cs" />
@@ -75,9 +76,9 @@
     <Compile Include="Types\Classes\BaseClasses\BaseItemHolder.cs" />
     <Compile Include="Types\Classes\BaseClasses\LootFunctionContainer.cs" />
     <Compile Include="Types\Classes\BaseClasses\LootObjectContainer.cs" />
+    <Compile Include="Types\Classes\BaseClasses\BaseSplitItemHandler.cs" />
     <Compile Include="Types\Classes\RarityTables\DefaultRarityTable.cs" />
     <Compile Include="Types\Classes\RarityTables\RarityForwardTable.cs" />
-    <Compile Include="Types\Enums\StringComparing.cs" />
     <Compile Include="Types\Classes\ItemProperties\RandomMultiProp.cs" />
     <Compile Include="Types\Exceptions\Exceptions.cs" />
     <Compile Include="Types\Structs\Intervall.cs" />

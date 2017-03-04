@@ -28,8 +28,8 @@ namespace Items
                 new NameOnlyProp("Unkaputtbar"),
                 new SingleIntervallProp("Basisschaden", new Intervall(5,10)),
                 new MultiIntervallProp( 
-                    new string[]    {   "Normal",              "Krass"             },
-                    new Intervall[] {   new Intervall(1,5),    new Intervall(5,10) }),
+                    new string[]    {   "Schaden(Normal)",      "Schaden(Krass)"    },
+                    new Intervall[] {   new Intervall(1,5),     new Intervall(5,10) }),
             };
         }
     }
@@ -48,7 +48,7 @@ namespace Items
                     new IItemProperty[]
                     {
                         new NameOnlyProp("NameOnly"),
-                        new SingleIntervallProp("SingleIntervall", new Intervall(123,1222)),
+                        new SingleIntervallProp("Energie Schaden", new Intervall(123,1222)),
                     }
                     )
             };
@@ -62,6 +62,10 @@ namespace Items
             rarity = 400;
 			type = "Pirates1";
             rarityTable = new RarityForwardTable("FischermensFriend");
+            attributes = new IItemProperty[]
+            {
+                new SingleIntervallProp("Draufhauen", new Intervall(0,133))
+            };
         }
     }
 }

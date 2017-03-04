@@ -8,13 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.Collections;
-
 using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.Types.Classes.Algorithms.Filter;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Types.Classes.Algorithms.ObjectFetching;
-using Loot3Framework.Global;
+using Loot3Framework.Types.Classes.RarityTables;
+using Loot3Framework.Types.Exceptions;
 
 
 namespace Loot3Vorbereitung
@@ -37,17 +36,24 @@ namespace Loot3Vorbereitung
 
         private void button1_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(
-                GlobalItems.Instance.GetLoot(
-                    new PartitionLoot<string>(),
-                    new ConfigurableFilter(
-                        _nameContains: textBox1.Text,
-                        _allowedTypes: checkedListBox1.CheckedItems.DoFunc(i => i as string),
-                        _allowedRarities: checkedListBox2.CheckedItems.DoFunc(i => i as string),
-                        _allowQuestItems: checkBox1.Checked
-                    )
-                ).Item
-            );
+            try
+            {
+                listBox1.Items.Add(
+                    GlobalItems.Instance.GetLoot(
+                        new PR_PartionLoot<string>(new DefaultRarityTable()),
+                        new ConfigurableFilter(
+                            _nameContains: textBox1.Text,
+                            _allowedTypes: checkedListBox1.CheckedItems.DoFunc(i => i as string),
+                            _allowedRarities: checkedListBox2.CheckedItems.DoFunc(i => i as string),
+                            _allowQuestItems: checkBox1.Checked
+                        )
+                    ).Item
+                );
+            }
+            catch (NoMatchingLootException)
+            {
+                listBox1.Items.Add("No Matching Items found");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -15,7 +15,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     {
         #region Attribute
 
-        protected string[] allowedAreas;
         protected IItemProperty[] attributes = new IItemProperty[0];
         protected bool isQuestItem;
         protected string name = "[No Name]";
@@ -41,14 +40,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             get
             {
                 return string.Join("|", new string[] { name, type, string.Join("|", attributes.DoFunc(a => a.Generate())), "[" + RarityName + "]" });
-            }
-        }
-
-        public string[] AllowedAreas
-        {
-            get
-            {
-                return allowedAreas;
             }
         }
 
@@ -90,6 +81,11 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             {
                 return rarityTable.ToRarityName(rarity);
             }
+        }
+
+        public ILootRarityTable rarTable
+        {
+            get { return rarTable; }
         }
 
         #endregion

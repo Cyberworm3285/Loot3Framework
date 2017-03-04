@@ -18,7 +18,7 @@ namespace Loot3Framework.Interfaces
         string Type { get; }
         string Name { get; }
         bool IsQuestItem { get; }
-        string[] AllowedAreas { get; }
+        ILootRarityTable rarTable { get; }
 
         #endregion
     }

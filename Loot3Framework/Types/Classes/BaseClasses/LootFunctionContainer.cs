@@ -151,6 +151,14 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             }
         }
 
+        public ILootRarityTable rarTable
+        {
+            get
+            {
+                return rarTable;
+            }
+        }
+
         #endregion
 
         #region Overrides

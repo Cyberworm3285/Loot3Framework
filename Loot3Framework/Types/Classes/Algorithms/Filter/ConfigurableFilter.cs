@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Loot3Framework.Types.Enums;
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.Other;
 
@@ -50,9 +49,9 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
         {
             return allLoot.Where(l =>
 
-                ((l.Name.CompareToString(nameContains,      modes[0]))  || (nameContains == ""))    &&
-                ((l.Type.CompareToString(typeContains,      modes[1]))  || (typeContains == ""))    &&
-                ((l.RarityName.CompareToString(rarityName,  modes[2]))  || (rarityName == ""))      &&
+                ((l.Name.CompareToString(nameContains,      modes[0]))  || (nameContains == "") || (nameContains == null))    &&
+                ((l.Type.CompareToString(typeContains,      modes[1]))  || (typeContains == "") || (typeContains == null))    &&
+                ((l.RarityName.CompareToString(rarityName,  modes[2]))  || (rarityName == "") || (rarityName == null))          &&
                 ((allowedTypes==null)?true:(allowedTypes.Contains(l.Type)))                         &&
                 ((allowedRarities == null)?true:(allowedRarities.Contains(l.RarityName)))           &&
                 ((allowQuestItems == l.IsQuestItem) || !l.IsQuestItem)                              &&

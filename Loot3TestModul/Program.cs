@@ -9,7 +9,6 @@ using System.IO;
 using Loot3Framework.Types.Classes.Algorithms.Filter;
 using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
-using Loot3Framework.Types.Enums;
 using Loot3Framework.Tools;
 
 namespace Loot3Vorbereitung
@@ -18,7 +17,14 @@ namespace Loot3Vorbereitung
     {
         static void Main(string[] args)
         {
-            RuntimeCompiler.CompileAllFilesInDirectory(Path.Combine(Environment.CurrentDirectory, "Items"), new string[] { "System.Linq.dll" }).DoAction(s => Console.WriteLine(s)); ;
+            try
+            {
+                RuntimeCompiler.CompileAllFilesInDirectory(Path.Combine(Environment.CurrentDirectory, "Items"), new string[] { "System.Linq.dll" }).DoAction(s => Console.WriteLine(s)); ;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Could not compile runtime files");
+            }
             MainForm form = new MainForm();
             form.ShowDialog();
         }
