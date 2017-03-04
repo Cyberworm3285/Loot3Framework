@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.Global;
+using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
@@ -13,6 +14,10 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
     {
         protected ILootRarityTable rarTable;
         protected double lastProp;
+        protected int lastRandomRoll;
+        protected Intervall lastEntireRarRange;
+        protected Intervall lastRarRange;
+        protected string lastRarName;
 
         public PR_PartionLoot(ILootRarityTable table)
         {
@@ -23,11 +28,13 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         {
             int lowest = rarTable.Chain.Intervalls.First().X;
             int highest = rarTable.Chain.Intervalls.Last().Y;
-            int rdm = GlobalRandom.Next(lowest, highest + 1);
-            lastProp = rdm;
-            string rarName = rarTable.Values[Array.FindIndex(rarTable.Chain.Intervalls, i => i.X < rdm && i.Y >= rdm)];
-            Console.WriteLine("->" + rarName);
-            return new PartitionLoot<T>().Loot(allLoot.Where(i => i.RarityName == rarName).ToArray());
+            lastEntireRarRange = new Intervall(lowest, highest);
+            lastRandomRoll = GlobalRandom.Next(lowest, highest + 1);
+            int intervallIndex = Array.FindIndex(rarTable.Chain.Intervalls, i => i.X < lastRandomRoll && i.Y >= lastRandomRoll);
+            lastRarRange = rarTable.Chain.Intervalls[intervallIndex];
+            lastProp = 100 / (double)(highest - lowest) * (double)lastRarRange.Range;
+            lastRarName = rarTable.Values[intervallIndex];
+            return new PartitionLoot<T>().Loot(allLoot.Where(i => i.Rarity > lastRarRange.X && i.Rarity <= lastRarRange.Y).ToArray());
         }
 
         public ILootRarityTable Table
@@ -39,6 +46,21 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         public double LastProbability
         {
             get { return lastProp; }
+        }
+
+        public int LastRoll
+        {
+            get { return lastRandomRoll; }
+        }
+
+        public Intervall LastRarityRange
+        {
+            get { return lastRarRange; }
+        }
+
+        public string LastRarity
+        {
+            get { return lastRarName; }
         }
     }
 }

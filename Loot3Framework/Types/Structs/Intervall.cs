@@ -13,14 +13,16 @@ namespace Loot3Framework.Types.Structs
     {
         private int a;
         private int b;
+        private int range;
 
         public Intervall(int x, int y)
         {
             a = x;
             b = y;
+            range = y - x;
         }
 
-        public int Rand()
+        public int Rand(bool includeA = true, bool includeB = false)
         {
             return GlobalRandom.Next(a, b);
         }
@@ -29,6 +31,11 @@ namespace Loot3Framework.Types.Structs
         {
             return "[" + a + ";" + b + "]";
         }
+
+        public int Range
+        {
+            get { return range; }
+        } 
 
         public int X
         {

@@ -38,9 +38,10 @@ namespace Loot3Vorbereitung
         {
             try
             {
+                PR_PartionLoot<string> looter = new PR_PartionLoot<string>(new DefaultRarityTable());
                 listBox1.Items.Add(
                     GlobalItems.Instance.GetLoot(
-                        new PR_PartionLoot<string>(new DefaultRarityTable()),
+                        looter,
                         new ConfigurableFilter(
                             _nameContains: textBox1.Text,
                             _allowedTypes: checkedListBox1.CheckedItems.DoFunc(i => i as string),
@@ -49,6 +50,7 @@ namespace Loot3Vorbereitung
                         )
                     ).Item
                 );
+                Console.WriteLine("-> " + looter.LastRarity + " ::Item had probability of: " + Math.Round(looter.LastProbability,2) + "% Rarity Range: " + looter.LastRarityRange + " Roll: " + looter.LastRoll);
             }
             catch (NoMatchingLootException)
             {

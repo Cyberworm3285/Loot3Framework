@@ -18,6 +18,7 @@ namespace Items
     {
         public Item1()
         {
+            rarity = 1;
             name = "Item1";
             type = "Dummy1";
             isQuestItem = true;
@@ -37,7 +38,7 @@ namespace Items
         public Item2() : base()
         {
             name = "Item2";
-            rarity = 600;
+            rarity = 11;
             isQuestItem = false;
             type = "Dummy2";
             attributes = new IItemProperty[]
@@ -57,7 +58,7 @@ namespace Items
     {
         public Item3() : base("WasGeht")
         {
-            rarity = 250;
+            rarity = 251;
 			type = "Bla";
         }
     }
@@ -66,7 +67,7 @@ namespace Items
     {
         public Item4() : base("Jo")
         {
-            rarity = 10;
+            rarity = 401;
             type = "Ichhoffedasklappt";
         }
     }
