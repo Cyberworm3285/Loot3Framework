@@ -18,6 +18,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         protected Intervall lastEntireRarRange;
         protected Intervall lastRarRange;
         protected string lastRarName;
+        protected PartitionLoot<T> lastLootingAlgorithm;
 
         public PR_PartionLoot(ILootRarityTable table)
         {
@@ -34,7 +35,8 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             lastRarRange = rarTable.Chain.Intervalls[intervallIndex];
             lastProp = 100 / (double)(highest - lowest) * (double)lastRarRange.Range;
             lastRarName = rarTable.Values[intervallIndex];
-            return new PartitionLoot<T>().Loot(allLoot.Where(i => i.Rarity > lastRarRange.X && i.Rarity <= lastRarRange.Y).ToArray());
+            lastLootingAlgorithm = new PartitionLoot<T>();
+            return lastLootingAlgorithm.Loot(allLoot.Where(i => i.Rarity > lastRarRange.X && i.Rarity <= lastRarRange.Y).ToArray());
         }
 
         public ILootRarityTable Table
@@ -61,6 +63,11 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         public string LastRarity
         {
             get { return lastRarName; }
+        }
+
+        public PartitionLoot<T> InnerAlgorithm
+        {
+            get { return lastLootingAlgorithm; }
         }
     }
 }

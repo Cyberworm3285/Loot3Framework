@@ -22,7 +22,7 @@ namespace Loot3Framework.Types.Structs
             range = y - x;
         }
 
-        public int Rand(bool includeA = true, bool includeB = false)
+        public int Rand()
         {
             return GlobalRandom.Next(a, b);
         }

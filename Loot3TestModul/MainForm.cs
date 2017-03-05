@@ -50,7 +50,24 @@ namespace Loot3Vorbereitung
                         )
                     ).Item
                 );
-                Console.WriteLine("-> " + looter.LastRarity + " ::Item had probability of: " + Math.Round(looter.LastProbability,2) + "% Rarity Range: " + looter.LastRarityRange + " Roll: " + looter.LastRoll);
+                Console.WriteLine(
+                    "-> " + 
+                    looter.LastRarity + 
+                    " ::rarity had probability of: " + 
+                    Math.Round(looter.LastProbability,2) + 
+                    "% \nwith range of: " + 
+                    looter.LastRarityRange + 
+                    " \nand rarity-roll: " + 
+                    looter.LastRoll +
+                    " /\nitem-roll: " +
+                    looter.InnerAlgorithm.LastRoll + 
+                    " \nin total range of: [" +
+                    looter.InnerAlgorithm.LastChain.Intervalls.First().X + 
+                    ";"+
+                    looter.InnerAlgorithm.LastChain.Intervalls.Last().Y +
+                    "] \nand local range of: " +
+                    looter.InnerAlgorithm.LastIntervall
+                    );
             }
             catch (NoMatchingLootException)
             {

@@ -71,6 +71,63 @@ namespace Items
             type = "Ichhoffedasklappt";
         }
     }
+    public class Item5 : BasePP_StringItem
+    {
+        public Item5()
+        {
+            rarity = 1;
+            name = "Item5";
+            type = "Dummy5";
+            isQuestItem = true;
+            attributes = new IItemProperty[]
+            {
+                new NameOnlyProp("Unkaputtbar"),
+                new SingleIntervallProp("Basisschaden", new Intervall(5,10)),
+                new MultiIntervallProp(
+                    new string[]    {   "Normal",              "Krass"             },
+                    new Intervall[] {   new Intervall(1,5),    new Intervall(5,10) }),
+            };
+        }
+    }
+
+    public class Item6 : Item1
+    {
+        public Item6() : base()
+        {
+            name = "Item6";
+            rarity = 11;
+            isQuestItem = false;
+            type = "Dummy6";
+            attributes = new IItemProperty[]
+            {
+                new RandomMultiProp(
+                    new IItemProperty[]
+                    {
+                        new NameOnlyProp("NameOnly"),
+                        new SingleIntervallProp("SingleIntervall", new Intervall(123,1222)),
+                    }
+                    )
+            };
+        }
+    }
+
+    public class Item7 : BasePP_StringItem
+    {
+        public Item7() : base("WasGeht")
+        {
+            rarity = 251;
+            type = "Bla";
+        }
+    }
+
+    public class Item8 : BasePP_StringItem
+    {
+        public Item8() : base("Jo")
+        {
+            rarity = 401;
+            type = "Ichhoffedasklappt";
+        }
+    }
 }
 namespace Containers
 {
