@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 using System.Collections;
 
+using Loot3Framework.Types.Classes.HelperClasses;
+using Loot3Framework.Types.Exceptions;
+
 namespace Loot3Framework.ExtensionMethods.CollectionOperations
 {
     [CLSCompliant(true)]
@@ -143,9 +146,9 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
 
         #endregion
 
-        #region Do
+        #region DoWith
 
-        public static T Do<T>(this T t, Action<T> action)
+        public static T DoWith<T>(this T t, Action<T> action)
         {
             action(t);
             return t;
@@ -235,6 +238,36 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             return false;
         }
 
+
+        #endregion
+
+        #region SumUp
+
+        public static TOut SumUp<TIn, TOut>(this TIn[] t, Converter<TIn, TOut> converter, Func<TOut, TOut, TOut> adder)
+        {
+            TOut result = converter(t.First());
+            for (int i = 1; i < t.Length; i++)
+            {
+                result = adder(result, converter(t[i]));
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region Fuse
+
+        public static FusionContainer<T1, T2>[] Fuse<T1, T2>(this T1[] t1, T2[] t2)
+        {
+            if (t1.Length != t2.Length)
+                throw new IndexOutOfRangeException("uneven array-lengths");
+            FusionContainer<T1, T2>[] result = new FusionContainer<T1, T2>[t1.Length];
+            for (int i = 0; i < t1.Length; i++)
+            {
+                result[i] = new FusionContainer<T1, T2>(t1[i], t2[i]);
+            }
+            return result;
+        }
 
         #endregion
     }
