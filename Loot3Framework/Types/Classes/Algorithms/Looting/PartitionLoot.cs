@@ -15,12 +15,16 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
     
     public class PartitionLoot<T> : ILootingAlgorithm<T>
     {
+        private static PartitionLoot<T> instance;
+
         protected int lastRandomRoll;
         protected int lastEntireRange;
         protected IntervallChain lastInnerChain;
         protected Intervall lastUsedIntervall;
         protected string[] allLastItemNames;
         protected int[] allLastItemRarities;
+
+        private PartitionLoot() { }
 
         ///<exception cref="NoMatchingLootException">at empty input</exception>
         public ILootable<T> Loot(ILootable<T>[] allLoot)
@@ -38,7 +42,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             })).ToArray(), 0);
             lastEntireRange = counter;
             lastRandomRoll = GlobalRandom.Next(0, counter);
-            int index = Array.FindIndex(lastInnerChain.Intervalls, i => i.X <= lastRandomRoll && i.Y > lastRandomRoll);
+            int index = Array.FindIndex(lastInnerChain.Intervalls, i => i.X <= lastRandomRoll && i.Y >= lastRandomRoll);
             lastUsedIntervall = lastInnerChain.Intervalls[index];
             return allLoot[index];
         }
@@ -71,6 +75,11 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         public int[] LastItemRarities
         {
             get { return allLastItemRarities; }
+        }
+
+        public static PartitionLoot<T> Instance
+        {
+            get { return instance ?? (instance = new PartitionLoot<T>()); }
         }
     }
 }

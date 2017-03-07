@@ -11,7 +11,6 @@ using Loot3Framework.Types.Exceptions;
 
 namespace Loot3Framework.ExtensionMethods.CollectionOperations
 {
-    
     public static class CollectionExtensions
     {
         #region DoFunc
@@ -305,6 +304,45 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             while (enu1.MoveNext() && enu2.MoveNext())
             {
                 result[counter++] = new FusionContainer<T1, T2>(enu1.Current, enu2.Current);
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region FuseInto
+
+        ///<exception cref="IndexOutOfRangeException">at uneven array lengths</exception>
+        public static TOut[] FuseInto<T1, T2, TOut>(this T1[] t1, T2[] t2, Func<T1, T2, TOut> fusionFunction)
+        {
+            if (t1.Length != t2.Length)
+                throw new IndexOutOfRangeException("uneven array lengths");
+            TOut[] result = new TOut[t1.Length];
+
+            for (int i = 0; i < t1.Length; i++)
+            {
+                result[i] = fusionFunction(t1[i], t2[i]);
+            }
+
+            return result;
+        }
+
+        ///<exception cref="IndexOutOfRangeException">at uneven enumerator lengths</exception>
+        public static TOut[] FuseInto<T1, T2, TOut>(this IEnumerable<T1> e1, IEnumerable<T2> e2, Func<object, object, TOut> fusionFunction)
+        {
+            int e1Count = e1.Count();
+            if (e1Count != e2.Count())
+                throw new IndexOutOfRangeException("uneven enumerator lengths");
+
+            IEnumerator enu1 = e1.GetEnumerator();
+            IEnumerator enu2 = e2.GetEnumerator();
+            int counter = 0;
+            TOut[] result = new TOut[e1Count];
+
+            while (enu1.MoveNext() && enu2.MoveNext())
+            {
+                result[counter++] = fusionFunction(enu1.Current, enu2.Current);
             }
 
             return result;

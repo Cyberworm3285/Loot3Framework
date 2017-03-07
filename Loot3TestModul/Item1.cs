@@ -38,7 +38,7 @@ namespace Items
         public Item2() : base()
         {
             name = "Item2";
-            rarity = 11;
+            rarity = 9;
             isQuestItem = false;
             type = "Dummy2";
             attributes = new IItemProperty[]

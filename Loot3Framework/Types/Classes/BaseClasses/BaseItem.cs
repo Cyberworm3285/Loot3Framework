@@ -20,7 +20,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         protected string name = "[No Name]";
         protected int rarity = 1000;
         protected string type = "[No Type]";
-        protected ILootRarityTable rarityTable = new DefaultRarityTable();
+        protected ILootRarityTable rarityTable = DefaultRarityTable.SharedInstance;
 
         #endregion
 

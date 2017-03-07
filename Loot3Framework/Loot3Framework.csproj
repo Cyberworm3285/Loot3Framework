@@ -77,8 +77,10 @@
     <Compile Include="Types\Classes\BaseClasses\LootFunctionContainer.cs" />
     <Compile Include="Types\Classes\BaseClasses\LootObjectContainer.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseSplitItemHandler.cs" />
+    <Compile Include="Types\Classes\Comperators\RarTableOrderComperator.cs" />
     <Compile Include="Types\Classes\HelperClasses\FusionContainer.cs" />
     <Compile Include="Types\Classes\RarityTables\DefaultRarityTable.cs" />
+    <Compile Include="Types\Classes\RarityTables\DynamicRarityTable.cs" />
     <Compile Include="Types\Classes\RarityTables\RarityForwardTable.cs" />
     <Compile Include="Types\Classes\ItemProperties\RandomMultiProp.cs" />
     <Compile Include="Types\Exceptions\Exceptions.cs" />
