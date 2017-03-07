@@ -141,7 +141,8 @@ namespace Containers
                 new LootObjectContainer<string>("Achteck").SetProps(true, "Achteck", 260, "Achteck"),
                 new LootObjectContainer<string>("Würfel").SetProps(false, "Quader", 450, "Objekt"),
                 new LootObjectContainer<string>("Peter").SetProps(false, "Peter", 5, "Sklave"),
-                new LootObjectContainer<string>("null").SetProps(false, "null", 25, "leere")
+                new LootObjectContainer<string>("null").SetProps(false, "null", 25, "leere"),
+                new LootObjectContainer<string>("Satan").DoWith(i => i.SetProps(true, "HerrDerSiebenHöllen", 5, "PrimeEvil"))
             }) { }
     }
 

@@ -77,7 +77,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             get { return allLastItemRarities; }
         }
 
-        public static PartitionLoot<T> Instance
+        public static PartitionLoot<T> SharedInstance
         {
             get { return instance ?? (instance = new PartitionLoot<T>()); }
         }

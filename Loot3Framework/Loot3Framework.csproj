@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods\CollectionOperations\CollectionExtensions.cs" />
+    <Compile Include="ExtensionMethods\CollectionOperations\SpecificCollectionExtensions.cs" />
     <Compile Include="ExtensionMethods\Other\Comparision.cs" />
     <Compile Include="ExtensionMethods\Other\TypeExtensionMethods.cs" />
     <Compile Include="Global\GlobalRandom.cs" />

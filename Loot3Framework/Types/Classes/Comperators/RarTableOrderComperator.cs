@@ -8,7 +8,7 @@ using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Types.Classes.Comperators
 {
-    class RarTableOrderComperator : IComparer<string>
+    public class RarTableOrderComperator : IComparer<string>
     {
         private string[] tableValues;
 

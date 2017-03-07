@@ -13,7 +13,7 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
-    public class PR_PartionLoot<T> : ILootingAlgorithm<T>
+    public class PR_PartionLoot<T, TLooter> : ILootingAlgorithm<T> where TLooter : ILootingAlgorithm<T>
     {
         protected ILootRarityTable rarTable;
         protected double lastProp;
@@ -21,10 +21,11 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         protected Intervall lastEntireRarRange;
         protected Intervall lastRarRange;
         protected string lastRarName;
-        protected PartitionLoot<T> lastLootingAlgorithm;
+        protected TLooter lastLootingAlgorithm;
 
-        public PR_PartionLoot(ILootRarityTable table, string[] allowedRarityNames)
+        public PR_PartionLoot(ILootRarityTable table, TLooter innerLooting, string[] allowedRarityNames)
         {
+            lastLootingAlgorithm = innerLooting;
             allowedRarityNames = allowedRarityNames.DoWith(s => Array.Sort(s, new RarTableOrderComperator(table)));
             List<string> allowedNames = new List<string>();
             List<int> allowedRanges = new List<int>();
@@ -42,8 +43,9 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             rarTable = new DynamicRarityTable(allowedNames.ToArray(), new IntervallChain(allowedRanges.ToArray(), startValue: 0));
         }
 
-        public PR_PartionLoot(ILootRarityTable table)
+        public PR_PartionLoot(ILootRarityTable table, TLooter innerLooting)
         {
+            lastLootingAlgorithm = innerLooting;
             rarTable = table;
         }
 
@@ -57,7 +59,6 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             lastRarRange = rarTable.Chain.Intervalls[intervallIndex];
             lastProp = 100 / (double)(highest - lowest) * (double)lastRarRange.Range;
             lastRarName = rarTable.Values[intervallIndex];
-            lastLootingAlgorithm = PartitionLoot<T>.Instance;
             return lastLootingAlgorithm.Loot(allLoot.Where(i => i.Rarity > lastRarRange.X && i.Rarity <= lastRarRange.Y).ToArray());
         }
 
@@ -87,7 +88,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             get { return lastRarName; }
         }
 
-        public PartitionLoot<T> InnerAlgorithm
+        public TLooter InnerAlgorithm
         {
             get { return lastLootingAlgorithm; }
         }

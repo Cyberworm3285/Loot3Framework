@@ -18,6 +18,7 @@ using Loot3Framework.Types.Classes.Algorithms.ObjectFetching;
 using Loot3Framework.Types.Classes.RarityTables;
 using Loot3Framework.Types.Exceptions;
 using Loot3Framework.Types.Classes.HelperClasses;
+using Loot3Framework.Types.Classes.Comperators;
 
 
 namespace Loot3Vorbereitung
@@ -40,11 +41,19 @@ namespace Loot3Vorbereitung
 
         private void button1_Click(object sender, EventArgs e)
         {
+            List<string> rars = new List<string>();
+            List<int> rarCounts = new List<int>();
+
+            string[] aa;
+            int[] bb;
+
+            new string[] { "eins", "zwei", "drei" }.Fuse(new int[] { 1, 2, 3 }).DeFuse(out aa, out bb);
+
             for (int counter = 0; counter < 1000; counter++)
             {
                 try
                 {
-                    PR_PartionLoot<string> looter = new PR_PartionLoot<string>(DefaultRarityTable.SharedInstance, checkedListBox2.CheckedItems.DoFunc(i => i as string));
+                    PR_PartionLoot<string, PartitionLoot<string>> looter = new PR_PartionLoot<string, PartitionLoot<string>>(DefaultRarityTable.SharedInstance, PartitionLoot<string>.Instance, checkedListBox2.CheckedItems.DoFunc(i => i as string));
                     listBox1.Items.Add(
                         GlobalItems.Instance.GetLoot(
                             looter,
@@ -57,6 +66,13 @@ namespace Loot3Vorbereitung
                         ).Item
                     );
 
+                    if (!rars.Contains(looter.LastRarity))
+                    {
+                        rars.Add(looter.LastRarity);
+                        rarCounts.Add(0);
+                    }
+                    rarCounts[rars.IndexOf(looter.LastRarity)]++;
+
                     XmlSerializer xml = new XmlSerializer(typeof(FusionContainer<string, int>[]));
                     using (StreamWriter sr = new StreamWriter(Path.Combine(Directory.GetCurrentDirectory(), "lastLootRange.sv")))
                     {
@@ -66,38 +82,43 @@ namespace Loot3Vorbereitung
 
                     int j = 0;
 
-                    Console.WriteLine(
-                        "(" +
-                        counter +
-                        ")-> " +
-                        looter.LastRarity +
-                        " ::rarity had probability of: " +
-                        Math.Round(looter.LastProbability, 2) +
-                        "% \nwith range of: " +
-                        looter.LastRarityRange +
-                        " \nand rarity-roll: " +
-                        looter.LastRoll +
-                        " /\nitem-roll: " +
-                        looter.InnerAlgorithm.LastRoll +
-                        " \nin total range of: [" +
-                        looter.InnerAlgorithm.LastChain.Intervalls.First().X +
-                        ";" +
-                        looter.InnerAlgorithm.LastChain.Intervalls.Last().Y +
-                        "] \nand local range of: " +
-                        looter.InnerAlgorithm.LastIntervall +
-                        " \nwith all items: " +
-                        looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
-                        " \nor " +
-                        string.Join(",", looter.InnerAlgorithm.LastItemNames.DoFunc(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]")) +
-                        " \nor " +
-                        string.Join(",", looter.InnerAlgorithm.LastItemNames.FuseInto(looter.InnerAlgorithm.LastItemRarities, (n, r) => "[" + n + ";" + r + "]"))
-                        );
+                    if (false)
+                    {
+                        Console.WriteLine(
+                            "(" +
+                            counter +
+                            ")-> " +
+                            looter.LastRarity +
+                            " ::rarity had probability of: " +
+                            Math.Round(looter.LastProbability, 2) +
+                            "% \nwith range of: " +
+                            looter.LastRarityRange +
+                            " \nand rarity-roll: " +
+                            looter.LastRoll +
+                            " /\nitem-roll: " +
+                            looter.InnerAlgorithm.LastRoll +
+                            " \nin total range of: [" +
+                            looter.InnerAlgorithm.LastChain.Intervalls.First().X +
+                            ";" +
+                            looter.InnerAlgorithm.LastChain.Intervalls.Last().Y +
+                            "] \nand local range of: " +
+                            looter.InnerAlgorithm.LastIntervall +
+                            " \nwith all items: " +
+                            looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
+                            " \nor " +
+                            string.Join(",", looter.InnerAlgorithm.LastItemNames.DoFunc(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]")) +
+                            " \nor " +
+                            string.Join(",", looter.InnerAlgorithm.LastItemNames.FuseInto(looter.InnerAlgorithm.LastItemRarities, (n, r) => "[" + n + ";" + r + "]"))
+                            );
+                    }
                 }
                 catch (NoMatchingLootException)
                 {
                     listBox1.Items.Add("No Matching Items found");
                 }
             }
+            Comparer<FusionContainer<string, int>> comparer = Comparer<FusionContainer<string, int>>.Create((f1, f2) => new RarTableOrderComperator(DefaultRarityTable.SharedInstance).Compare(f1.Item1, f2.Item1));
+            Console.WriteLine("Results : " + string.Join(",", rars.Fuse(rarCounts).DoWith(f => Array.Sort(f, comparer)).DoFunc(f => "{" + f.Item1 + "," + f.Item2 + "}")));
         }
 
         private void button2_Click(object sender, EventArgs e)
