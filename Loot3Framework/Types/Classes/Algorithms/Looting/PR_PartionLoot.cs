@@ -30,7 +30,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
             int lowest = rarTable.Chain.Intervalls.First().X;
             int highest = rarTable.Chain.Intervalls.Last().Y;
             lastEntireRarRange = new Intervall(lowest, highest);
-            lastRandomRoll = GlobalRandom.Next(lowest + 1, highest - 1);
+            lastRandomRoll = GlobalRandom.Next(lowest, highest + 1);
             int intervallIndex = Array.FindIndex(rarTable.Chain.Intervalls, i => i.X < lastRandomRoll && i.Y >= lastRandomRoll);
             lastRarRange = rarTable.Chain.Intervalls[intervallIndex];
             lastProp = 100 / (double)(highest - lowest) * (double)lastRarRange.Range;
