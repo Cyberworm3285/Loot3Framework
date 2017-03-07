@@ -15,6 +15,7 @@ namespace Loot3Framework.Tools
     [CLSCompliant(false)]
     public static class RuntimeCompiler
     {
+        ///<exception cref="RuntimeCompileException">at existing compile errors</exception>
         public static string[] CompileFiles(string path, string[] dependencies)
         {
             CSharpCodeProvider provider = new CSharpCodeProvider();

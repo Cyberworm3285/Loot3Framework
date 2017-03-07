@@ -8,27 +8,27 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Loot3Framework.Types.Structs
 {
-    [CLSCompliant(true)]
+    [Serializable]
     public struct IntervallChain
     {
-        private Intervall[] intervalls;
+        private Intervall[] intervalls { get; set; }
 
-        public IntervallChain(int[] values)
+        public IntervallChain(int[] values, int? startValue = null, int? endValue = null)
         {
-            intervalls = new Intervall[values.Length - 1];
-            for (int i = 0; i < values.Length - 1; i++)
-            {
-                intervalls[i] = new Intervall(values[i], values[i + 1]); 
-            }
-        }
+            List<int> temp = new List<int>();
 
-        public IntervallChain(int[] values, int startValue)
-        {
-            intervalls = new Intervall[values.Length];
-            intervalls[0] = new Intervall(startValue, values.First());
-            for (int i = 0; i < values.Length - 1; i++)
+            if (startValue != null)
+                temp.Add(startValue.GetValueOrDefault());
+
+            temp.AddRange(values);
+
+            if (endValue != null)
+                temp.Add(endValue.GetValueOrDefault());
+
+            intervalls = new Intervall[temp.Count- 1];
+            for (int i = 0; i < temp.Count - 1; i++)
             {
-                intervalls[i+1] = new Intervall(values[i], values[i + 1]);
+                intervalls[i] = new Intervall(temp[i], temp[i + 1]);
             }
         }
 
@@ -44,6 +44,10 @@ namespace Loot3Framework.Types.Structs
             get
             {
                 return intervalls;
+            }
+            set
+            {
+                intervalls = value;
             }
         }
 

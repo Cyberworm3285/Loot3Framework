@@ -11,9 +11,9 @@ namespace Loot3Framework.Types.Attributes
     {
         readonly string lootTag;
 
-        public LootTagAttribute(string positionalString)
+        public LootTagAttribute(string tag)
         {
-            this.lootTag = positionalString;
+            this.lootTag = tag;
         }
 
         public string LootTag

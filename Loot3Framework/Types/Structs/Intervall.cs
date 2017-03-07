@@ -8,11 +8,11 @@ using Loot3Framework.Global;
 
 namespace Loot3Framework.Types.Structs
 {
-    [CLSCompliant(true)]
+    [Serializable]
     public struct Intervall
     {
-        private int a;
-        private int b;
+        private int a { get; set; }
+        private int b { get; set; }
         private int range;
 
         public Intervall(int x, int y)
@@ -24,7 +24,7 @@ namespace Loot3Framework.Types.Structs
 
         public int Rand()
         {
-            return GlobalRandom.Next(a, b);
+            return GlobalRandom.Next(a, b + 1);
         }
 
         public override string ToString()
@@ -40,13 +40,21 @@ namespace Loot3Framework.Types.Structs
         public int X
         {
             get { return a; }
-            set { a = value; }
+            set
+            {
+                a = value;
+                range = b - a;
+            }
         }
 
         public int Y
         {
             get { return b; }
-            set { b = value; }
+            set
+            {
+                b = value;
+                range = b - a;
+            }
         }
     }
 }

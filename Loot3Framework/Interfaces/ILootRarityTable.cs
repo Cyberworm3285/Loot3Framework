@@ -8,7 +8,7 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Interfaces
 {
-    [CLSCompliant(true)]
+    
     public interface ILootRarityTable
     {
         string ToRarityName(int rarity);

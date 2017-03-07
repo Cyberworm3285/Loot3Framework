@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Loot3Framework.Global
 {
-    [CLSCompliant(true)]
+    
     public static class GlobalRandom
     {
         private static Random random = new Random();

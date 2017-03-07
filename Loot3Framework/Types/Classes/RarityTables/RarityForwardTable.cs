@@ -9,7 +9,7 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.RarityTables
 {
-    [CLSCompliant(true)]
+    
     public class RarityForwardTable : ILootRarityTable
     {
         string fixRarity;

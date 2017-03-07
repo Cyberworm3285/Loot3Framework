@@ -9,13 +9,12 @@ using Loot3Framework.Types.Classes.RarityTables;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
-    [CLSCompliant(true)]
+    
     public class LootFunctionContainer<T> : ILootable<T>
     {
         #region Attributes
         protected Func<T> innerFunction;
 
-        protected string[] containerAllowedAreas;
         protected bool containerIsQuestItem;
         protected string containerName = "[No Name]";
         protected int containerRarity = 1000;
@@ -41,9 +40,8 @@ namespace Loot3Framework.Types.Classes.BaseClasses
 
         #region Methods
 
-        public LootFunctionContainer<T> SetProps(string[] areas, bool isQuest, string name, int rar, string type, ILootRarityTable table)
+        public LootFunctionContainer<T> SetProps(bool isQuest, string name, int rar, string type, ILootRarityTable table)
         {
-            containerAllowedAreas = areas;
             containerIsQuestItem = isQuest;
             containerName = name;
             containerRarity = rar;
@@ -53,9 +51,8 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             return this;
         }
 
-        public LootFunctionContainer<T> SetProps(string[] areas, bool isQuest, string name, int rar, string type)
+        public LootFunctionContainer<T> SetProps(bool isQuest, string name, int rar, string type)
         {
-            containerAllowedAreas = areas;
             containerIsQuestItem = isQuest;
             containerName = name;
             containerRarity = rar;
@@ -74,18 +71,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         #endregion
 
         #region Properties
-
-        public string[] AllowedAreas
-        {
-            get
-            {
-                return containerAllowedAreas;
-            }
-            set
-            {
-                containerAllowedAreas = value;
-            }
-        }
 
         public bool IsQuestItem
         {

@@ -10,9 +10,10 @@ using Loot3Framework.Types.Exceptions;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
-    [CLSCompliant(true)]
+    
     public class RandomLoot<T> : ILootingAlgorithm<T>
     {
+        ///<exception cref="NoMatchingLootException">at empty input</exception>
         public ILootable<T> Loot(ILootable<T>[] allLoot)
         {
             if (allLoot.Length.Equals(0))

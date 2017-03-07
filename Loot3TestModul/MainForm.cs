@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Xml.Serialization;
+using System.IO;
+
 using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.Types.Classes.Algorithms.Filter;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
@@ -51,7 +54,16 @@ namespace Loot3Vorbereitung
                         )
                     ).Item
                 );
+
+                XmlSerializer xml = new XmlSerializer(typeof(FusionContainer<string, int>[]));
+                using (StreamWriter sr = new StreamWriter(Path.Combine(Directory.GetCurrentDirectory(), "lastLootRange.sv")))
+                {
+                    xml.Serialize(sr, looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities));
+                    sr.Close();
+                }
+
                 int j = 0;
+
                 Console.WriteLine(
                     "-> " +
                     looter.LastRarity +
@@ -70,7 +82,7 @@ namespace Loot3Vorbereitung
                     "] \nand local range of: " +
                     looter.InnerAlgorithm.LastIntervall +
                     " \nwith all items: " +
-                    looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => "[" + f.Item1 + ";" + f.Item2 + "]", (a, b) => a + "," + b)+ 
+                    looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => f.ToString(), (a, b) => a + "," + b) + 
                     " \nor " +
                     string.Join(",", looter.InnerAlgorithm.LastItemNames.DoFunc(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]"))
                     );

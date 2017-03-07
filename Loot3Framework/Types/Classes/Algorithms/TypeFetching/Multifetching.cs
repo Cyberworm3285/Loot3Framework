@@ -9,7 +9,7 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Loot3Framework.Types.Classes.Algorithms.TypeFetching
 {
-    [CLSCompliant(true)]
+    
     public class Multifetching<T> : ILootTypeFetcher<T>
     {
         ILootTypeFetcher<T>[] fetchers;

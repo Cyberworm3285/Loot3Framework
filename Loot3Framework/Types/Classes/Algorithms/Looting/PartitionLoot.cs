@@ -12,7 +12,7 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Looting
 {
-    [CLSCompliant(true)]
+    
     public class PartitionLoot<T> : ILootingAlgorithm<T>
     {
         protected int lastRandomRoll;
@@ -22,6 +22,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         protected string[] allLastItemNames;
         protected int[] allLastItemRarities;
 
+        ///<exception cref="NoMatchingLootException">at empty input</exception>
         public ILootable<T> Loot(ILootable<T>[] allLoot)
         {
             if (allLoot.Length.Equals(0))

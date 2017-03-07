@@ -11,7 +11,7 @@ using Loot3Framework.Types.Exceptions;
 
 namespace Loot3Framework.ExtensionMethods.CollectionOperations
 {
-    [CLSCompliant(true)]
+    
     public static class CollectionExtensions
     {
         #region DoFunc
@@ -253,10 +253,37 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             return result;
         }
 
+        public static TOut SumUp<TOut>(this IEnumerable e, Converter<object, TOut> converter, Func<TOut, TOut, TOut> adder)
+        {
+            IEnumerator enumerator = e.GetEnumerator();
+            enumerator.MoveNext();
+            TOut result = converter(enumerator.Current);
+            while (enumerator.MoveNext())
+            {
+                result = adder(result, converter(enumerator.Current));
+            }
+
+            return result; 
+        }
+
+        public static TOut SumUp<TIn, TOut>(this IEnumerable<TIn> e, Converter<TIn, TOut> converter, Func<TOut,TOut,TOut> adder)
+        {
+            IEnumerator<TIn> enumerator = e.GetEnumerator();
+            enumerator.MoveNext();
+            TOut result = converter(enumerator.Current);
+            while (enumerator.MoveNext())
+            {
+                result = adder(result, converter(enumerator.Current));
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Fuse
 
+        ///<exception cref="IndexOutOfRangeException">at uneven array lengths</exception>
         public static FusionContainer<T1, T2>[] Fuse<T1, T2>(this T1[] t1, T2[] t2)
         {
             if (t1.Length != t2.Length)
@@ -266,6 +293,26 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             {
                 result[i] = new FusionContainer<T1, T2>(t1[i], t2[i]);
             }
+            return result;
+        }
+
+        ///<exception cref="IndexOutOfRangeException">at uneven enumeration counts</exception>
+        public static FusionContainer<T1, T2>[] Fuse<T1, T2>(this IEnumerable<T1> e1, IEnumerable<T2> e2)
+        {
+            int e1Count = e1.Count();
+            if (e1Count != e2.Count())
+                throw new IndexOutOfRangeException("uneven enumeration-counts");
+
+            int counter = 0;
+            FusionContainer<T1, T2>[] result = new FusionContainer<T1, T2>[e1Count];
+            IEnumerator<T1> enu1 = e1.GetEnumerator();
+            IEnumerator<T2> enu2 = e2.GetEnumerator();
+
+            while (enu1.MoveNext() && enu2.MoveNext())
+            {
+                result[counter++] = new FusionContainer<T1, T2>(enu1.Current, enu2.Current);
+            }
+
             return result;
         }
 

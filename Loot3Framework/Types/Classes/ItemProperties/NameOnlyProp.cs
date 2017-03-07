@@ -8,7 +8,7 @@ using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Types.Classes.ItemProperties
 {
-    [CLSCompliant(true)]
+    
     public class NameOnlyProp : IItemProperty
     {
         public string name;

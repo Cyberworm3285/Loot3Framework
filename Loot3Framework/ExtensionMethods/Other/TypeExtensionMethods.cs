@@ -8,13 +8,15 @@ using System.Reflection;
 
 namespace Loot3Framework.ExtensionMethods.Other
 {
-    [CLSCompliant(true)]
+    
     public static class TypeExtensionMethods
     {
+        ///<exception cref="TypeInitializationException">at missing 0-param-constructor</exception>
         public static object GetInstance(this Type t)
         {
             ConstructorInfo cInfo = t.GetConstructors().Where(c => c.GetParameters().Length == 0).First();
-            if (cInfo == null) throw new Exception();
+            if (cInfo == null)
+                throw new TypeInitializationException(t.FullName, new NullReferenceException("type has no 0-param-constructor"));
             return cInfo.Invoke(new object[] { });
         }
 

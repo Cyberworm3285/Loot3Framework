@@ -135,8 +135,13 @@ namespace Containers
     {
         public ContainerProvider() : base(new ILootable<string>[]
             {
-                new LootObjectContainer<string>("Mettwurst2").SetProps(null, true, "Mettwurst", 599, "Artefakt"),
-                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen2").SetProps(null, true, "Func", 400, "LootFunction"),
+                new LootObjectContainer<string>("Mettwurst2").SetProps(true, "Mettwurst", 599, "Artefakt"),
+                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen2").SetProps(true, "Func", 400, "LootFunction"),
+                new LootFunctionContainer<string>(() => "!FunctionKek").SetProps(true, "blaaa", 350, "BackFuck"),
+                new LootObjectContainer<string>("Achteck").SetProps(true, "Achteck", 260, "Achteck"),
+                new LootObjectContainer<string>("Würfel").SetProps(false, "Quader", 450, "Objekt"),
+                new LootObjectContainer<string>("Peter").SetProps(false, "Peter", 5, "Sklave"),
+                new LootObjectContainer<string>("null").SetProps(false, "null", 25, "leere")
             }) { }
     }
 
@@ -147,8 +152,8 @@ namespace Containers
             TCollection result = new TCollection();
             new ILootable<int>[]
             {
-                new LootObjectContainer<int>(13).SetProps(null, true, "Zahl", 400, "Integer"),
-                new LootFunctionContainer<int>(() => GlobalRandom.Next(0,501)).SetProps(null, true, "Func<Integer>",500, "Integer"),
+                new LootObjectContainer<int>(13).SetProps(true, "Zahl", 400, "Integer"),
+                new LootFunctionContainer<int>(() => GlobalRandom.Next(0,501)).SetProps(true, "Func<Integer>",500, "Integer"),
             }.DoAction(l => result.Add(l));
             return result;
         }

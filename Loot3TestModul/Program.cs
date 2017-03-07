@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 using System.IO;
 
-using Loot3Framework.Types.Classes.Algorithms.Filter;
-using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Tools;
 

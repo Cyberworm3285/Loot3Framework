@@ -10,21 +10,21 @@ using System.Runtime.Serialization;
 
 namespace Loot3Framework.Types.Exceptions
 {
-    [CLSCompliant(true)]
+    
     [Serializable]
     public abstract class Loot3FrameworkException : Exception
     {
         public Loot3FrameworkException(string message) : base(message) { }
         public Loot3FrameworkException() : base() { }
     }
-    [CLSCompliant(true)]
+    
     [Serializable]
     public class NoMatchingLootException : Loot3FrameworkException
     {
         public NoMatchingLootException(string message) : base(message) { }
         public NoMatchingLootException() : base() { }
     }
-    [CLSCompliant(true)]
+    
     [Serializable]
     public class RuntimeCompileException : Loot3FrameworkException
     {

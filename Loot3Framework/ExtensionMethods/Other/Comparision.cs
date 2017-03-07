@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Loot3Framework.ExtensionMethods.Other
 {
-    [CLSCompliant(true)]
+    
     public enum StringComparing
     {
         CaseSensitiveInclude,
@@ -14,7 +14,7 @@ namespace Loot3Framework.ExtensionMethods.Other
         CaseSensitiveEqual,
         NonCaseSensitiveEqual
     }
-    [CLSCompliant(true)]
+    
     public static class Comparision
     {
         public static bool CompareToString(this string a, string b, StringComparing mode)

@@ -9,10 +9,10 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.RarityTables
 {
-    [CLSCompliant(true)]
+    
     public class DefaultRarityTable : ILootRarityTable
     {
-        protected IntervallChain innerChain = new IntervallChain(new int[] { 0, 10, 250, 400, 1000 });
+        protected IntervallChain innerChain = new IntervallChain(new int[] { int.MinValue, 10, 250, 400, int.MaxValue });
         protected string[] rarNames = new string[] { "Legendär", "Epic", "Selten", "Normal" };
 
         public string ToRarityName(int rarity)

@@ -7,27 +7,15 @@ using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.ExtensionMethods.Other;
 
-namespace WebTest.LootEngine
+namespace Loot3Framework.Types.Classes.BaseClasses
 {
-    public enum ItemLibraryMode
-    {
-        All,
-        Pirates,
-        Space,
-        ZombieApokalypse,
-        ModernWar,
-        Medieval,
-        Fantasy,
-        Crap
-    }
-
     public class BaseSplitItemHandler<T> : IItemHolder<T>
     {
         #region Attributes
 
-        protected ItemLibraryMode currMode = ItemLibraryMode.All;
+        protected string currMode = "All";
         protected List<ILootable<T>> allInternalLoot;
-        protected Dictionary<ItemLibraryMode, List<ILootable<T>>> lootHashMap;
+        protected Dictionary<string, List<ILootable<T>>> lootHashMap;
 
         #endregion
 
@@ -36,21 +24,21 @@ namespace WebTest.LootEngine
         private BaseSplitItemHandler()
         {
             allInternalLoot = new List<ILootable<T>>();
-            lootHashMap = new Dictionary<ItemLibraryMode, List<ILootable<T>>>() { { ItemLibraryMode.All, allInternalLoot } };
+            lootHashMap = new Dictionary<string, List<ILootable<T>>>() { { "All", allInternalLoot } };
         }
 
-        private BaseSplitItemHandler(ILootTypeFetcher<T> fetcher, ItemLibraryMode startMode)
+        private BaseSplitItemHandler(ILootTypeFetcher<T> fetcher, string startMode)
         {
             allInternalLoot = new List<ILootable<T>>();
-            lootHashMap = new Dictionary<ItemLibraryMode, List<ILootable<T>>>() { { ItemLibraryMode.All, allInternalLoot } };
+            lootHashMap = new Dictionary<string, List<ILootable<T>>>() { { "All", allInternalLoot } };
 
             InitLootables(fetcher, startMode);
         }
 
-        private BaseSplitItemHandler(ILootTypeFetcher<T>[] fetchers, ItemLibraryMode[] modes)
+        private BaseSplitItemHandler(ILootTypeFetcher<T>[] fetchers, string[] modes)
         {
             allInternalLoot = new List<ILootable<T>>();
-            lootHashMap = new Dictionary<ItemLibraryMode, List<ILootable<T>>>() { { ItemLibraryMode.All, allInternalLoot } };
+            lootHashMap = new Dictionary<string, List<ILootable<T>>>() { { "All", allInternalLoot } };
 
             InitLootables(fetchers, modes);
         }
@@ -61,14 +49,14 @@ namespace WebTest.LootEngine
 
         public void Add(ILootable<T> item)
         {
-            if (currMode != ItemLibraryMode.All)
+            if (currMode != "All")
                 lootHashMap[currMode].Add(item);
             allInternalLoot.Add(item);
         }
 
         public void AddRange(ILootable<T>[] items)
         {
-            if (currMode != ItemLibraryMode.All)
+            if (currMode != "All")
                 lootHashMap[currMode].AddRange(items);
             allInternalLoot.AddRange(items);
         }
@@ -86,12 +74,12 @@ namespace WebTest.LootEngine
         public void InitLootables(ILootTypeFetcher<T> fetcher)
         {
             ILootable<T>[] newLoot = fetcher.GetAllLootableTypes().GetInstances().DoFunc(o => o as ILootable<T>);
-            if (currMode != ItemLibraryMode.All)
+            if (currMode != "All")
                 lootHashMap[currMode].AddRange(newLoot);
             allInternalLoot.AddRange(newLoot);
         }
 
-        public void InitLootables(ILootTypeFetcher<T> fetcher, ItemLibraryMode startMode)
+        public void InitLootables(ILootTypeFetcher<T> fetcher, string startMode)
         {
             currMode = startMode;
             if (!lootHashMap.Keys.Contains(startMode))
@@ -100,7 +88,7 @@ namespace WebTest.LootEngine
         }
 
         /// <exception cref="IndexOutOfRangeException">At uneven Array lengths</exception>
-        public void InitLootables(ILootTypeFetcher<T>[] fetchers, ItemLibraryMode[] modes)
+        public void InitLootables(ILootTypeFetcher<T>[] fetchers, string[] modes)
         {
             if (fetchers.Length != modes.Length)
                 throw new IndexOutOfRangeException("Uneven Array length. Both Arrays must have the same length");
@@ -111,12 +99,18 @@ namespace WebTest.LootEngine
                 InitLootables(fetchers[i], modes[i]);
             }
 
-            currMode = ItemLibraryMode.All;
+            currMode = "string";
         }
 
         public bool TrySwitchMode(string newMode)
         {
-            return Enum.TryParse(newMode, out currMode);
+            if (!lootHashMap.Keys.Contains(newMode))
+                return false;
+            else
+            {
+                currMode = newMode;
+                return true;
+            }
         }
 
         #endregion
@@ -154,11 +148,11 @@ namespace WebTest.LootEngine
             }
         }
 
-        public ItemLibraryMode ItemMode
+        public string ItemMode
         {
             get { return currMode; }
-            set { currMode = value; }
         }
+
         #endregion
     }
 }

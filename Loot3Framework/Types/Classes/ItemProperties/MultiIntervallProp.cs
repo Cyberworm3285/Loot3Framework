@@ -10,15 +10,17 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.ItemProperties
 {
-    [CLSCompliant(true)]
+    
     public class MultiIntervallProp : IItemProperty
     {
         public string[] names;
         public Intervall[] intervalls;
 
+        ///<exception cref="IndexOutOfRangeException">at uneven array lengths</exception>
         public MultiIntervallProp(string[] _names, Intervall[] _intervalls)
         {
-            if (_names.Length != _intervalls.Length) throw new Exception();
+            if (_names.Length != _intervalls.Length)
+                throw new IndexOutOfRangeException("uneven array lengths");
             names = _names;
             intervalls = _intervalls;
         }
@@ -34,7 +36,7 @@ namespace Loot3Framework.Types.Classes.ItemProperties
             return names[rdm] + "(" + intervalls[rdm].Rand() + ")";
         }
 
-        public static implicit operator string(MultiIntervallProp m)
+        public static explicit operator string(MultiIntervallProp m)
         {
             return m.Generate();
         }

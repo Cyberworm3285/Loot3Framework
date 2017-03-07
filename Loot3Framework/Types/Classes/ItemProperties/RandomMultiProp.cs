@@ -9,7 +9,7 @@ using Loot3Framework.Global;
 
 namespace Loot3Framework.Types.Classes.ItemProperties
 {
-    [CLSCompliant(true)]
+    
     public class RandomMultiProp : IItemProperty
     {
         public IItemProperty[] props;
