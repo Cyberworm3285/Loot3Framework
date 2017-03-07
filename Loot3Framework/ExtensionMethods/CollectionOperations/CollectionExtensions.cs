@@ -94,10 +94,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
 
         #region DoAction
 
-        public static void DoAction<T>(this T[] t, Action<T> action)
-        {
-            Array.ForEach(t, action);
-        }
+        public static void DoAction<T>(this T[] t, Action<T> action) => Array.ForEach(t, action);
 
         public static void DoAction(this IEnumerable e, Action<object> action)
         {
@@ -194,7 +191,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         public static T[] RemoveIf<T>(this T[] t, Func<T, bool> condition)
         {
             List<T> result = new List<T>();
-            t.DoConditionalAction(tt => result.Add(tt), tt => condition(tt));
+            t.DoConditionalAction(tt => result.Add(tt), tt => !condition(tt));
             return result.ToArray();
         }
 
@@ -213,10 +210,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
 
         #region HasItemWhere
 
-        public static bool HasItemWhere<T>(this T[] t, Func<T, bool> condition)
-        {
-            return !t.All(tt => condition(tt));
-        }
+        public static bool HasItemWhere<T>(this T[] t, Func<T, bool> condition) => !t.All(tt => condition(tt));
 
         public static bool HasItemWhere(this IEnumerable e, Func<object, bool> condition)
         {
