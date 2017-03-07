@@ -53,7 +53,7 @@ namespace Loot3Vorbereitung
             {
                 try
                 {
-                    PR_PartionLoot<string, PartitionLoot<string>> looter = new PR_PartionLoot<string, PartitionLoot<string>>(DefaultRarityTable.SharedInstance, PartitionLoot<string>.Instance, checkedListBox2.CheckedItems.DoFunc(i => i as string));
+                    PR_PartionLoot<string, PartitionLoot<string>> looter = new PR_PartionLoot<string, PartitionLoot<string>>(DefaultRarityTable.SharedInstance, PartitionLoot<string>.SharedInstance, checkedListBox2.CheckedItems.DoFunc(i => i as string));
                     listBox1.Items.Add(
                         GlobalItems.Instance.GetLoot(
                             looter,
@@ -81,36 +81,32 @@ namespace Loot3Vorbereitung
                     }
 
                     int j = 0;
-
-                    if (false)
-                    {
-                        Console.WriteLine(
-                            "(" +
-                            counter +
-                            ")-> " +
-                            looter.LastRarity +
-                            " ::rarity had probability of: " +
-                            Math.Round(looter.LastProbability, 2) +
-                            "% \nwith range of: " +
-                            looter.LastRarityRange +
-                            " \nand rarity-roll: " +
-                            looter.LastRoll +
-                            " /\nitem-roll: " +
-                            looter.InnerAlgorithm.LastRoll +
-                            " \nin total range of: [" +
-                            looter.InnerAlgorithm.LastChain.Intervalls.First().X +
-                            ";" +
-                            looter.InnerAlgorithm.LastChain.Intervalls.Last().Y +
-                            "] \nand local range of: " +
-                            looter.InnerAlgorithm.LastIntervall +
-                            " \nwith all items: " +
-                            looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
-                            " \nor " +
-                            string.Join(",", looter.InnerAlgorithm.LastItemNames.DoFunc(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]")) +
-                            " \nor " +
-                            string.Join(",", looter.InnerAlgorithm.LastItemNames.FuseInto(looter.InnerAlgorithm.LastItemRarities, (n, r) => "[" + n + ";" + r + "]"))
-                            );
-                    }
+                    Console.WriteLine(
+                        "(" +
+                        counter +
+                        ")-> " +
+                        looter.LastRarity +
+                        " ::rarity had probability of: " +
+                        Math.Round(looter.LastProbability, 2) +
+                        "% \nwith range of: " +
+                        looter.LastRarityRange +
+                        " \nand rarity-roll: " +
+                        looter.LastRoll +
+                        " /\nitem-roll: " +
+                        looter.InnerAlgorithm.LastRoll +
+                        " \nin total range of: [" +
+                        looter.InnerAlgorithm.LastChain.Intervalls.First().X +
+                        ";" +
+                        looter.InnerAlgorithm.LastChain.Intervalls.Last().Y +
+                        "] \nand local range of: " +
+                        looter.InnerAlgorithm.LastIntervall +
+                        " \nwith all items: " +
+                        looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
+                        " \nor " +
+                        string.Join(",", looter.InnerAlgorithm.LastItemNames.DoFunc(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]")) +
+                        " \nor " +
+                        string.Join(",", looter.InnerAlgorithm.LastItemNames.FuseInto(looter.InnerAlgorithm.LastItemRarities, (n, r) => "[" + n + ";" + r + "]"))
+                        );
                 }
                 catch (NoMatchingLootException)
                 {
