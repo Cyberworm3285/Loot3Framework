@@ -69,14 +69,3 @@ namespace Items
         }
     }
 }
-namespace Containers
-{
-    public class ContainerProvider : DefaultObjectFetcher<string>
-    {
-        public ContainerProvider() : base(new ILootable<string>[]
-            {
-                new LootObjectContainer<string>("Mettwurst").SetProps(null, true, "Mettwurst", 599, "Artefakt"),
-                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen").SetProps(null, true, "Func", 400, "LootFunction"),
-            }) { }
-    }
-}

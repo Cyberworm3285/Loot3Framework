@@ -9,6 +9,8 @@
     <input type="button" id="button01" onclick="GetLoot()" value="Jo"/>
     <input type="button" id="button02" onclick="Switch('Pirates')" value="Switch to Pirates" />
     <input type="button" id="button03" onclick="Switch('Space')" value="Switch to Space" />
+    <p>--</p>
+    <input type="button" id="button04" onclick="TestAPI()" value="Test"/>
 </div>
 
 <script type="text/javascript">
@@ -32,11 +34,24 @@
             url: '@Url.Action("SwitchSplitMode")',
             data: { newMode: value },
             success: function (result) {
+                alert('@Url.Action("SwitchSplitMode")');
                 alert(result);
             },
             error: function () {
                 alert("Error");
             }
         })
+    }
+
+    function TestAPI() {
+
+        $.ajax({
+            url: "http://localhost:51634/api/config",
+            type: "PUT",
+            data: "{\n\t\"name\":null,\n\t\"lowerRar\":0,\n\t\"upperRar\":1000,\n\t\"typeContains\":null,\n\t\"rarContains\":null,\n\t\"allowedTypes\":null,\n\t\"allowedRars\":null\n}",
+            contentType: "application/json"
+        }).done(function (result) { 
+            alert(result);
+        });
     }
 </script>
