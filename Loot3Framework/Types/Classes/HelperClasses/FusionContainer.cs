@@ -2,49 +2,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Loot3Framework.Types.Classes.HelperClasses
 {
-    [Serializable]
-    public sealed class FusionContainer<T1, T2>
+    /// <summary>
+    /// Container für <see cref="FusionTuple{T1, T2}"/>s mit sämtlichen Operationen
+    /// </summary>
+    /// <typeparam name="T1">Typ 1</typeparam>
+    /// <typeparam name="T2">Typ 2</typeparam>
+    public class FusionContainer<T1, T2>
     {
-        private T1 t1 { get; set; }
-        private T2 t2 { get; set; }
-
-        public FusionContainer() { }
-
-        public FusionContainer(T1 _t1, T2 _t2)
+        private FusionTuple<T1, T2>[] fusionResults;
+        /// <summary>
+        /// Konstruktor, der die inneren <see cref="FusionTuple{T1, T2}"/>s setzt
+        /// </summary>
+        /// <param name="tuples">Die Tuples</param>
+        public FusionContainer(FusionTuple<T1, T2>[] tuples)
         {
-            t1 = _t1;
-            t2 = _t2;
+            fusionResults = tuples;
         }
-
-        public override string ToString()
+        /// <summary>
+        /// Fusioniert zwei <see cref="Array"/>s und speichert das Ergebnis intern ab
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        public void Fuse(T1[] t1, T2[] t2)
         {
-            return "[" + t1 + ";" + t2 + "]";
+            fusionResults = t1.Fuse(t2).fusionResults;
         }
-
-        public static explicit operator Tuple<T1, T2>(FusionContainer<T1, T2> fus)
+        /// <summary>
+        /// Trennt die inneren <see cref="FusionTuple{T1, T2}"/>s wieder in ihre Bestandteile auf
+        /// </summary>
+        /// <param name="t1">Output für Typ 1</param>
+        /// <param name="t2">Output für Typ 2</param>
+        public void DeFuse(out T1[] t1, out T2[] t2)
         {
-            return Tuple.Create(fus.Item1, fus.Item2);
+            fusionResults.DeFuse(out t1, out t2);
         }
-
-        public static explicit operator FusionContainer<T1, T2>(Tuple<T1, T2> tup)
+        /// <summary>
+        /// Gibt die momentan gespeicherten Tuples aus
+        /// </summary>
+        public FusionTuple<T1, T2>[] FusionTuples
         {
-            return new FusionContainer<T1, T2>(tup.Item1, tup.Item2);
-        }
-
-        public T1 Item1
-        {
-            get { return t1; }
-            set { t1 = value; }
-        }
-
-        public T2 Item2
-        {
-            get { return t2; }
-            set { t2 = value; }
+            get { return fusionResults; }
         }
     }
 }

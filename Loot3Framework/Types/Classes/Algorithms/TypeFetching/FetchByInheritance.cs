@@ -7,19 +7,34 @@ using Loot3Framework.ExtensionMethods.Other;
 
 namespace Loot3Framework.Types.Classes.Algorithms.TypeFetching
 {
-    
+    /// <summary>
+    /// Sucht Loot-Typen anhand ihre Abstammung von dem angebenen Typ (Klassen/ Interfaces)
+    /// </summary>
+    /// <typeparam name="T">Der zu lootende Typ</typeparam>
+    /// <seealso cref="ILootTypeFetcher{T}"/>
+    /// <seealso cref="FetchByLootTags{T}"/>
+    /// <seealso cref="FetchByNamespace{T}"/>
+    /// <seealso cref="Multifetching{T}"/>
+    /// <seealso cref="TypeForwardFetching{T}"/>
     public class FetchByInheritance<T> : ILootTypeFetcher<T>
     {
-        List<Type> types;
-        Type baseType;
+        private List<Type> types;
+        private Type baseType;
 
+        /// <summary>
+        /// Konstruktor der den Basis-Typ setzt
+        /// </summary>
+        /// <param name="_baseType"></param>
         public FetchByInheritance(Type _baseType)
         {
             types = new List<Type>();
             baseType = _baseType;
             
         }
-
+        /// <summary>
+        /// Sucht alle Typen anhand ihrer Abstammung zum Basis-Typ 
+        /// </summary>
+        /// <returns>Alle gültigen Typen</returns>
         public Type[] GetAllLootableTypes()
         {
             Type typooo = typeof(Loot3Framework.Types.Classes.BaseClasses.BasePP_StringItem);

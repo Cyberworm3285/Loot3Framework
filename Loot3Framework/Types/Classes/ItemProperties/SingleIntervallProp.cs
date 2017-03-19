@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks
 
 using Loot3Framework.Global;
 using Loot3Framework.Interfaces;
@@ -11,7 +11,7 @@ using Loot3Framework.Types.Structs;
 namespace Loot3Framework.Types.Classes.ItemProperties
 {
     
-    public class SingleIntervallProp : IItemProperty
+    public class SingleIntervallProp : IItemProperty<string>
     {
         public Intervall intervall;
         public string[] propNames;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks
 
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 
@@ -34,7 +34,7 @@ namespace Loot3Framework.Types.Structs
 
         public override string ToString()
         {
-            return "{" + string.Join("," , intervalls.DoFunc(i => i.ToString())) + "}";
+            return "{" + string.Join("," , intervalls.Select(i => i.ToString()).ToArray()) + "}";
         }
 
         #region Properties

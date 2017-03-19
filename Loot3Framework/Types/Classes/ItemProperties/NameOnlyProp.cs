@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks
 
 using Loot3Framework.Interfaces;
 
 namespace Loot3Framework.Types.Classes.ItemProperties
 {
     
-    public class NameOnlyProp : IItemProperty
+    public class NameOnlyProp : IItemProperty<string>
     {
         public string name;
 

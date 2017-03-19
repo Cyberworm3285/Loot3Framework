@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks
 
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
@@ -12,10 +12,19 @@ using Loot3Framework.Types.Exceptions;
 
 namespace Loot3Framework.Tools
 {
+    /// <summary>
+    /// Ein Runtime Compiler für C# Code
+    /// </summary>
     [CLSCompliant(false)]
     public static class RuntimeCompiler
     {
-        ///<exception cref="RuntimeCompileException">at existing compile errors</exception>
+        /// <summary>
+        /// Comiliert die angegebene Datei mit den angegebenen Verweisen
+        /// </summary>
+        /// <param name="path">Die Datei</param>
+        /// <param name="dependencies">Die Verweise</param>
+        /// <returns>Die Namespaces des Compilierten C# Codes</returns>
+        ///<exception cref="RuntimeCompileException">Wenn das Compilieren fehlschlägt</exception>
         public static string[] CompileFiles(string path, string[] dependencies)
         {
             CSharpCodeProvider provider = new CSharpCodeProvider();
@@ -36,7 +45,12 @@ namespace Loot3Framework.Tools
 
             return namespaces.ToArray();
         }
-
+        /// <summary>
+        /// Comiliert die angegebenen Dateien mit den angegebenen Verweisen
+        /// </summary>
+        /// <param name="path">Die Dateien</param>
+        /// <param name="dependencies">Die Verweise</param>
+        /// <returns>Die Namespaces des Compilierten C# Codes</returns>
         public static string[] CompileFiles(string[] path, string[] dependencies)
         {
             List<string> namespaces = new List<string>();
@@ -48,13 +62,24 @@ namespace Loot3Framework.Tools
 
             return namespaces.ToArray();
         }
-
+        /// <summary>
+        /// Comiliert alle Dateien im angegebenen Verzeichnis mit den angegebenen Verweisen
+        /// </summary>
+        /// <param name="path">Das Verzeichnis</param>
+        /// <param name="dependencies">Die Verweise</param>
+        /// <returns>Die Namespaces des Compilierten C# Codes</returns>
         public static string[] CompileAllFilesInDirectory(string path, string[] dependencies)
         {
             string[] filesNames = Directory.GetFiles(path);
             return CompileFiles(filesNames, dependencies);            
         }
-
+        /// <summary>
+        /// Comiliert die angegebene Datei mit den angegebenen Verweisen (try-Pattern)
+        /// </summary>
+        /// <param name="path">Die Datei</param>
+        /// <param name="dependencies">Die Verweise</param>
+        /// <param name="outputNamespaces">Output für die Namespaces des Compilierten C# Codes</param>
+        /// <returns>true bei Erfolg</returns>
         public static bool TryCompileFiles(string path, string[] dependencies, out string[] outputNamespaces)
         {
             try
@@ -68,8 +93,14 @@ namespace Loot3Framework.Tools
                 return false;
             }
         }
-
-        public static bool TryCompileFiles(string[] path, string[] dependencies, out string[] outputNamespace)
+        /// <summary>
+        /// Comiliert die angegebenen Dateien mit den angegebenen Verweisen (try-Pattern)
+        /// </summary>
+        /// <param name="path">Die Dateien</param>
+        /// <param name="dependencies">Die Verweise</param>
+        /// <param name="outputNamespaces">Output für die Namespaces des Compilierten C# Codes</param>
+        /// <returns>true bei Erfolg</returns>
+        public static bool TryCompileFiles(string[] path, string[] dependencies, out string[] outputNamespaces)
         {
             bool flag = true;
             List<string> results = new List<string>();
@@ -79,16 +110,22 @@ namespace Loot3Framework.Tools
                 flag = !flag && TryCompileFiles(s, dependencies, out result);
                 if (result != null) results.AddRange(result);
             }
-            outputNamespace = results.ToArray();
+            outputNamespaces = results.ToArray();
             return flag;
         }
-
-        public static bool TryCompileAllFilesInDirectory(string path, string[] dependencies, out string[] outputNamespace)
+        /// <summary>
+        /// Comiliert alle Dateien im angegebenen Verzeichnis mit den angegebenen Verweisen (try-Pattern)
+        /// </summary>
+        /// <param name="path">Das Verzeichnis</param>
+        /// <param name="dependencies">Die Verweise</param>
+        /// <param name="outputNamespaces">Output für die Namespaces des Compilierten C# Codes</param>
+        /// <returns>true bei Erfolg</returns>
+        public static bool TryCompileAllFilesInDirectory(string path, string[] dependencies, out string[] outputNamespaces)
         {
             string[] fileNames = Directory.GetFiles(path);
             string[] results;
             bool flag = TryCompileFiles(fileNames, dependencies, out results);
-            outputNamespace = results;
+            outputNamespaces = results;
             return flag;
         }
     }

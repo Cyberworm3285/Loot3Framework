@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks
 
 using System.Collections;
 
@@ -11,17 +11,21 @@ using Loot3Framework.Types.Exceptions;
 
 namespace Loot3Framework.ExtensionMethods.CollectionOperations
 {
+    /// <summary>
+    /// Alle allgemeinen Extensions für <see cref="ICollection"/>s, <see cref="IEnumerable"/>s und natürlich <see cref="Array"/>s
+    /// </summary>
     public static class CollectionExtensions
     {
         #region DoFunc
         /// <summary>
-        /// Wndet auf den gesamten Array die angegebene Funktion an
+        /// Wendet auf den gesamten Array die angegebene Funktion an
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="t"></param>
-        /// <param name="func"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">Ausgangs-Typ</typeparam>
+        /// <typeparam name="TResult">Resuliterender Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <param name="func">Die Funktion zum Anwenden</param>
+        /// <returns>Den Array Von Resultaten der Anwendung von func auf t</returns>
+        [Obsolete]
         public static TResult[] DoFunc<T, TResult>(this T[] t, Func<T, TResult> func)
         {
             TResult[] result = new TResult[t.Length];
@@ -31,7 +35,14 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             }
             return result;
         }
-
+        /// <summary>
+        /// Wendet auf den gesamten resultierenden Array die angegebene Funktion an (nicht generisch -> Ausgangsobjekte sind <see cref="object"/>)
+        /// </summary>
+        /// <typeparam name="TResult">Resultierender Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="func">Die Funktion zum Anwenden</param>
+        /// <returns>Den Array Von Resultaten der Anwendung von func auf die Elemente</returns>
+        [Obsolete]
         public static TResult[] DoFunc<TResult>(this IEnumerable e, Func<object, TResult> func) where TResult : class
         {
             List<TResult> result = new List<TResult>();
@@ -42,7 +53,15 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             }
             return result.ToArray();
         }
-
+        /// <summary>
+        /// Wendet auf den gesamten resultierenden Array die angegebene Funktion an
+        /// </summary>
+        /// <typeparam name="T">Ausgangs-Typ</typeparam>
+        /// <typeparam name="TResult">Resultierender Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="func">Die Funktion zum Anwenden</param>
+        /// <returns>Den Array Von Resultaten der Anwendung von func auf die Elemente</returns>
+        [Obsolete]
         public static TResult[] DoFunc<T, TResult>(this IEnumerable<T> e, Func<T, TResult> func) where TResult : class
         {
             List<TResult> result = new List<TResult>();
@@ -54,47 +73,34 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             return result.ToArray();
         }
 
-        public static List<TResult> DoConditionalFunc<T, TResult>(this T[] t, Func<T, TResult> func, Func<T, bool> condition)
+        public static IEnumerable<TKey> Select<TKey>(this IEnumerable e, Func<object, TKey> selector)
         {
-            List<TResult> result = new List<TResult>();
-            for (int i = 0; i < t.Length; i++)
-            {
-                if (condition(t[i]))
-                    result.Add(func(t[i]));
-            }
-            return result;
-        }
+            IEnumerator<object> en = e.Cast<object>().GetEnumerator();
+            List<TKey> result = new List<TKey>();
 
-        public static List<TResult> DoConditionalFunc<TResult>(this IEnumerable e, Func<object, TResult> func, Func<object, bool> condition) where TResult : class
-        {
-            List<TResult> result = new List<TResult>();
-            IEnumerator enumerator = e.GetEnumerator();
-            while (enumerator.MoveNext())
+            while (en.MoveNext())
             {
-                if (condition(enumerator.Current))
-                    result.Add(func(enumerator.Current));
+                result.Add(selector(en.Current));
             }
-            return result;
-        }
 
-        public static List<TResult> DoConditionalFunc<T, TResult>(this IEnumerable<T> e, Func<T, TResult> func, Func<T, bool> condition) where TResult : class
-        {
-            List<TResult> result = new List<TResult>();
-            IEnumerator<T> enumerator = e.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                if (condition(enumerator.Current))
-                    result.Add(func(enumerator.Current));
-            }
             return result;
         }
 
         #endregion
 
         #region DoAction
-
+        /// <summary>
+        /// Führt mit allen Elementen die angegebene <see cref="Action"/> aus
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <param name="action">Die auszführende Aktion</param>
         public static void DoAction<T>(this T[] t, Action<T> action) => Array.ForEach(t, action);
-
+        /// <summary>
+        /// Führt mit allen Elementen die angegebene <see cref="Action"/> aus
+        /// </summary>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="action">Die auszführende Aktion</param>
         public static void DoAction(this IEnumerable e, Action<object> action)
         {
             IEnumerator enumerator = e.GetEnumerator();
@@ -103,7 +109,12 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
                 action(enumerator.Current);
             }
         }
-
+        /// <summary>
+        /// Führt mit allen Elementen die angegebene <see cref="Action"/> aus
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="action">Die auszführende Aktion</param>
         public static void DoAction<T>(this IEnumerable<T> e, Action<T> action)
         {
             IEnumerator<T> enumerator = e.GetEnumerator();
@@ -112,14 +123,25 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
                 action(enumerator.Current);
             }
         }
-
+        /// <summary>
+        /// Führt mit allen Elementen die angegebene <see cref="Action"/> aus, wenn die Bedingung erfüllt ist
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <param name="action">Die auszführende Aktion</param>
+        /// <param name="condition">Die Bedingung zum ausführen</param>
         public static void DoConditionalAction<T>(this T[] t, Action<T> action, Func<T, bool> condition)
         {
             foreach (T tt in t)
                 if (condition(tt))
                     action(tt);
         }
-
+        /// <summary>
+        /// Führt mit allen Elementen die angegebene <see cref="Action"/> aus, wenn die Bedingung erfüllt ist
+        /// </summary>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="action">Die auszführende Aktion</param>
+        /// <param name="condition">Die Bedingung zum ausführen</param>
         public static void DoConditionalAction(this IEnumerable e, Action<object> action, Func<object, bool> condition)
         {
             IEnumerator enumerator = e.GetEnumerator();
@@ -129,7 +151,13 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
                     action(enumerator.Current);
             }
         }
-
+        /// <summary>
+        /// Führt mit allen Elementen die angegebene <see cref="Action"/> aus, wenn die Bedingung erfüllt ist
+        /// </summary>
+        /// <typeparam name="T">der erweiterte Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="action">Die auszführende Aktion</param>
+        /// <param name="condition">Die Bedingung zum ausführen</param>
         public static void DoConditionalAction<T>(this IEnumerable<T> e, Action<T> action, Func<T, bool> condition)
         {
             IEnumerator<T> enumerator = e.GetEnumerator();
@@ -143,7 +171,13 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         #endregion
 
         #region DoWith
-
+        /// <summary>
+        /// Führt mit dem Objekt die angegebene Aktion durch und gibt dieses wieder zurück
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <param name="action">Die auszuführende Aktion</param>
+        /// <returns></returns>
         public static T DoWith<T>(this T t, Action<T> action)
         {
             action(t);
@@ -153,21 +187,38 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         #endregion
 
         #region ChainUp
-
+        /// <summary>
+        /// Fügt alle Elemente der Auflistungen zu einer Auflistung zusammen
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <returns>Die Verkettung aller Elemente</returns>
         public static T[] ChainUp<T>(this T[][] t)
         {
             List<T> result = new List<T>();
             t.DoAction(tt => result.AddRange(tt));
             return result.ToArray();
         }
-
+        /// <summary>
+        /// Erstellt die angegebene <see cref="ICollection"/> und fügt alle Elemente der Auflistungen hinzu
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <typeparam name="TResult">Der Typ der <see cref="ICollection"/></typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <returns>Die Verkettung aller Elemente</returns>
         public static TResult ChainUpToCollection<T, TResult>(this T[][] t) where TResult : ICollection<T>, new()
         {
             TResult result = new TResult();
             t.DoAction(tt => tt.DoAction(ttt => result.Add(ttt)));
             return result;
         }
-
+        /// <summary>
+        /// Fügt alle Elemente der Auflistungen zur angegebenen <see cref="ICollection"/> hinzu
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <typeparam name="TResult">Der Typ der <see cref="ICollection"/></typeparam>
+        /// <param name="c">Das erweiterte Objekt</param>
+        /// <returns>Die Verkettung aller Elemente</returns>
         public static TResult ChainUpToCollection<T, TResult>(this ICollection<ICollection<T>> c) where TResult : ICollection<T>, new()
         {
             TResult result = new TResult();
@@ -186,14 +237,26 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         #endregion
 
         #region RemoveIf
-
+        /// <summary>
+        /// Gibt einen Array ohne die Objekte, die die Bedingung erfüllen, zurück
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <param name="condition">Die Bedingung zum Entfernen</param>
+        /// <returns>Den Array ohne die passenden Objekte</returns>
         public static T[] RemoveIf<T>(this T[] t, Func<T, bool> condition)
         {
             List<T> result = new List<T>();
             t.DoConditionalAction(tt => result.Add(tt), tt => !condition(tt));
             return result.ToArray();
         }
-
+        /// <summary>
+        /// Gibt eine <see cref="ICollection"/> ohne die Objekte, die die Bedingung erfüllen, zurück
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="c">Das erweiterte Objekt</param>
+        /// <param name="condition">Die Bedingung zum Entfernen</param>
+        /// <returns>Die <see cref="ICollection"/> ohne die passenden Objekte</returns>
         public static ICollection<T> RemoveIf<T>(this ICollection<T> c, Func<T, bool> condition)
         {
             List<T> temp = c.ToList();
@@ -208,9 +271,20 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         #endregion
 
         #region HasItemWhere
-
+        /// <summary>
+        /// Zeigt an, ob ein Element mit den angegebenen Paramtetern vorhanden ist
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <param name="condition">Die Paramter</param>
+        /// <returns>Ja oder Nein halt</returns>
         public static bool HasItemWhere<T>(this T[] t, Func<T, bool> condition) => !t.All(tt => condition(tt));
-
+        /// <summary>
+        /// Zeigt an, ob ein Element mit den angegebenen Paramtetern vorhanden ist
+        /// </summary>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="condition">Die Paramter</param>
+        /// <returns>Ja oder Nein halt</returns>
         public static bool HasItemWhere(this IEnumerable e, Func<object, bool> condition)
         {
             IEnumerator enumerator = e.GetEnumerator();
@@ -220,7 +294,13 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             }
             return false;
         }
-
+        /// <summary>
+        /// Zeigt an, ob ein Element mit den angegebenen Paramtetern vorhanden ist
+        /// </summary>
+        /// <typeparam name="T">Der erweiterte Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="condition">Die Paramter</param>
+        /// <returns>Ja oder Nein halt</returns>
         public static bool HasItemWhere<T>(this IEnumerable<T> e, Func<T, bool> condition)
         {
             IEnumerator<T> enumerator = e.GetEnumerator();
@@ -235,7 +315,21 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         #endregion
 
         #region SumUp
-
+        /// <summary>
+        /// Fügt Alle Elemente anhand des Converters und des Adders zu einem Element zusammen
+        /// </summary>
+        /// <typeparam name="TIn">Der Ausgangs-Typ</typeparam>
+        /// <typeparam name="TOut">Der resultierende Typ</typeparam>
+        /// <param name="t">Das erweiterte Objekt</param>
+        /// <param name="converter">Converter von TIn zu TOut</param>
+        /// <param name="adder">Fügt zwei TOut Elemente zu einem zusammen</param>
+        /// <returns>Alle Elemente als eins zusammengefügt</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(new int[] { 1, 2, 3 }.SumUp((i) => i.ToString(), (i1, i2) => i1 + ", " + i2));
+        /// //output: 1, 2, 3
+        /// </code>
+        /// </example>
         public static TOut SumUp<TIn, TOut>(this TIn[] t, Converter<TIn, TOut> converter, Func<TOut, TOut, TOut> adder)
         {
             TOut result = converter(t.First());
@@ -245,7 +339,14 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             }
             return result;
         }
-
+        /// <summary>
+        /// Fügt Alle Elemente anhand des Converters und des Adders zu einem Element zusammen
+        /// </summary>
+        /// <typeparam name="TOut">Der resultierende Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="converter">Converter von TIn zu TOut</param>
+        /// <param name="adder">Fügt zwei TOut Elemente zu einem zusammen</param>
+        /// <returns>Alle Elemente als eins zusammengefügt</returns>
         public static TOut SumUp<TOut>(this IEnumerable e, Converter<object, TOut> converter, Func<TOut, TOut, TOut> adder)
         {
             IEnumerator enumerator = e.GetEnumerator();
@@ -258,7 +359,15 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
 
             return result; 
         }
-
+        /// <summary>
+        /// Fügt Alle Elemente anhand des Converters und des Adders zu einem Element zusammen
+        /// </summary>
+        /// <typeparam name="TIn">Der Ausgangs-Typ</typeparam>
+        /// <typeparam name="TOut">Der resultierende Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="converter">Converter von TIn zu TOut</param>
+        /// <param name="adder">Fügt zwei TOut Elemente zu einem zusammen</param>
+        /// <returns>Alle Elemente als eins zusammengefügt</returns>
         public static TOut SumUp<TIn, TOut>(this IEnumerable<TIn> e, Converter<TIn, TOut> converter, Func<TOut,TOut,TOut> adder)
         {
             IEnumerator<TIn> enumerator = e.GetEnumerator();
@@ -276,44 +385,96 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
 
         #region Fuse
 
-        ///<exception cref="IndexOutOfRangeException">at uneven array lengths</exception>
-        public static FusionContainer<T1, T2>[] Fuse<T1, T2>(this T1[] t1, T2[] t2)
+        /// <summary>
+        /// Fusioniert zwei Arrays zu einem teilbaren Container Array
+        /// </summary>
+        /// <typeparam name="T1">Typ1</typeparam>
+        /// <typeparam name="T2">Typ2</typeparam>
+        /// <param name="t1">Das erweiterte Objekt</param>
+        /// <param name="t2">Der zweite Array</param>
+        /// <returns>Einen teilbaren Container Array</returns>
+        /// <exception cref="IndexOutOfRangeException">Wenn die Arrays unterschiedlich lang sind</exception>
+        /// <example>
+        /// <para>
+        /// Mit der Bindung zweier Objekte kann man z.B. Änderungen von Positionen in Collections an beiden Objekten gleichzeitig durchführen,
+        /// ohne einen eigenen Algorithmus zu schreiben. Hier wird ein <see cref="string"/>-<see cref="Array"/> von mit Zahlen-Representationen anhand ihrer
+        /// Zahl-Equivalente sortiert (der <see cref="int"/>-<see cref="Array"/>)
+        /// </para>
+        /// <code>
+        /// string[] aa;
+        /// int[] bb;
+        /// 
+        /// new string[] { "eins", "drei", "zwei" }.Fuse(new int[] { 1, 3, 2 }).FusionTuples.OrderBy(i => i.Item2).ToArray().DeFuse(out aa, out bb);
+        /// // aa: { "eins", "zwei", "drei" }, bb: { 1, 2 ,3 }
+        /// </code>
+        /// </example>
+        public static FusionContainer<T1, T2> Fuse<T1, T2>(this T1[] t1, T2[] t2)
         {
             if (t1.Length != t2.Length)
                 throw new IndexOutOfRangeException("uneven array-lengths");
-            FusionContainer<T1, T2>[] result = new FusionContainer<T1, T2>[t1.Length];
+            FusionTuple<T1, T2>[] result = new FusionTuple<T1, T2>[t1.Length];
             for (int i = 0; i < t1.Length; i++)
             {
-                result[i] = new FusionContainer<T1, T2>(t1[i], t2[i]);
+                result[i] = new FusionTuple<T1, T2>(t1[i], t2[i]);
             }
-            return result;
+            return new FusionContainer<T1, T2>(result);
         }
-
-        ///<exception cref="IndexOutOfRangeException">at uneven enumeration counts</exception>
-        public static FusionContainer<T1, T2>[] Fuse<T1, T2>(this IEnumerable<T1> e1, IEnumerable<T2> e2)
+        /// <summary>
+        /// Fusioniert zwei <see cref="IEnumerable"/>s zu einem teilbaren Container Array
+        /// </summary>
+        /// <typeparam name="T1">Typ1</typeparam>
+        /// <typeparam name="T2">Typ2</typeparam>
+        /// <param name="e1">Das erweiterte Objekt</param>
+        /// <param name="e2">Das zweite <see cref="IEnumerable"/></param>
+        /// <returns>Einen teilbaren Container Array</returns>
+        ///<exception cref="IndexOutOfRangeException">Wenn die Enumerationen unterschiedlich lang sind</exception>
+        ///        /// <example>
+        /// <para>
+        /// Mit der Bindung zweier Objekte kann man z.B. Änderungen von Positionen in Collections an beiden Objekten gleichzeitig durchführen,
+        /// ohne einen eigenen Algorithmus zu schreiben. Hier wird ein <see cref="string"/>-<see cref="Array"/> von mit Zahlen-Representationen anhand ihrer
+        /// Zahl-Equivalente sortiert (der <see cref="int"/>-<see cref="Array"/>)
+        /// </para>
+        /// <code>
+        /// string[] aa;
+        /// int[] bb;
+        /// 
+        /// new string[] { "eins", "drei", "zwei" }.Fuse(new int[] { 1, 3, 2 }).FusionTuples.OrderBy(i => i.Item2).ToArray().DeFuse(out aa, out bb);
+        /// // aa: { "eins", "zwei", "drei" }, bb: { 1, 2 ,3 }
+        /// </code>
+        /// </example>
+        public static FusionContainer<T1, T2> Fuse<T1, T2>(this IEnumerable<T1> e1, IEnumerable<T2> e2)
         {
             int e1Count = e1.Count();
             if (e1Count != e2.Count())
                 throw new IndexOutOfRangeException("uneven enumeration-counts");
 
             int counter = 0;
-            FusionContainer<T1, T2>[] result = new FusionContainer<T1, T2>[e1Count];
+            FusionTuple<T1, T2>[] result = new FusionTuple<T1, T2>[e1Count];
             IEnumerator<T1> enu1 = e1.GetEnumerator();
             IEnumerator<T2> enu2 = e2.GetEnumerator();
 
             while (enu1.MoveNext() && enu2.MoveNext())
             {
-                result[counter++] = new FusionContainer<T1, T2>(enu1.Current, enu2.Current);
+                result[counter++] = new FusionTuple<T1, T2>(enu1.Current, enu2.Current);
             }
 
-            return result;
+            return new FusionContainer<T1, T2>(result);
         }
 
         #endregion
 
         #region FuseInto
-
-        ///<exception cref="IndexOutOfRangeException">at uneven array lengths</exception>
+        /// <summary>
+        /// Fusioniert zwei Arrays zu einem ggf. untteilbaren Array eines (uu. neuen Typs)
+        /// </summary>
+        /// <typeparam name="T1">Typ 1</typeparam>
+        /// <typeparam name="T2">Typ 2</typeparam>
+        /// <typeparam name="TOut">Der resultierende Typ</typeparam>
+        /// <param name="t1">Das erweiterte Objekt</param>
+        /// <param name="t2">Der zweite Array</param>
+        /// <param name="fusionFunction">Funtion, die angibt wie die beiden Typen fusioniert werden sollen</param>
+        /// <returns>Einen ggf. unteilbaren Fusions-Array</returns>
+        ///<exception cref="IndexOutOfRangeException">Wenn die Arrays unterschiedlich lang sind</exception>
         public static TOut[] FuseInto<T1, T2, TOut>(this T1[] t1, T2[] t2, Func<T1, T2, TOut> fusionFunction)
         {
             if (t1.Length != t2.Length)
@@ -327,8 +488,17 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
 
             return result;
         }
-
-        ///<exception cref="IndexOutOfRangeException">at uneven enumerator lengths</exception>
+        /// <summary>
+        /// Fusioniert zwei <see cref="IEnumerable"/>s zu einem ggf. untteilbaren Array eines (uu. neuen Typs)
+        /// </summary>
+        /// <typeparam name="T1">Typ 1</typeparam>
+        /// <typeparam name="T2">Typ 2</typeparam>
+        /// <typeparam name="TOut">Der resultierende Typ</typeparam>
+        /// <param name="e1">Das erweiterte Objekt</param>
+        /// <param name="e2">Das zweite <see cref="IEnumerable"/></param>
+        /// <param name="fusionFunction">Funtion, die angibt wie die beiden Typen fusioniert werden sollen</param>
+        /// <returns>Einen ggf. unteilbaren Fusions-Array</returns>
+        ///<exception cref="IndexOutOfRangeException">Wenn die Enumerationen unterschiedlich lang sind</exception>
         public static TOut[] FuseInto<T1, T2, TOut>(this IEnumerable<T1> e1, IEnumerable<T2> e2, Func<object, object, TOut> fusionFunction)
         {
             int e1Count = e1.Count();

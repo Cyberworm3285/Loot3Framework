@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks
 
 using Loot3Framework.Types.Classes.BaseClasses;
 using Loot3Framework.Types.Classes.ItemProperties;
@@ -22,7 +22,7 @@ namespace Items
             name = "Item1";
             type = "Dummy1";
             isQuestItem = true;
-            attributes = new IItemProperty[]
+            attributes = new IItemProperty<string>[]
             {
                 new NameOnlyProp("Unkaputtbar"),
                 new SingleIntervallProp("Basisschaden", new Intervall(5,10)),
@@ -41,10 +41,10 @@ namespace Items
             rarity = 9;
             isQuestItem = false;
             type = "Dummy2";
-            attributes = new IItemProperty[]
+            attributes = new IItemProperty<string>[]
             {
                 new RandomMultiProp(
-                    new IItemProperty[]
+                    new IItemProperty<string>[]
                     {
                         new NameOnlyProp("NameOnly"),
                         new SingleIntervallProp("SingleIntervall", new Intervall(123,1222)),
@@ -79,7 +79,7 @@ namespace Items
             name = "Item5";
             type = "Dummy5";
             isQuestItem = true;
-            attributes = new IItemProperty[]
+            attributes = new IItemProperty<string>[]
             {
                 new NameOnlyProp("Unkaputtbar"),
                 new SingleIntervallProp("Basisschaden", new Intervall(5,10)),
@@ -98,10 +98,10 @@ namespace Items
             rarity = 11;
             isQuestItem = false;
             type = "Dummy6";
-            attributes = new IItemProperty[]
+            attributes = new IItemProperty<string>[]
             {
                 new RandomMultiProp(
-                    new IItemProperty[]
+                    new IItemProperty<string>[]
                     {
                         new NameOnlyProp("NameOnly"),
                         new SingleIntervallProp("SingleIntervall", new Intervall(123,1222)),

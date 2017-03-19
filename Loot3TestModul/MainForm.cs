@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks
 using System.Windows.Forms;
 
 using System.Xml.Serialization;
@@ -47,7 +47,11 @@ namespace Loot3Vorbereitung
             string[] aa;
             int[] bb;
 
-            new string[] { "eins", "zwei", "drei" }.Fuse(new int[] { 1, 2, 3 }).DeFuse(out aa, out bb);
+            new string[] { "eins", "drei", "zwei" }.Fuse(new int[] { 1, 3, 2 }).FusionTuples.OrderBy(i => i.Item2).ToArray().DeFuse(out aa, out bb);
+            for (int i = 0; i < aa.Length; i++)
+            {
+                Console.WriteLine(aa[i] + ":" + bb[i]);
+            }
 
             for (int counter = 0; counter < 1000; counter++)
             {
@@ -73,13 +77,6 @@ namespace Loot3Vorbereitung
                     }
                     rarCounts[rars.IndexOf(looter.LastRarity)]++;
 
-                    XmlSerializer xml = new XmlSerializer(typeof(FusionContainer<string, int>[]));
-                    using (StreamWriter sr = new StreamWriter(Path.Combine(Directory.GetCurrentDirectory(), "lastLootRange.sv")))
-                    {
-                        xml.Serialize(sr, looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities));
-                        sr.Close();
-                    }
-
                     int j = 0;
                     Console.WriteLine(
                         "(" +
@@ -101,7 +98,7 @@ namespace Loot3Vorbereitung
                         "] \nand local range of: " +
                         looter.InnerAlgorithm.LastIntervall +
                         " \nwith all items: " +
-                        looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
+                        looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).FusionTuples.SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
                         " \nor " +
                         string.Join(",", looter.InnerAlgorithm.LastItemNames.DoFunc(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]")) +
                         " \nor " +
@@ -113,8 +110,8 @@ namespace Loot3Vorbereitung
                     listBox1.Items.Add("No Matching Items found");
                 }
             }
-            Comparer<FusionContainer<string, int>> comparer = Comparer<FusionContainer<string, int>>.Create((f1, f2) => new RarTableOrderComperator(DefaultRarityTable.SharedInstance).Compare(f1.Item1, f2.Item1));
-            Console.WriteLine("Results : " + string.Join(",", rars.Fuse(rarCounts).DoWith(f => Array.Sort(f, comparer)).DoFunc(f => "{" + f.Item1 + "," + f.Item2 + "}")));
+            Comparer<FusionTuple<string, int>> comparer = Comparer<FusionTuple<string, int>>.Create((f1, f2) => new RarTableOrderComperator(DefaultRarityTable.SharedInstance).Compare(f1.Item1, f2.Item1));
+            Console.WriteLine("Results : " + string.Join(",", rars.Fuse(rarCounts).FusionTuples.DoWith(f => Array.Sort(f, comparer)).DoFunc(f => "{" + f.Item1 + "," + f.Item2 + "}")));
         }
 
         private void button2_Click(object sender, EventArgs e)
