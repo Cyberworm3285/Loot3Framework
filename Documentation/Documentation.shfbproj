@@ -52,7 +52,20 @@
       <NamespaceSummaryItem name="Loot3Framework.ExtensionMethods.CollectionOperations" isDocumented="True">Extension Methods von Arrays, ICollections und IEnumerables</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Loot3Framework.ExtensionMethods.Other" isDocumented="True">Anderweitige Extension Methods die nicht allgemein auf Collection o.ä. anwendbar sind</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Loot3Framework.Interfaces" isDocumented="True">Interfaces zur Implementierung von benötigten Funktionalitäten</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Loot3Framework.Global" isDocumented="True">Global im Framework benutzte Ressourcen</NamespaceSummaryItem></NamespaceSummaries>
+<NamespaceSummaryItem name="Loot3Framework.Global" isDocumented="True">Global im Framework benutzte Ressourcen</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Tools" isDocumented="True">Optionale vom Framework bereitgestellte Tools</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Attributes" isDocumented="True">Attribute zum Taggen</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.Algorithms.Filter" isDocumented="True">Filter zum aussieben von ILootable Arrays</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.Algorithms.Looting" isDocumented="True">Loot-Algorithmen</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.Algorithms.ObjectFetching" isDocumented="True">Object-Fetching-Algorithmen</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.Algorithms.TypeFetching" isDocumented="True">Type-Fetching-Algorithmen</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.BaseClasses" isDocumented="True">Basistypen / Implementationen von Interfaces</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.Comperators" isDocumented="True">Comperatoren für Sortierungen etc..</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.HelperClasses" isDocumented="True">Helfer Klassen für Extension Methods / temporäre Konstrukte</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.ItemProperties" isDocumented="True">Item Eigenschaften bzw Variationen</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Classes.RarityTables" isDocumented="True">Seltenheits-Referenztabellen</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Exceptions" isDocumented="True">Exceptions vom Framework</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Loot3Framework.Types.Structs" isDocumented="True">Kleinere Typen als structs</NamespaceSummaryItem></NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

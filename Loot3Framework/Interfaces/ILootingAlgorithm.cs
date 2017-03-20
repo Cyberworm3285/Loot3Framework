@@ -10,6 +10,7 @@ namespace Loot3Framework.Interfaces
     /// Gibt die grundlegenden Funktionen eines Loot-Algorithmusses vor
     /// </summary>
     /// <typeparam name="T">Der zu lootende Typ</typeparam>
+    /// <seealso cref="Types.Classes.Algorithms.Looting"/>
     public interface ILootingAlgorithm<T>
     {
         /// <summary>

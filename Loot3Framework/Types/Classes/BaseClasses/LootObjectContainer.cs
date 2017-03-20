@@ -13,6 +13,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     /// Loot-Container, der das zu lootende Objekt bereits fix enthält
     /// </summary>
     /// <typeparam name="T">Der zu lootende Typ</typeparam>
+    /// <seealso cref="Types.Classes.Algorithms.ObjectFetching"/>
+    /// <seealso cref="Types.Classes.BaseClasses.DefaultObjectFetcher{T}"/>
+    /// <seealso cref="LootFunctionContainer{T}"/>
     [Serializable]
     public class LootObjectContainer<T> : ILootable<T>, IComparable<LootObjectContainer<T>>
     {

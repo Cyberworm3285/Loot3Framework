@@ -11,6 +11,7 @@ namespace Loot3Framework.Interfaces
     /// <summary>
     /// Gibt die grundlegenden Funktionalitäten der Seltenheits-Referenztabelle vor
     /// </summary>
+    /// <seealso cref="Types.Classes.RarityTables"/>
     public interface ILootRarityTable
     {
         /// <summary>

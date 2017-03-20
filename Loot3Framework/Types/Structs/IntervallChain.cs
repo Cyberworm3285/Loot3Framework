@@ -8,11 +8,20 @@ using Loot3Framework.ExtensionMethods.CollectionOperations;
 
 namespace Loot3Framework.Types.Structs
 {
+    /// <summary>
+    /// Eine Kette von <see cref="Intervall"/>en
+    /// </summary>
+    /// <see cref="Intervall"/>
     [Serializable]
     public struct IntervallChain
     {
         private Intervall[] intervalls { get; set; }
-
+        /// <summary>
+        /// Konstruktor, der Intervalle aus einem <see cref="int"/>-<see cref="Array"/> generiert (optionale start-&amp;Endwerte)
+        /// </summary>
+        /// <param name="values">Alle Werte</param>
+        /// <param name="startValue">Optionaler Startwert</param>
+        /// <param name="endValue">Optionaler Endwert</param>
         public IntervallChain(int[] values, int? startValue = null, int? endValue = null)
         {
             List<int> temp = new List<int>();
@@ -31,14 +40,19 @@ namespace Loot3Framework.Types.Structs
                 intervalls[i] = new Intervall(temp[i], temp[i + 1]);
             }
         }
-
+        /// <summary>
+        /// Formatiert die Instanz der <see cref="Intervall"/>-Kette in einen <see cref="string"/>
+        /// </summary>
+        /// <returns>Die <see cref="string"/>-formatierte Instanz</returns>
         public override string ToString()
         {
             return "{" + string.Join("," , intervalls.Select(i => i.ToString()).ToArray()) + "}";
         }
 
         #region Properties
-
+        /// <summary>
+        /// Alle resultierenden <see cref="Intervall"/>e
+        /// </summary>
         public Intervall[] Intervalls
         {
             get
@@ -55,6 +69,11 @@ namespace Loot3Framework.Types.Structs
 
         #region Operators
 
+        /// <summary>
+        /// Stellt die <see cref="Intervall"/>-Kette implizit als Array dar
+        /// </summary>
+        /// <param name="chain">Die komplette Chain</param>
+        /// <returns>Der innere Array der Chain</returns>
         public static implicit operator Intervall[](IntervallChain chain)
         {
             return chain.Intervalls;

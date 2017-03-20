@@ -9,7 +9,7 @@ namespace Loot3Framework.Types.Attributes
     /// <summary>
     /// Attribut zum Kennzeichnen und Kategorisierung von Loot
     /// </summary>
-    /// seealso cref="Types.Classes.Algorithms.TypeFetching.FetchByLootTags{T}"/>
+    /// <seealso cref="Types.Classes.Algorithms.TypeFetching.FetchByLootTags{T}"/>
     [System.AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public sealed class LootTagAttribute : Attribute
     {

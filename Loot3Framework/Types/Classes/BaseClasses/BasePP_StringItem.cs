@@ -96,7 +96,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 return string.Join("|", new string[] { name, type, string.Join("|", attributes.Select(a => a.Generate()).ToArray()), "[" + RarityName + "]" });
             }
         }
-
+        /// <summary>
+        /// Flag die anzeigt, ob das Item ein Quest-Objekt ist
+        /// </summary>
         public bool IsQuestItem
         {
             get
@@ -104,7 +106,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 return isQuestItem;
             }
         }
-
+        /// <summary>
+        /// Der Name des Items (für Algorthmen und ggf. auch Darstellung relevant)
+        /// </summary>
         public string Name
         {
             get
@@ -112,7 +116,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 return name;
             }
         }
-
+        /// <summary>
+        /// Die Seltenheit des Items (für Algorithmen relevant)
+        /// </summary>
         public int Rarity
         {
             get
@@ -120,7 +126,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 return rarity;
             }
         }
-
+        /// <summary>
+        /// Der Typ des Items (für Algorithmen relevant)
+        /// </summary>
         public string Type
         {
             get
@@ -138,7 +146,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 return rarityTable.ToRarityName(rarity);
             }
         }
-
+        /// <summary>
+        /// Seltenheits-Referenz, die aus dem Seltenheitswert einen Benutzerfreundlichen <see cref="string"/> generieren kann
+        /// </summary>
         public ILootRarityTable rarTable
         {
             get { return rarTable; }

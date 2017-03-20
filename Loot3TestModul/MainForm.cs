@@ -44,27 +44,27 @@ namespace Loot3Vorbereitung
             List<string> rars = new List<string>();
             List<int> rarCounts = new List<int>();
 
-            string[] aa;
-            int[] bb;
-
-            new string[] { "eins", "drei", "zwei" }.Fuse(new int[] { 1, 3, 2 }).FusionTuples.OrderBy(i => i.Item2).ToArray().DeFuse(out aa, out bb);
-            for (int i = 0; i < aa.Length; i++)
-            {
-                Console.WriteLine(aa[i] + ":" + bb[i]);
-            }
+            //string[] aa = new string[]  { "eins",   "drei", "zwei", "minus vier"    };
+            //int[] bb    = new int[]     { 1,        3,      2,      -4              };
+            //
+            //aa.Fuse(bb).OrderBy(i => i.Item2).DeFuse(out aa, out bb);
+            //for (int i = 0; i < aa.Length; i++)
+            //{
+            //    Console.WriteLine(aa[i] + ":" + bb[i]);
+            //}
 
             for (int counter = 0; counter < 1000; counter++)
             {
                 try
                 {
-                    PR_PartionLoot<string, PartitionLoot<string>> looter = new PR_PartionLoot<string, PartitionLoot<string>>(DefaultRarityTable.SharedInstance, PartitionLoot<string>.SharedInstance, checkedListBox2.CheckedItems.DoFunc(i => i as string));
+                    PR_PartionLoot<string, PartitionLoot<string>> looter = new PR_PartionLoot<string, PartitionLoot<string>>(DefaultRarityTable.SharedInstance, PartitionLoot<string>.SharedInstance, checkedListBox2.CheckedItems.Select(i => i as string).ToArray());
                     listBox1.Items.Add(
                         GlobalItems.Instance.GetLoot(
                             looter,
                             new ConfigurableFilter(
                                 _nameContains: textBox1.Text,
-                                _allowedTypes: checkedListBox1.CheckedItems.DoFunc(i => i as string),
-                                _allowedRarities: checkedListBox2.CheckedItems.DoFunc(i => i as string),
+                                _allowedTypes: checkedListBox1.CheckedItems.Select(i => i as string).ToArray(),
+                                _allowedRarities: checkedListBox2.CheckedItems.Select(i => i as string).ToArray(),
                                 _allowQuestItems: checkBox1.Checked
                             )
                         ).Item
@@ -98,9 +98,9 @@ namespace Loot3Vorbereitung
                         "] \nand local range of: " +
                         looter.InnerAlgorithm.LastIntervall +
                         " \nwith all items: " +
-                        looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).FusionTuples.SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
+                        looter.InnerAlgorithm.LastItemNames.Fuse(looter.InnerAlgorithm.LastItemRarities).SumUp((f) => f.ToString(), (a, b) => a + "," + b) +
                         " \nor " +
-                        string.Join(",", looter.InnerAlgorithm.LastItemNames.DoFunc(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]")) +
+                        string.Join(",", looter.InnerAlgorithm.LastItemNames.Select(n => "[" + n + ";" + looter.InnerAlgorithm.LastItemRarities[j++] + "]")) +
                         " \nor " +
                         string.Join(",", looter.InnerAlgorithm.LastItemNames.FuseInto(looter.InnerAlgorithm.LastItemRarities, (n, r) => "[" + n + ";" + r + "]"))
                         );
@@ -110,8 +110,10 @@ namespace Loot3Vorbereitung
                     listBox1.Items.Add("No Matching Items found");
                 }
             }
+            //alternativ könnte man hier zb diesen comparer verwenden
             Comparer<FusionTuple<string, int>> comparer = Comparer<FusionTuple<string, int>>.Create((f1, f2) => new RarTableOrderComperator(DefaultRarityTable.SharedInstance).Compare(f1.Item1, f2.Item1));
-            Console.WriteLine("Results : " + string.Join(",", rars.Fuse(rarCounts).FusionTuples.DoWith(f => Array.Sort(f, comparer)).DoFunc(f => "{" + f.Item1 + "," + f.Item2 + "}")));
+
+            Console.WriteLine("Results : " + string.Join(",", rars.Fuse(rarCounts).OrderByDescending(f => Array.IndexOf(DefaultRarityTable.SharedInstance.Values, f.Item1)).Select(f => "{" + f.Item1 + "," + f.Item2 + "}")));
         }
 
         private void button2_Click(object sender, EventArgs e)

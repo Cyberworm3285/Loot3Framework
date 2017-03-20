@@ -14,6 +14,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
     /// <summary>
     /// Alle allgemeinen Extensions für <see cref="ICollection"/>s, <see cref="IEnumerable"/>s und natürlich <see cref="Array"/>s
     /// </summary>
+    /// <seealso cref="SpecificCollectionExtensions"/>
     public static class CollectionExtensions
     {
         #region DoFunc
@@ -72,7 +73,13 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             }
             return result.ToArray();
         }
-
+        /// <summary>
+        /// Erweitert die LINQ Methode "Select" auf <see cref="IEnumerable"/>s
+        /// </summary>
+        /// <typeparam name="TKey">Der resultierende Typ</typeparam>
+        /// <param name="e">Das erweiterte Objekt</param>
+        /// <param name="selector">Die Selector-Funktion</param>
+        /// <returns>Die umgewandelte Aufzählung</returns>
         public static IEnumerable<TKey> Select<TKey>(this IEnumerable e, Func<object, TKey> selector)
         {
             IEnumerator<object> en = e.Cast<object>().GetEnumerator();
@@ -397,18 +404,19 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         /// <example>
         /// <para>
         /// Mit der Bindung zweier Objekte kann man z.B. Änderungen von Positionen in Collections an beiden Objekten gleichzeitig durchführen,
-        /// ohne einen eigenen Algorithmus zu schreiben. Hier wird ein <see cref="string"/>-<see cref="Array"/> von mit Zahlen-Representationen anhand ihrer
+        /// ohne einen eigenen Algorithmus zu schreiben. Hier wird ein <see cref="string"/>-<see cref="Array"/> von mit Zahl-Representationen anhand ihrer
         /// Zahl-Equivalente sortiert (der <see cref="int"/>-<see cref="Array"/>)
         /// </para>
         /// <code>
-        /// string[] aa;
-        /// int[] bb;
+        /// string[]    aa = new string[]   { "eins", "drei", "zwei", "minus vier" };
+        /// int[]       bb = new int[]      { 1,      3,      2,      -4           };
         /// 
-        /// new string[] { "eins", "drei", "zwei" }.Fuse(new int[] { 1, 3, 2 }).FusionTuples.OrderBy(i => i.Item2).ToArray().DeFuse(out aa, out bb);
-        /// // aa: { "eins", "zwei", "drei" }, bb: { 1, 2 ,3 }
+        /// aa.Fuse(bb).OrderBy(i => i.Item2).DeFuse(out aa, out bb);
+        /// //aa: { "minus vier", "eins", "zwei", "drei" }
+        /// //bb: { -4, 1, 2, 3 }
         /// </code>
         /// </example>
-        public static FusionContainer<T1, T2> Fuse<T1, T2>(this T1[] t1, T2[] t2)
+        public static FusionTuple<T1, T2>[] Fuse<T1, T2>(this T1[] t1, T2[] t2)
         {
             if (t1.Length != t2.Length)
                 throw new IndexOutOfRangeException("uneven array-lengths");
@@ -417,7 +425,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             {
                 result[i] = new FusionTuple<T1, T2>(t1[i], t2[i]);
             }
-            return new FusionContainer<T1, T2>(result);
+            return result;
         }
         /// <summary>
         /// Fusioniert zwei <see cref="IEnumerable"/>s zu einem teilbaren Container Array
@@ -431,18 +439,19 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         ///        /// <example>
         /// <para>
         /// Mit der Bindung zweier Objekte kann man z.B. Änderungen von Positionen in Collections an beiden Objekten gleichzeitig durchführen,
-        /// ohne einen eigenen Algorithmus zu schreiben. Hier wird ein <see cref="string"/>-<see cref="Array"/> von mit Zahlen-Representationen anhand ihrer
+        /// ohne einen eigenen Algorithmus zu schreiben. Hier wird ein <see cref="string"/>-<see cref="Array"/> von mit Zahl-Representationen anhand ihrer
         /// Zahl-Equivalente sortiert (der <see cref="int"/>-<see cref="Array"/>)
         /// </para>
         /// <code>
-        /// string[] aa;
-        /// int[] bb;
+        /// string[]    aa = new string[]   { "eins", "drei", "zwei", "minus vier" };
+        /// int[]       bb = new int[]      { 1,      3,      2,      -4           };
         /// 
-        /// new string[] { "eins", "drei", "zwei" }.Fuse(new int[] { 1, 3, 2 }).FusionTuples.OrderBy(i => i.Item2).ToArray().DeFuse(out aa, out bb);
-        /// // aa: { "eins", "zwei", "drei" }, bb: { 1, 2 ,3 }
+        /// aa.Fuse(bb).OrderBy(i => i.Item2).DeFuse(out aa, out bb);
+        /// //aa: { "minus vier", "eins", "zwei", "drei" }
+        /// //bb: { -4, 1, 2, 3 }
         /// </code>
         /// </example>
-        public static FusionContainer<T1, T2> Fuse<T1, T2>(this IEnumerable<T1> e1, IEnumerable<T2> e2)
+        public static FusionTuple<T1, T2>[] Fuse<T1, T2>(this IEnumerable<T1> e1, IEnumerable<T2> e2)
         {
             int e1Count = e1.Count();
             if (e1Count != e2.Count())
@@ -458,7 +467,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
                 result[counter++] = new FusionTuple<T1, T2>(enu1.Current, enu2.Current);
             }
 
-            return new FusionContainer<T1, T2>(result);
+            return result;
         }
 
         #endregion

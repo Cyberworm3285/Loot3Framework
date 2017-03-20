@@ -10,6 +10,7 @@ namespace Loot3Framework.Interfaces
     /// Gibt die grundlegenden Funktionalitäten des Typ-Fetchers vor
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    /// <seealso cref="Types.Classes.Algorithms.TypeFetching"/>
     public interface ILootTypeFetcher<T>
     {
         /// <summary>

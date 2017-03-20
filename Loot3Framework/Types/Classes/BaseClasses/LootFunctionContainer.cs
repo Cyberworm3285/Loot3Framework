@@ -13,6 +13,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     /// Loot-Container, der eine Funktion zum generieren von Loot enthält (<see cref="Func{TResult}"/>)
     /// </summary>
     /// <typeparam name="T">Der zu lootende Typ</typeparam>
+    /// <seealso cref="Types.Classes.Algorithms.ObjectFetching"/>
+    /// <seealso cref="Types.Classes.BaseClasses.DefaultObjectFetcher{T}"/>
+    /// <seealso cref="LootObjectContainer{T}"/>
     public class LootFunctionContainer<T> : ILootable<T>
     {
         #region Attributes

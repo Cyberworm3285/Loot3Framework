@@ -7,7 +7,7 @@ using System.Text;
 namespace Loot3Framework.ExtensionMethods.Other
 {
     /// <summary>
-    /// Verschieden Arten und Weisen, zwei <see cref="string"/>s zu vergleichen
+    /// Verschiedene Arten und Weisen, zwei <see cref="string"/>s zu vergleichen
     /// </summary>
     public enum StringComparing
     {

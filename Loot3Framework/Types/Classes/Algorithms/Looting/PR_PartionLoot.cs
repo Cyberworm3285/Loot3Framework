@@ -121,7 +121,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         }
         /// <summary>
         /// Der Zufalswert für die letzte ausgewählte Wahrscheinlichkeit
-        /// </summary
+        /// </summary>
         public int LastRoll
         {
             get { return lastRandomRoll; }

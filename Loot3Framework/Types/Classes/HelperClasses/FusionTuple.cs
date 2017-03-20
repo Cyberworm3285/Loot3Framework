@@ -11,6 +11,9 @@ namespace Loot3Framework.Types.Classes.HelperClasses
     /// </summary>
     /// <typeparam name="T1">Typ 1</typeparam>
     /// <typeparam name="T2">Typ 2</typeparam>
+    /// <seealso cref="ExtensionMethods.CollectionOperations.CollectionExtensions.Fuse{T1, T2}(T1[], T2[])"/>
+    /// <seealso cref="ExtensionMethods.CollectionOperations.SpecificCollectionExtensions.DeFuse{T1, T2}(FusionTuple{T1, T2}[], out T1[], out T2[])"/>
+    /// <seealso cref="FusionContainer{T1, T2}"/>
     [Serializable]
     public sealed class FusionTuple<T1, T2>
     {

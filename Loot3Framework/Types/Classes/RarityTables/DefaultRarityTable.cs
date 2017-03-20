@@ -9,15 +9,25 @@ using Loot3Framework.Types.Structs;
 
 namespace Loot3Framework.Types.Classes.RarityTables
 {
-    
+    /// <summary>
+    /// Satndard Seltenheits-Referenztabelle mit vorinititalisierten Werten (fix)
+    /// </summary>
+    /// <seealso cref="ILootRarityTable"/>
+    /// <seealso cref="DynamicRarityTable"/>
+    /// <seealso cref="RarityForwardTable"/>
     public class DefaultRarityTable : ILootRarityTable
     {
-        protected IntervallChain innerChain = new IntervallChain(new int[] { 0, 10, 100, 400, 1000 });
-        protected string[] rarNames = new string[] { "Legendär", "Epic", "Selten", "Normal" };
+        private IntervallChain innerChain = new IntervallChain(new int[] { 0, 10, 100, 400, 1000 });
+        private string[] rarNames = new string[] { "Legendär", "Epic", "Selten", "Normal" };
         private static DefaultRarityTable instance;
 
         private DefaultRarityTable() { }
 
+        /// <summary>
+        /// Gibt den entsprechenden <see cref="string"/> zur Seltenheit aus
+        /// </summary>
+        /// <param name="rarity">Die zu konvertierende Seltenheitswert</param>
+        /// <returns>Der entsprechende Name</returns>
         public string ToRarityName(int rarity)
         {
             int index = Array.FindIndex(Chain.Intervalls, i => i.X <= rarity && i.Y >= rarity);
@@ -25,7 +35,9 @@ namespace Loot3Framework.Types.Classes.RarityTables
         }
 
         #region Properties
-
+        /// <summary>
+        /// Seltenheits-Wertebereiche
+        /// </summary>
         public IntervallChain Chain
         {
             get
@@ -33,7 +45,9 @@ namespace Loot3Framework.Types.Classes.RarityTables
                 return innerChain;
             }
         }
-
+        /// <summary>
+        /// Seltenheits-Namen
+        /// </summary>
         public string[] Values
         {
             get
@@ -41,7 +55,9 @@ namespace Loot3Framework.Types.Classes.RarityTables
                 return rarNames;
             }
         }
-
+        /// <summary>
+        /// Satndard-Instanz
+        /// </summary>
         public static DefaultRarityTable SharedInstance
         {
             get

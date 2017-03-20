@@ -103,7 +103,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Looting
         }
         /// <summary>
         /// Das letzte ausgewählte <see cref="Intervall"/>
-        /// </summary
+        /// </summary>
         public Intervall LastIntervall
         {
             get { return lastUsedIntervall; }

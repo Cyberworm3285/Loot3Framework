@@ -10,6 +10,8 @@ namespace Loot3Framework.Interfaces
     /// Gibt die grundlegenden Funtkionalitäten des ObjektFetcher für <see cref="Types.Classes.BaseClasses.LootFunctionContainer{T}"/> und <see cref="Types.Classes.BaseClasses.LootObjectContainer{T}"/> vor
     /// </summary>
     /// <typeparam name="T">Der zu lootende Typ</typeparam>
+    /// <seealso cref="Types.Classes.Algorithms.ObjectFetching"/>
+    /// <seealso cref="Types.Classes.BaseClasses.DefaultObjectFetcher{T}"/>
     public interface ILootObjectFetcher<T>
     {
         /// <summary>

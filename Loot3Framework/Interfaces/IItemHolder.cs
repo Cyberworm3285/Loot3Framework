@@ -10,6 +10,8 @@ namespace Loot3Framework.Interfaces
     /// Interface welches die grundlegenden Funktionen eines Itemholders vorgibt
     /// </summary>
     /// <typeparam name="T">Der Lootbare Typ</typeparam>
+    /// <seealso cref="Types.Classes.BaseClasses.BaseLootHolder{T}"/>
+    /// <seealso cref="Types.Classes.BaseClasses.BaseSplitItemHandler{T}"/>
     public interface IItemHolder<T>
     {
         /// <summary>

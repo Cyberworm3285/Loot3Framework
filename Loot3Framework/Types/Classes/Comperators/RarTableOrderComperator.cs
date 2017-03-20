@@ -11,6 +11,7 @@ namespace Loot3Framework.Types.Classes.Comperators
     /// <summary>
     /// Vergleicht zwei <see cref="string"/>s anhand ihrer Position in einer Seltenheits-Referenztabelle
     /// </summary>
+    /// <seealso cref="Types.Classes.RarityTables"/>
     public class RarTableOrderComperator : IComparer<string>
     {
         private string[] tableValues;

@@ -10,6 +10,9 @@ namespace Loot3Framework.Interfaces
     /// Grundlegende Funktionalitäten der Lootobjekte (hauptsächlich Properties)
     /// </summary>
     /// <typeparam name="T">Der zu lootende Typ</typeparam>
+    /// <seealso cref="Types.Classes.BaseClasses.BasePP_StringItem"/>
+    /// <seealso cref="Types.Classes.BaseClasses.LootObjectContainer{T}"/>
+    /// <seealso cref="Types.Classes.BaseClasses.LootFunctionContainer{T}"/>
     public interface ILootable<T>
     {
         #region Properties

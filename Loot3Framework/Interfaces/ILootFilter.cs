@@ -11,6 +11,7 @@ namespace Loot3Framework.Interfaces
     /// <summary>
     /// Gibt die grundlegenden Funtkionen eines Loot-Filters vor
     /// </summary>
+    /// <seealso cref="Types.Classes.Algorithms.Filter"/>
     public interface ILootFilter
     {
         /// <summary>
