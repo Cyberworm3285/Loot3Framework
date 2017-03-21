@@ -43,7 +43,7 @@ namespace Items
             type = "Dummy2";
             attributes = new IItemProperty<string>[]
             {
-                new RandomMultiProp(
+                new RandomMultiProp<string>(
                     new IItemProperty<string>[]
                     {
                         new NameOnlyProp("NameOnly"),
@@ -100,7 +100,7 @@ namespace Items
             type = "Dummy6";
             attributes = new IItemProperty<string>[]
             {
-                new RandomMultiProp(
+                new RandomMultiProp<string>(
                     new IItemProperty<string>[]
                     {
                         new NameOnlyProp("NameOnly"),
@@ -131,6 +131,22 @@ namespace Items
 }
 namespace Containers
 {
+    public class ObjectContainerExtension : LootObjectContainer<string>
+    {
+        public ObjectContainerExtension() : base("ObjektExtension", "Objekt") 
+        {
+            this.SetProps(false, "Objekt", 123, "Objekt");
+        }
+    }
+
+    public class FunctionContainerExtension : LootFunctionContainer<string>
+    {
+        public FunctionContainerExtension() : base(() => "FunktionExtension", "Funktion")
+        {
+            this.SetProps(false, "Funktion", 123, "Funktion");
+        }
+    }
+
     public class ContainerProvider : DefaultObjectFetcher<string>
     {
         public ContainerProvider() : base(new ILootable<string>[]

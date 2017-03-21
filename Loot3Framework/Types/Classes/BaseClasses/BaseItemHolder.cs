@@ -61,7 +61,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Sucht und initialisiert alle Loot-Typen
         /// </summary>
         /// <param name="fetcher">Der zu benutzende Fetcher</param>
-        public void InitLootables(ILootTypeFetcher<T> fetcher)
+        public virtual void InitLootables(ILootTypeFetcher<T> fetcher)
         {
             Type[] types = fetcher.GetAllLootableTypes();
             allLoot = types.Select(t => t.GetInstance() as ILootable<T>).ToList();
@@ -71,7 +71,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         /// <param name="algo">Der Algorithmus</param>
         /// <returns>Das ausgewählte Loot-Objekt</returns>
-        public ILootable<T> GetLoot(ILootingAlgorithm<T> algo)
+        public virtual ILootable<T> GetLoot(ILootingAlgorithm<T> algo)
         {
             return algo.Loot(allLoot.ToArray());
         }
@@ -81,7 +81,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <param name="algo">Der Algorithmus</param>
         /// <param name="filter">Der Filter</param>
         /// <returns>Das ausgewählte Loot-Objekt</returns>
-        public ILootable<T> GetLoot(ILootingAlgorithm<T> algo, ILootFilter filter)
+        public virtual ILootable<T> GetLoot(ILootingAlgorithm<T> algo, ILootFilter filter)
         {
             return algo.Loot(filter.Filter(allLoot.ToArray()));
         }
@@ -89,7 +89,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Fügt ein Objekt zur Liste hinzu
         /// </summary>
         /// <param name="item">Das neue Element</param>
-        public void Add(ILootable<T> item)
+        public virtual void Add(ILootable<T> item)
         {
             allLoot.Add(item);
         }
@@ -97,14 +97,14 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Fügt einen <see cref="Array"/> von Objekten zur Liste hinzu
         /// </summary>
         /// <param name="items">Die neuen Elemente</param>
-        public void AddRange(ILootable<T>[] items)
+        public virtual void AddRange(ILootable<T>[] items)
         {
             allLoot.AddRange(items);
         }
         /// <summary>
         /// Fügt Container-Objekte zur Liste hinzu
         /// </summary>
-        public void AddAllLootObjects()
+        public virtual void AddAllLootObjects()
         {
             AddRange(ObjectFetcherAccess<T>.GetObjects());
         }
@@ -115,7 +115,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Das gesamte gespeicherte Loot
         /// </summary>
-        public ILootable<T>[] AllLoot
+        public virtual ILootable<T>[] AllLoot
         {
             get
             {
@@ -125,7 +125,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Alle Namen der Typen von den Objekten in der Liste
         /// </summary>
-        public string[] AllTypeNames
+        public virtual string[] AllTypeNames
         {
             get
             {
@@ -140,7 +140,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Alle Seltenheiten der Typen von den Objekten in der Liste
         /// </summary>
-        public string[] AllRarityNames
+        public virtual string[] AllRarityNames
         {
             get
             {

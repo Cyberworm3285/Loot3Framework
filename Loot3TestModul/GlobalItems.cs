@@ -15,7 +15,18 @@ namespace Loot3Vorbereitung
 {
     public class GlobalItems : BaseLootHolder<string>
     {
-        private static GlobalItems instance = null;
+        private static GlobalItems instance;
+        private ILootable<string>[] allowedItems;
+
+        public override ILootable<string> GetLoot(ILootingAlgorithm<string> algo)
+        {
+            return algo.Loot(allowedItems);
+        }
+
+        public override ILootable<string> GetLoot(ILootingAlgorithm<string> algo, ILootFilter filter)
+        {
+            return algo.Loot(filter.Filter(allowedItems));
+        }
 
         private GlobalItems() : base(
             new Multifetching<string>(
@@ -31,6 +42,7 @@ namespace Loot3Vorbereitung
         )
         {
             int counter = 1;
+            allowedItems = allLoot.ToArray();
             allLoot.DoAction(l => Console.WriteLine(counter++ + ": " + l.Item));
         }
 
@@ -41,6 +53,18 @@ namespace Loot3Vorbereitung
             get
             {
                 return instance ?? (instance = new GlobalItems());
+            }
+        }
+
+        public ILootable<string>[] AllowedLoot
+        {
+            get
+            {
+                return allowedItems;
+            }
+            set
+            {
+                allowedItems = value;
             }
         }
 

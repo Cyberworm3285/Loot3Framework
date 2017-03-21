@@ -15,6 +15,7 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
     /// <seealso cref="CollectionExtensions"/>
     public static class SpecificCollectionExtensions
     {
+
         #region FusionContainer[]
         /// <summary>
         /// Spaltet ein trennbares <see cref="FusionContainer{T1, T2}"/> Array in seine Bestandteile auf
@@ -59,5 +60,6 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
         }
 
         #endregion
+
     }
 }

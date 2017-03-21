@@ -111,7 +111,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Fügt ein neues Element zur momentanen Liste hinzu
         /// </summary>
         /// <param name="item">Das neue Element</param>
-        public void Add(ILootable<T> item)
+        public virtual void Add(ILootable<T> item)
         {
             if (currMode != "All")
                 lootHashMap[currMode].Add(item);
@@ -121,7 +121,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Fügt einen <see cref="Array"/> an Elementen zur momentanen Liste hinzu
         /// </summary>
         /// <param name="items">Die neuen Elemente</param>
-        public void AddRange(ILootable<T>[] items)
+        public virtual void AddRange(ILootable<T>[] items)
         {
             if (currMode != "All")
                 lootHashMap[currMode].AddRange(items);
@@ -132,7 +132,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         /// <param name="algo">Der Algorithmus</param>
         /// <returns>Das ausgewählte Loot-Objekt</returns>
-        public ILootable<T> GetLoot(ILootingAlgorithm<T> algo)
+        public virtual ILootable<T> GetLoot(ILootingAlgorithm<T> algo)
         {
             return algo.Loot(lootHashMap[currMode].ToArray());
         }
@@ -142,7 +142,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <param name="algo">Der Algorithmus</param>
         /// <param name="filter">Der Filter</param>
         /// <returns>Das ausgewählte Loot-Objekt</returns>
-        public ILootable<T> GetLoot(ILootingAlgorithm<T> algo, ILootFilter filter)
+        public virtual ILootable<T> GetLoot(ILootingAlgorithm<T> algo, ILootFilter filter)
         {
             return algo.Loot(filter.Filter(lootHashMap[currMode].ToArray()));
         }
@@ -150,7 +150,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Sucht und initialisiert alle Loot-Typen
         /// </summary>
         /// <param name="fetcher">Der zu benutzende Fetcher</param>
-        public void InitLootables(ILootTypeFetcher<T> fetcher)
+        public virtual void InitLootables(ILootTypeFetcher<T> fetcher)
         {
             ILootable<T>[] newLoot = fetcher.GetAllLootableTypes().GetInstances().Select(o => o as ILootable<T>).ToArray();
             if (currMode != "All")
@@ -162,7 +162,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         /// <param name="fetcher">Der zu benutzende Fetcher</param>
         /// <param name="startMode">Der Loot-Pool</param>
-        public void InitLootables(ILootTypeFetcher<T> fetcher, string startMode)
+        public virtual void InitLootables(ILootTypeFetcher<T> fetcher, string startMode)
         {
             currMode = startMode;
             if (!lootHashMap.Keys.Contains(startMode))
@@ -175,7 +175,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <param name="fetchers">Die zu benutzenden Fetcher</param>
         /// <param name="modes">Die entsprechenden Loot-Pools</param>
         /// <exception cref="IndexOutOfRangeException">Wenn fetchers und modes unterschiedlich lang sind</exception>
-        public void InitLootables(ILootTypeFetcher<T>[] fetchers, string[] modes)
+        public virtual void InitLootables(ILootTypeFetcher<T>[] fetchers, string[] modes)
         {
             if (fetchers.Length != modes.Length)
                 throw new IndexOutOfRangeException("Uneven Array length. Both Arrays must have the same length");
@@ -193,7 +193,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         /// <param name="newMode">Der neue Loot-Pool</param>
         /// <returns>True bei Gültigkeit</returns>
-        public bool TrySwitchMode(string newMode)
+        public virtual bool TrySwitchMode(string newMode)
         {
             if (!lootHashMap.Keys.Contains(newMode))
                 return false;
@@ -210,14 +210,14 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Das gesamte gespeicherte Loot
         /// </summary>
-        public ILootable<T>[] AllLoot
+        public virtual ILootable<T>[] AllLoot
         {
             get { return allInternalLoot.ToArray(); }
         }
         /// <summary>
         /// Alle Namen der Typen von den Objekten in der Liste
         /// </summary>
-        public string[] AllTypeNames
+        public virtual string[] AllTypeNames
         {
             get
             {
@@ -232,7 +232,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Alle Seltenheiten der Typen von den Objekten in der Liste
         /// </summary>
-        public string[] AllRarityNames
+        public virtual string[] AllRarityNames
         {
             get
             {
@@ -247,7 +247,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Der momentan ausgewählte Loot-Pool
         /// </summary>
-        public string ItemMode
+        public virtual string ItemMode
         {
             get { return currMode; }
         }

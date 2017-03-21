@@ -16,6 +16,24 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     /// <seealso cref="Types.Classes.Algorithms.ObjectFetching"/>
     /// <seealso cref="Types.Classes.BaseClasses.DefaultObjectFetcher{T}"/>
     /// <seealso cref="LootFunctionContainer{T}"/>
+    /// <example>
+    /// <para>
+    /// Container können sowohl von einem <see cref="Loot3Framework.Interfaces.ILootObjectFetcher{T}"/> als kompletter Array zum Loot-Pool hinzugefügt werden (erfordert geringfügige 
+    /// manuelle Implementation, siehe <see cref="DefaultObjectFetcher{T}"/>) oder durch Vererbung von der Basisklasse beim <see cref="ILootTypeFetcher{T}"/> berücksichtigt werden. 
+    /// </para>
+    /// <para>
+    /// Bei der Vererbung ist es am einfachsten sämtliche Änderungen und Konfigurierungen im Konstruktor durchzuführen (selbst der ToString()-Output kann eingestellt werden):
+    /// </para>
+    /// <code>
+    /// public class ObjectContainerExtension : LootObjectContainer&lt;string&gt;
+    /// {
+    ///     public ObjectContainerExtension() : base("Objekt", "ToString()-Output")
+    ///     {
+    ///         this.SetProps(false, "ObjektName", 123, "ObjektTyp");
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     [Serializable]
     public class LootObjectContainer<T> : ILootable<T>, IComparable<LootObjectContainer<T>>
     {
@@ -45,6 +63,10 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Die Seltenheits-Referenztabelle des generierten Items
         /// </summary>
         protected ILootRarityTable rarityTable = DefaultRarityTable.SharedInstance;
+        /// <summary>
+        /// Standard-Ausgabewert für die ToString() Methode
+        /// </summary>
+        protected string rep;
 
         #endregion
 
@@ -54,25 +76,30 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Konstruktor, der das Loot-Item setzt
         /// </summary>
         /// <param name="item">Das Loot-Item</param>
-        public LootObjectContainer(T item)
+        /// <param name="representationString">Optionaler <see cref="string"/> für benutzerdefinierte Repräsentation in ToString()</param>
+        public LootObjectContainer(T item, string representationString = null)
         {
-            innerItem = item;       
+            innerItem = item;
+            rep = representationString;
         }
         /// <summary>
         /// Konstruktor, der das Loot.Item und die Seltenheits-Referenztabelle setzt
         /// </summary>
         /// <param name="item">Das Loot-Item</param>
         /// <param name="_rarityTable">Die Seltenheits-Referenztabelle</param>
-        public LootObjectContainer(T item, ILootRarityTable _rarityTable)
+        /// <param name="representationString">Optionaler <see cref="string"/> für benutzerdefinierte Repräsentation in ToString()</param>
+        public LootObjectContainer(T item, ILootRarityTable _rarityTable, string representationString = null)
         {
             innerItem = item;
             rarityTable = _rarityTable;
+            rep = representationString;
         }
         /// <summary>
         /// Generiert aus dem uu. variablen normalen Loot-Objekt (<see cref="ILootable{T}"/>) einen Loot container, der die sonstigen Werte übernimmt
         /// </summary>
         /// <param name="item">Das normale Loot-Objekt</param>
-        public LootObjectContainer(ILootable<T> item)
+        /// <param name="representationString">Optionaler <see cref="string"/> für benutzerdefinierte Repräsentation in ToString()</param>
+        public LootObjectContainer(ILootable<T> item, string representationString = null)
         {
             innerItem = item.Item;
             containerIsQuestItem = item.IsQuestItem;
@@ -80,6 +107,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             containerRarity = item.Rarity;
             containerType = item.Type;
             rarityTable = item.rarTable;
+            rep = representationString;
         }
         /// <summary>
         /// Generiert aus dem uu. variablen normalen Loot-Objekt (<see cref="ILootable{T}"/>) einen Loot container, der die sonstigen Werte übernimmt 
@@ -87,7 +115,8 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         /// <param name="item">Das normale Loot-Objekt</param>
         /// <param name="_rarityTable">Die Seltenheits-Referenztbabelle</param>
-        public LootObjectContainer(ILootable<T> item, ILootRarityTable _rarityTable)
+        /// <param name="representationString">Optionaler <see cref="string"/> für benutzerdefinierte Repräsentation in ToString()</param>
+        public LootObjectContainer(ILootable<T> item, ILootRarityTable _rarityTable, string representationString = null)
         {
             innerItem = item.Item;
             containerIsQuestItem = item.IsQuestItem;
@@ -95,6 +124,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             containerRarity = item.Rarity;
             containerType = item.Type;
             rarityTable = _rarityTable;
+            rep = representationString;
         }
 
         #endregion
@@ -256,7 +286,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <returns>Die Eigenschaften dieses Containers in einem <see cref="string"/></returns>
         public override string ToString()
         {
-            return "Container [" + this.GetType().Name + "] containing [" + typeof(T).Name + "] (" + Name + ")";
+            return rep ?? "Container [" + this.GetType().Name + "] containing [" + typeof(T).Name + "] (" + Name + ")";
         }
 
         #endregion

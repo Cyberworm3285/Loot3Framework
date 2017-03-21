@@ -33,7 +33,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     [CLSCompliant(false)]
     public abstract class BasePP_StringItem : ILootable<string>
     {
-        #region Attribute
+        #region Attributes
         /// <summary>
         /// Variable Attribute die erst bei Laufzeit einen <see cref="string"/>-Wert generieren
         /// </summary>
@@ -60,6 +60,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         protected ILootRarityTable rarityTable = DefaultRarityTable.SharedInstance;
 
         #endregion
+
+        #region Constructors
+
         /// <summary>
         /// leerer Konstruktor, der die Standardpresets beibehält
         /// </summary>
@@ -85,11 +88,25 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             rarityTable = _table;
         }
 
+        #endregion
+
+        #region Overrides
+        /// <summary>
+        /// Formatiert das Item in einem <see cref="string"/> ( {name}[{typ}] )
+        /// </summary>
+        /// <returns>Eine Zusammenfassung der wichtigsten Eigenschaften als <see cref="string"/></returns>
+        public override string ToString()
+        {
+            return name + "[" + type + "]";
+        }
+
+        #endregion
+
         #region Properties
         /// <summary>
         /// Generiert aus den Attributen einen <see cref="string"/>
         /// </summary>
-        public string Item
+        public virtual string Item
         {
             get
             {
@@ -99,7 +116,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Flag die anzeigt, ob das Item ein Quest-Objekt ist
         /// </summary>
-        public bool IsQuestItem
+        public virtual bool IsQuestItem
         {
             get
             {
@@ -109,7 +126,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Der Name des Items (für Algorthmen und ggf. auch Darstellung relevant)
         /// </summary>
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -119,7 +136,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Die Seltenheit des Items (für Algorithmen relevant)
         /// </summary>
-        public int Rarity
+        public virtual int Rarity
         {
             get
             {
@@ -129,7 +146,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Der Typ des Items (für Algorithmen relevant)
         /// </summary>
-        public string Type
+        public virtual string Type
         {
             get
             {
@@ -139,7 +156,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Gibt aus der Seltenheits-Referenztabelle einen von der Seltenheit abhängigen Wert aus
         /// </summary>
-        public string RarityName
+        public virtual string RarityName
         {
             get
             {
@@ -149,7 +166,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Seltenheits-Referenz, die aus dem Seltenheitswert einen Benutzerfreundlichen <see cref="string"/> generieren kann
         /// </summary>
-        public ILootRarityTable rarTable
+        public virtual ILootRarityTable rarTable
         {
             get { return rarTable; }
         }

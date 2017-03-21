@@ -108,4 +108,20 @@ namespace Loot3Framework.Types.Exceptions
             }
         }
     }
+    /// <summary>
+    /// Exception für defekten Code
+    /// </summary>
+    [Serializable]
+    public class BrokenException : Loot3FrameworkException
+    {
+        /// <summary>
+        /// Konstruktor, der eine Nachricht weiterleitet
+        /// </summary>
+        /// <param name="message">Die Nachricht</param>
+        public BrokenException(string message) : base(message) { }
+        /// <summary>
+        /// Standard-Konstruktor
+        /// </summary>
+        public BrokenException() : base() { }
+    }
 }

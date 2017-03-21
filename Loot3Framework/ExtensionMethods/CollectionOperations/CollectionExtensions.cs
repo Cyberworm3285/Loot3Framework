@@ -17,84 +17,6 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
     /// <seealso cref="SpecificCollectionExtensions"/>
     public static class CollectionExtensions
     {
-        #region DoFunc
-        /// <summary>
-        /// Wendet auf den gesamten Array die angegebene Funktion an
-        /// </summary>
-        /// <typeparam name="T">Ausgangs-Typ</typeparam>
-        /// <typeparam name="TResult">Resuliterender Typ</typeparam>
-        /// <param name="t">Das erweiterte Objekt</param>
-        /// <param name="func">Die Funktion zum Anwenden</param>
-        /// <returns>Den Array Von Resultaten der Anwendung von func auf t</returns>
-        [Obsolete]
-        public static TResult[] DoFunc<T, TResult>(this T[] t, Func<T, TResult> func)
-        {
-            TResult[] result = new TResult[t.Length];
-            for (int i = 0; i < t.Length; i++)
-            {
-                result[i] = func(t[i]);
-            }
-            return result;
-        }
-        /// <summary>
-        /// Wendet auf den gesamten resultierenden Array die angegebene Funktion an (nicht generisch -> Ausgangsobjekte sind <see cref="object"/>)
-        /// </summary>
-        /// <typeparam name="TResult">Resultierender Typ</typeparam>
-        /// <param name="e">Das erweiterte Objekt</param>
-        /// <param name="func">Die Funktion zum Anwenden</param>
-        /// <returns>Den Array Von Resultaten der Anwendung von func auf die Elemente</returns>
-        [Obsolete]
-        public static TResult[] DoFunc<TResult>(this IEnumerable e, Func<object, TResult> func) where TResult : class
-        {
-            List<TResult> result = new List<TResult>();
-            IEnumerator enumerator = e.GetEnumerator();
-            while (enumerator.MoveNext()) 
-            {
-                result.Add(func(enumerator.Current));
-            }
-            return result.ToArray();
-        }
-        /// <summary>
-        /// Wendet auf den gesamten resultierenden Array die angegebene Funktion an
-        /// </summary>
-        /// <typeparam name="T">Ausgangs-Typ</typeparam>
-        /// <typeparam name="TResult">Resultierender Typ</typeparam>
-        /// <param name="e">Das erweiterte Objekt</param>
-        /// <param name="func">Die Funktion zum Anwenden</param>
-        /// <returns>Den Array Von Resultaten der Anwendung von func auf die Elemente</returns>
-        [Obsolete]
-        public static TResult[] DoFunc<T, TResult>(this IEnumerable<T> e, Func<T, TResult> func) where TResult : class
-        {
-            List<TResult> result = new List<TResult>();
-            IEnumerator<T> enumerator = e.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                result.Add(func(enumerator.Current));
-            }
-            return result.ToArray();
-        }
-        /// <summary>
-        /// Erweitert die LINQ Methode "Select" auf <see cref="IEnumerable"/>s
-        /// </summary>
-        /// <typeparam name="TKey">Der resultierende Typ</typeparam>
-        /// <param name="e">Das erweiterte Objekt</param>
-        /// <param name="selector">Die Selector-Funktion</param>
-        /// <returns>Die umgewandelte Aufzählung</returns>
-        public static IEnumerable<TKey> Select<TKey>(this IEnumerable e, Func<object, TKey> selector)
-        {
-            IEnumerator<object> en = e.Cast<object>().GetEnumerator();
-            List<TKey> result = new List<TKey>();
-
-            while (en.MoveNext())
-            {
-                result.Add(selector(en.Current));
-            }
-
-            return result;
-        }
-
-        #endregion
-
         #region DoAction
         /// <summary>
         /// Führt mit allen Elementen die angegebene <see cref="Action"/> aus
@@ -219,23 +141,44 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             t.DoAction(tt => tt.DoAction(ttt => result.Add(ttt)));
             return result;
         }
+        ///// <summary>
+        ///// Fügt alle Elemente der Auflistungen zur angegebenen <see cref="ICollection"/> hinzu
+        ///// </summary>
+        ///// <typeparam name="T">Der erweiterte Typ</typeparam>
+        ///// <typeparam name="TResult">Der Typ der <see cref="ICollection"/></typeparam>
+        ///// <param name="c">Das erweiterte Objekt</param>
+        ///// <returns>Die Verkettung aller Elemente</returns>
+        //public static TResult ChainUpToCollection<T, TResult>(this ICollection<ICollection<T>> c) where TResult : ICollection<T>, new()
+        //{
+        //    TResult result = new TResult();
+        //
+        //    foreach (ICollection<T> t in c)
+        //    {
+        //        foreach (T tt in t)
+        //        {
+        //            result.Add(tt);
+        //        }
+        //    }
+        //
+        //    return result;
+        //}
         /// <summary>
         /// Fügt alle Elemente der Auflistungen zur angegebenen <see cref="ICollection"/> hinzu
         /// </summary>
         /// <typeparam name="T">Der erweiterte Typ</typeparam>
         /// <typeparam name="TResult">Der Typ der <see cref="ICollection"/></typeparam>
-        /// <param name="c">Das erweiterte Objekt</param>
+        /// <param name="e">Das erweiterte Objekt</param>
         /// <returns>Die Verkettung aller Elemente</returns>
-        public static TResult ChainUpToCollection<T, TResult>(this ICollection<ICollection<T>> c) where TResult : ICollection<T>, new()
+        public static TResult ChainUpToCollection<T, TResult>(this IEnumerable<IEnumerable<T>> e) where TResult : ICollection<T>, new()
         {
             TResult result = new TResult();
-            IEnumerator<ICollection<T>> enumerator = c.GetEnumerator();
-            while (enumerator.MoveNext())
+            IEnumerator<IEnumerable<T>> enu1 = e.GetEnumerator();
+            while (enu1.MoveNext())
             {
-                IEnumerator<T> enumerator2 = enumerator.Current.GetEnumerator();
-                while (enumerator2.MoveNext())
+                IEnumerator<T> enu2 = enu1.Current.GetEnumerator();
+                while (enu2.MoveNext())
                 {
-                    result.Add(enumerator2.Current);
+                    result.Add(enu2.Current);
                 }
             }
             return result;
@@ -461,6 +404,47 @@ namespace Loot3Framework.ExtensionMethods.CollectionOperations
             FusionTuple<T1, T2>[] result = new FusionTuple<T1, T2>[e1Count];
             IEnumerator<T1> enu1 = e1.GetEnumerator();
             IEnumerator<T2> enu2 = e2.GetEnumerator();
+
+            while (enu1.MoveNext() && enu2.MoveNext())
+            {
+                result[counter++] = new FusionTuple<T1, T2>(enu1.Current, enu2.Current);
+            }
+
+            return result;
+        }
+        /// <summary>
+        /// Fusioniert zwei <see cref="IEnumerable"/>s zu einem teilbaren Container Array
+        /// </summary>
+        /// <typeparam name="T1">Typ1</typeparam>
+        /// <typeparam name="T2">Typ2</typeparam>
+        /// <param name="c1">Das erweiterte Objekt</param>
+        /// <param name="c2">Die zweite <see cref="ICollection"/></param>
+        /// <returns>Einen teilbaren Container Array</returns>
+        ///<exception cref="IndexOutOfRangeException">Wenn die Enumerationen unterschiedlich lang sind</exception>
+        ///        /// <example>
+        /// <para>
+        /// Mit der Bindung zweier Objekte kann man z.B. Änderungen von Positionen in Collections an beiden Objekten gleichzeitig durchführen,
+        /// ohne einen eigenen Algorithmus zu schreiben. Hier wird ein <see cref="string"/>-<see cref="Array"/> von mit Zahl-Representationen anhand ihrer
+        /// Zahl-Equivalente sortiert (der <see cref="int"/>-<see cref="Array"/>)
+        /// </para>
+        /// <code>
+        /// string[]    aa = new string[]   { "eins", "drei", "zwei", "minus vier" };
+        /// int[]       bb = new int[]      { 1,      3,      2,      -4           };
+        /// 
+        /// aa.Fuse(bb).OrderBy(i => i.Item2).DeFuse(out aa, out bb);
+        /// //aa: { "minus vier", "eins", "zwei", "drei" }
+        /// //bb: { -4, 1, 2, 3 }
+        /// </code>
+        /// </example>
+        public static FusionTuple<T1, T2>[] Fuse<T1, T2>(this ICollection<T1> c1, ICollection<T2> c2)
+        {
+            if (c1.Count != c2.Count)
+                throw new IndexOutOfRangeException("uneven collection-counts");
+
+            int counter = 0;
+            FusionTuple<T1, T2>[] result = new FusionTuple<T1, T2>[c1.Count];
+            IEnumerator<T1> enu1 = c1.GetEnumerator();
+            IEnumerator<T2> enu2 = c2.GetEnumerator();
 
             while (enu1.MoveNext() && enu2.MoveNext())
             {

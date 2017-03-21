@@ -46,7 +46,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         /// <typeparam name="TCollection">Die <see cref="ICollection{T}"/></typeparam>
         /// <returns>Die auszugebeneden Objekte</returns>
-        public TCollection GetLootObjects<TCollection>() where TCollection : ICollection<ILootable<T>>, new()
+        public virtual TCollection GetLootObjects<TCollection>() where TCollection : ICollection<ILootable<T>>, new()
         {
             TCollection result = new TCollection();
             Array.ForEach(objects, o => result.Add(o));

@@ -40,9 +40,12 @@
             this.button2 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.allowedTab = new System.Windows.Forms.TabPage();
+            this.checkedListBox3 = new System.Windows.Forms.CheckedListBox();
             this.tabControl1.SuspendLayout();
             this.typeTab.SuspendLayout();
             this.rarityTab.SuspendLayout();
+            this.allowedTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
@@ -76,6 +79,7 @@
             // 
             this.tabControl1.Controls.Add(this.typeTab);
             this.tabControl1.Controls.Add(this.rarityTab);
+            this.tabControl1.Controls.Add(this.allowedTab);
             this.tabControl1.Location = new System.Drawing.Point(348, 39);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -115,9 +119,9 @@
             // checkedListBox2
             // 
             this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Location = new System.Drawing.Point(7, 7);
+            this.checkedListBox2.Location = new System.Drawing.Point(6, 6);
             this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(196, 154);
+            this.checkedListBox2.Size = new System.Drawing.Size(197, 169);
             this.checkedListBox2.TabIndex = 0;
             // 
             // textBox1
@@ -159,6 +163,24 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // allowedTab
+            // 
+            this.allowedTab.Controls.Add(this.checkedListBox3);
+            this.allowedTab.Location = new System.Drawing.Point(4, 22);
+            this.allowedTab.Name = "allowedTab";
+            this.allowedTab.Size = new System.Drawing.Size(209, 173);
+            this.allowedTab.TabIndex = 2;
+            this.allowedTab.Text = "AllowedItems";
+            this.allowedTab.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox3
+            // 
+            this.checkedListBox3.FormattingEnabled = true;
+            this.checkedListBox3.Location = new System.Drawing.Point(4, 4);
+            this.checkedListBox3.Name = "checkedListBox3";
+            this.checkedListBox3.Size = new System.Drawing.Size(199, 169);
+            this.checkedListBox3.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,6 +200,7 @@
             this.tabControl1.ResumeLayout(false);
             this.typeTab.ResumeLayout(false);
             this.rarityTab.ResumeLayout(false);
+            this.allowedTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,5 +220,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TabPage allowedTab;
+        private System.Windows.Forms.CheckedListBox checkedListBox3;
     }
 }

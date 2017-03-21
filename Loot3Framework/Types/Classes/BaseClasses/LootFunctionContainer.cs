@@ -16,6 +16,24 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     /// <seealso cref="Types.Classes.Algorithms.ObjectFetching"/>
     /// <seealso cref="Types.Classes.BaseClasses.DefaultObjectFetcher{T}"/>
     /// <seealso cref="LootObjectContainer{T}"/>
+    /// <example>
+    /// <para>
+    /// Container können sowohl von einem <see cref="Loot3Framework.Interfaces.ILootObjectFetcher{T}"/> als kompletter Array zum Loot-Pool hinzugefügt werden (erfordert geringfügige 
+    /// manuelle Implementation, siehe <see cref="DefaultObjectFetcher{T}"/>) oder durch Vererbung von der Basisklasse beim <see cref="ILootTypeFetcher{T}"/> berücksichtigt werden. 
+    /// </para>
+    /// <para>
+    /// Bei der Vererbung ist es am einfachsten sämtliche Änderungen und Konfigurierungen im Konstruktor durchzuführen (selbst der ToString()-Output kann eingestellt werden):
+    /// </para>
+    /// <code>
+    /// public class FunctionContainerExtension : LootFunctionContainer&lt;string&gt;
+    /// {
+    ///     public FunctionContainerExtension() : base(() =&gt; "Funktion", "ToString()-Output")
+    ///     {
+    ///         this.SetProps(false, "FunktionsName", 123, "FunktionsTyp");
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class LootFunctionContainer<T> : ILootable<T>
     {
         #region Attributes
@@ -44,6 +62,10 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Die Seltenheits-Referenztabelle des generierten Items
         /// </summary>
         protected ILootRarityTable rarityTable = DefaultRarityTable.SharedInstance;
+        /// <summary>
+        /// Standard-Ausgabewert für die ToString() Methode
+        /// </summary>
+        protected string rep;
 
 
 
@@ -54,19 +76,23 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Konstruktor, der die Loot-Funktion setzt
         /// </summary>
         /// <param name="func">Die Loot-Funktion</param>
-        public LootFunctionContainer(Func<T> func)
+        /// <param name="representationString">Optionaler <see cref="string"/> für benutzerdefinierte Repräsentation in ToString()</param>
+        public LootFunctionContainer(Func<T> func, string representationString = null)
         {
             innerFunction = func;
+            rep = representationString;
         }
         /// <summary>
         /// Konstruktor, der die Loot-Funktion und die Seltenheits-Refernztabelle setzt
         /// </summary>
         /// <param name="func">Die Loot-Funktion</param>
         /// <param name="_rarityTable">Die Seltenheits-Referenztabelle</param>
-        public LootFunctionContainer(Func<T> func, ILootRarityTable _rarityTable)
+        /// <param name="representationString">Optionaler <see cref="string"/> für benutzerdefinierte Repräsentation in ToString()</param>
+        public LootFunctionContainer(Func<T> func, ILootRarityTable _rarityTable, string representationString = null)
         {
             innerFunction = func;
             rarityTable = _rarityTable;
+            rep = representationString;
         }
 
         #endregion
@@ -218,7 +244,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <returns>Die Eigenschaften dieses Containers in einem <see cref="string"/></returns>
         public override string ToString()
         {
-            return "Container [" + this.GetType().Name + "] containing [Func<" + typeof(T).Name + ">] (" + Name + ")";
+            return rep ?? "Container [" + this.GetType().Name + "] containing [Func<" + typeof(T).Name + ">] (" + Name + ")";
         }
 
         #endregion
