@@ -36,12 +36,13 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.rarityTab = new System.Windows.Forms.TabPage();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.allowedTab = new System.Windows.Forms.TabPage();
+            this.checkedListBox3 = new System.Windows.Forms.CheckedListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.allowedTab = new System.Windows.Forms.TabPage();
-            this.checkedListBox3 = new System.Windows.Forms.CheckedListBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.typeTab.SuspendLayout();
             this.rarityTab.SuspendLayout();
@@ -124,6 +125,24 @@
             this.checkedListBox2.Size = new System.Drawing.Size(197, 169);
             this.checkedListBox2.TabIndex = 0;
             // 
+            // allowedTab
+            // 
+            this.allowedTab.Controls.Add(this.checkedListBox3);
+            this.allowedTab.Location = new System.Drawing.Point(4, 22);
+            this.allowedTab.Name = "allowedTab";
+            this.allowedTab.Size = new System.Drawing.Size(209, 173);
+            this.allowedTab.TabIndex = 2;
+            this.allowedTab.Text = "AllowedItems";
+            this.allowedTab.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox3
+            // 
+            this.checkedListBox3.FormattingEnabled = true;
+            this.checkedListBox3.Location = new System.Drawing.Point(4, 4);
+            this.checkedListBox3.Name = "checkedListBox3";
+            this.checkedListBox3.Size = new System.Drawing.Size(199, 169);
+            this.checkedListBox3.TabIndex = 0;
+            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(155, 16);
@@ -163,29 +182,22 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // allowedTab
+            // button4
             // 
-            this.allowedTab.Controls.Add(this.checkedListBox3);
-            this.allowedTab.Location = new System.Drawing.Point(4, 22);
-            this.allowedTab.Name = "allowedTab";
-            this.allowedTab.Size = new System.Drawing.Size(209, 173);
-            this.allowedTab.TabIndex = 2;
-            this.allowedTab.Text = "AllowedItems";
-            this.allowedTab.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBox3
-            // 
-            this.checkedListBox3.FormattingEnabled = true;
-            this.checkedListBox3.Location = new System.Drawing.Point(4, 4);
-            this.checkedListBox3.Name = "checkedListBox3";
-            this.checkedListBox3.Size = new System.Drawing.Size(199, 169);
-            this.checkedListBox3.TabIndex = 0;
+            this.button4.Location = new System.Drawing.Point(561, 13);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 8;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 261);
+            this.ClientSize = new System.Drawing.Size(655, 261);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button2);
@@ -222,5 +234,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TabPage allowedTab;
         private System.Windows.Forms.CheckedListBox checkedListBox3;
+        private System.Windows.Forms.Button button4;
     }
 }

@@ -14,7 +14,6 @@ using System.IO;
 using Loot3Framework.Types.Classes.Algorithms.Looting;
 using Loot3Framework.Types.Classes.Algorithms.Filter;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
-using Loot3Framework.Types.Classes.Algorithms.ObjectFetching;
 using Loot3Framework.Types.Classes.RarityTables;
 using Loot3Framework.Types.Exceptions;
 using Loot3Framework.Types.Classes.HelperClasses;
@@ -32,12 +31,23 @@ namespace Loot3Vorbereitung
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ObjectFetcherAccess<int>.GetObjects().DoAction(o => Console.WriteLine(o));
             checkedListBox1.Items.Clear();
             checkedListBox2.Items.Clear();
+            checkedListBox3.Items.Clear();
             GlobalItems.Instance.AllTypeNames.DoAction(n => checkedListBox1.Items.Add(n, true));
             GlobalItems.Instance.AllRarityNames.DoAction(r => checkedListBox2.Items.Add(r, true));
             GlobalItems.Instance.AllLoot.DoAction(l => checkedListBox3.Items.Add(l, true));
+            GlobalItems.Instance.OnLootPoolChanged +=
+                (send, args) =>
+                {
+                    Console.WriteLine("Items changed! (" + args.ChangedLoot.Count() + ": " + Enum.GetName(args.ChangeType.GetType(), args.ChangeType) + ")");
+                    checkedListBox1.Items.Clear();
+                    checkedListBox2.Items.Clear();
+                    checkedListBox3.Items.Clear();
+                    GlobalItems.Instance.AllTypeNames.DoAction(n => checkedListBox1.Items.Add(n, true));
+                    GlobalItems.Instance.AllRarityNames.DoAction(r => checkedListBox2.Items.Add(r, true));
+                    GlobalItems.Instance.AllLoot.DoAction(l => checkedListBox3.Items.Add(l, true));
+                };
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -129,9 +139,11 @@ namespace Loot3Vorbereitung
         private void button3_Click(object sender, EventArgs e)
         {
             GlobalItems.Instance.AddAllLootObjects();
-            //GlobalItems.Instance.Add(new LootObjectContainer<string>("Mettwurst").SetProps(null, true, "Mettwurst", 599, "Artefakt"));
-            //GlobalItems.Instance.Add(new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen").SetProps(null, true, "Func", 400, "LootFunction"));
-            MainForm_Load(null, null);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            GlobalItems.Instance.Remove(i => i.IsQuestItem);
         }
     }
 }

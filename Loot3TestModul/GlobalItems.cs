@@ -10,6 +10,7 @@ using Loot3Framework.Interfaces;
 using Loot3Framework.Types.Classes.BaseClasses;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Types.Classes.Algorithms.TypeFetching;
+using Loot3Framework.Types.Classes.EventArguments;
 
 namespace Loot3Vorbereitung
 {

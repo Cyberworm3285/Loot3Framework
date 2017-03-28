@@ -8,6 +8,7 @@ using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.Other;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Types.Classes.Algorithms.ObjectFetching;
+using Loot3Framework.Types.Classes.EventArguments;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
@@ -47,6 +48,10 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Das gesamte gespeicherte Loot
         /// </summary>
         protected List<ILootable<T>> allLoot;
+        /// <summary>
+        /// Even für geändertes Loot
+        /// </summary>
+        public event Action<BaseLootHolder<T>, LootChangedEventArgs<T>> OnLootPoolChanged;
         /// <summary>
         /// Konstruktor, der den Typ-Fetcher setzt
         /// </summary>
@@ -92,6 +97,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public virtual void Add(ILootable<T> item)
         {
             allLoot.Add(item);
+            OnLootPoolChanged(this, new LootChangedEventArgs<T>(item, EditType.ItemsAdded));
         }
         /// <summary>
         /// Fügt einen <see cref="Array"/> von Objekten zur Liste hinzu
@@ -100,6 +106,47 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public virtual void AddRange(ILootable<T>[] items)
         {
             allLoot.AddRange(items);
+            OnLootPoolChanged(this, new LootChangedEventArgs<T>(items, EditType.ItemsAdded));
+        }
+        /// <summary>
+        /// Löscht ein Item aus der Liste
+        /// </summary>
+        /// <param name="item">Das zu löschende Item</param>
+        /// <returns>True bei Erfolg</returns>
+        public virtual bool Remove(ILootable<T> item)
+        {
+            bool result = allLoot.Remove(item);
+            if (result)
+                OnLootPoolChanged(this, new LootChangedEventArgs<T>(item, EditType.ItemsRemoved));
+            return result;
+        }
+        /// <summary>
+        /// Löscht mehrere Items aus der Liste
+        /// </summary>
+        /// <param name="items">Die zu löschenden Items</param>
+        /// <returns>True bei komplettem Erfolg</returns>
+        public virtual bool Remove(IEnumerable<ILootable<T>> items)
+        {
+            bool result = true;
+            List<ILootable<T>> changed = new List<ILootable<T>>();
+            items.DoAction(i => {
+                bool temp = allLoot.Remove(i);
+                if (temp)
+                    changed.Add(i);
+                result = result && temp;
+            });
+            if (changed.Count != 0)
+                OnLootPoolChanged(this, new LootChangedEventArgs<T>(changed, EditType.ItemsRemoved));
+            return result; 
+        }
+        /// <summary>
+        /// Löscht alle Items aus der Liste, auf die die Beschreibung zustimmt
+        /// </summary>
+        /// <param name="predicate">Die Beschreibungs-Funktion</param>
+        /// <returns>True mindestens einem Treffer</returns>
+        public virtual bool Remove(Predicate<ILootable<T>> predicate)
+        {
+            return Remove(allLoot.FindAll(predicate));
         }
         /// <summary>
         /// Fügt Container-Objekte zur Liste hinzu

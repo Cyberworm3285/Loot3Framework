@@ -6,8 +6,8 @@ using System.Linq;
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.ExtensionMethods.Other;
+using Loot3Framework.Types.Classes.EventArguments;
 
-using Loot3Framework.Types.Classes.Algorithms.TypeFetching;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
@@ -54,6 +54,10 @@ namespace Loot3Framework.Types.Classes.BaseClasses
     {
         #region Attributes
 
+        /// <summary>
+        /// Even für geändertes Loot
+        /// </summary>
+        public event Action<BaseSplitItemHandler<T>, SplitLootChangedEventArgs<T>> OnLootPoolChanged;
         /// <summary>
         /// Der momentan ausgewählte Typ
         /// </summary>
@@ -116,6 +120,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             if (currMode != "All")
                 lootHashMap[currMode].Add(item);
             allInternalLoot.Add(item);
+            OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(item, EditType.ItemsAdded, currMode));
         }
         /// <summary>
         /// Fügt einen <see cref="Array"/> an Elementen zur momentanen Liste hinzu
@@ -126,6 +131,52 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             if (currMode != "All")
                 lootHashMap[currMode].AddRange(items);
             allInternalLoot.AddRange(items);
+            OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(items, EditType.ItemsAdded, currMode));
+        }
+        /// <summary>
+        /// Löscht ein Item aus der Liste
+        /// </summary>
+        /// <param name="item">Das zu löschende Item</param>
+        /// <param name="key">Der Loot-Pool-Key</param>
+        /// <returns>True bei Erfolg</returns>
+        public virtual bool Remove(ILootable<T> item, string key = null)
+        {
+            key = key ?? "all";
+            bool result = lootHashMap[key].Remove(item);
+            if (result)
+                OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(item, EditType.ItemsRemoved, key));
+            return result;
+        }
+        /// <summary>
+        /// Löscht mehrere Items aus der Liste
+        /// </summary>
+        /// <param name="items">Die zu löschenden Items</param>
+        /// <param name="key">Der Loot-Pool-Key</param>
+        /// <returns>True bei komplettem Erfolg</returns>
+        public virtual bool Remove(IEnumerable<ILootable<T>> items, string key = null)
+        {
+            key = key ?? "all";
+            bool result = true;
+            List<ILootable<T>> changed = new List<ILootable<T>>();
+            items.DoAction(i => {
+                bool temp = lootHashMap[key].Remove(i);
+                if (temp)
+                    changed.Add(i);
+                result = result && temp;
+            });
+            if (changed.Count != 0)
+                OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(changed, EditType.ItemsRemoved, key));
+            return result;
+        }
+        /// <summary>
+        /// Löscht alle Items aus der Liste, auf die die Beschreibung zustimmt
+        /// </summary>
+        /// <param name="predicate">Die Beschreibungs-Funktion</param>
+        /// <param name="key">Der Loot-Pool-Key</param>
+        /// <returns>True mindestens einem Treffer</returns>
+        public virtual bool Remove(Predicate<ILootable<T>> predicate, string key)
+        {
+            return Remove(lootHashMap[key].FindAll(predicate), key);
         }
         /// <summary>
         /// Gibt mit dem angegebenen Algorithmus ein Loot-Objekt aus
