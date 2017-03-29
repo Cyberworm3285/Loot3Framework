@@ -55,7 +55,11 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         #region Attributes
 
         /// <summary>
-        /// Even für geändertes Loot
+        /// Event für geändertes Loot
+        /// </summary>
+        public event Action<BaseSplitItemHandler<T>, SplitLootChangedEventArgs<T>> OnLootChanged;
+        /// <summary>
+        /// Event für geänderten Loot-Pool
         /// </summary>
         public event Action<BaseSplitItemHandler<T>, SplitLootChangedEventArgs<T>> OnLootPoolChanged;
         /// <summary>
@@ -120,7 +124,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             if (currMode != "All")
                 lootHashMap[currMode].Add(item);
             allInternalLoot.Add(item);
-            OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(item, EditType.ItemsAdded, currMode));
+            OnLootChanged(this, new SplitLootChangedEventArgs<T>(item, EditType.ItemsAdded, currMode));
         }
         /// <summary>
         /// Fügt einen <see cref="Array"/> an Elementen zur momentanen Liste hinzu
@@ -131,7 +135,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             if (currMode != "All")
                 lootHashMap[currMode].AddRange(items);
             allInternalLoot.AddRange(items);
-            OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(items, EditType.ItemsAdded, currMode));
+            OnLootChanged(this, new SplitLootChangedEventArgs<T>(items, EditType.ItemsAdded, currMode));
         }
         /// <summary>
         /// Löscht ein Item aus der Liste
@@ -144,7 +148,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             key = key ?? "all";
             bool result = lootHashMap[key].Remove(item);
             if (result)
-                OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(item, EditType.ItemsRemoved, key));
+                OnLootChanged(this, new SplitLootChangedEventArgs<T>(item, EditType.ItemsRemoved, key));
             return result;
         }
         /// <summary>
@@ -165,7 +169,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 result = result && temp;
             });
             if (changed.Count != 0)
-                OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(changed, EditType.ItemsRemoved, key));
+                OnLootChanged(this, new SplitLootChangedEventArgs<T>(changed, EditType.ItemsRemoved, key));
             return result;
         }
         /// <summary>
@@ -250,6 +254,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 return false;
             else
             {
+                OnLootPoolChanged(this, new SplitLootChangedEventArgs<T>(new ILootable<T>[0], EditType.NoItemsChanged, newMode));
                 currMode = newMode;
                 return true;
             }

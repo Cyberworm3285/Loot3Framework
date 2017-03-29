@@ -80,7 +80,7 @@
     <Compile Include="Types\Classes\BaseClasses\LootObjectContainer.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseSplitItemHandler.cs" />
     <Compile Include="Types\Classes\Comperators\RarTableOrderComperator.cs" />
-    <Compile Include="Types\Classes\EventArguments\LootHandlingEventArgs.cs" />
+    <Compile Include="Types\Classes\HelperClasses\LootHandlingEventArgs.cs" />
     <Compile Include="Types\Classes\HelperClasses\FusionContainer.cs" />
     <Compile Include="Types\Classes\HelperClasses\FusionTuple.cs" />
     <Compile Include="Types\Classes\RarityTables\DefaultRarityTable.cs" />
@@ -93,6 +93,9 @@
     <Compile Include="Types\Classes\ItemProperties\NameOnlyProp.cs" />
     <Compile Include="Types\Classes\ItemProperties\SingleIntervallProp.cs" />
     <Compile Include="Types\Structs\IntervallChain.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Types\Classes\EventArguments\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

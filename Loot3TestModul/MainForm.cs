@@ -37,7 +37,7 @@ namespace Loot3Vorbereitung
             GlobalItems.Instance.AllTypeNames.DoAction(n => checkedListBox1.Items.Add(n, true));
             GlobalItems.Instance.AllRarityNames.DoAction(r => checkedListBox2.Items.Add(r, true));
             GlobalItems.Instance.AllLoot.DoAction(l => checkedListBox3.Items.Add(l, true));
-            GlobalItems.Instance.OnLootPoolChanged +=
+            GlobalItems.Instance.OnLootChanged +=
                 (send, args) =>
                 {
                     Console.WriteLine("Items changed! (" + args.ChangedLoot.Count() + ": " + Enum.GetName(args.ChangeType.GetType(), args.ChangeType) + ")");

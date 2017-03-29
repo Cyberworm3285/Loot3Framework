@@ -23,7 +23,11 @@ namespace Loot3Framework.Types.Classes.EventArguments
         /// <summary>
         /// Items initialisiert
         /// </summary>
-        ItemsInitialized
+        ItemsInitialized,
+        /// <summary>
+        /// Keine Änderungen
+        /// </summary>
+        NoItemsChanged,
     }
     /// <summary>
     /// Eventargs für Events in <see cref="Loot3Framework.Interfaces.IItemHolder{T}"/> Subklassen

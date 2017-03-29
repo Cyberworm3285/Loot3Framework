@@ -49,9 +49,9 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         protected List<ILootable<T>> allLoot;
         /// <summary>
-        /// Even für geändertes Loot
+        /// Event für geändertes Loot
         /// </summary>
-        public event Action<BaseLootHolder<T>, LootChangedEventArgs<T>> OnLootPoolChanged;
+        public event Action<BaseLootHolder<T>, LootChangedEventArgs<T>> OnLootChanged;
         /// <summary>
         /// Konstruktor, der den Typ-Fetcher setzt
         /// </summary>
@@ -97,7 +97,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public virtual void Add(ILootable<T> item)
         {
             allLoot.Add(item);
-            OnLootPoolChanged(this, new LootChangedEventArgs<T>(item, EditType.ItemsAdded));
+            OnLootChanged(this, new LootChangedEventArgs<T>(item, EditType.ItemsAdded));
         }
         /// <summary>
         /// Fügt einen <see cref="Array"/> von Objekten zur Liste hinzu
@@ -106,7 +106,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         public virtual void AddRange(ILootable<T>[] items)
         {
             allLoot.AddRange(items);
-            OnLootPoolChanged(this, new LootChangedEventArgs<T>(items, EditType.ItemsAdded));
+            OnLootChanged(this, new LootChangedEventArgs<T>(items, EditType.ItemsAdded));
         }
         /// <summary>
         /// Löscht ein Item aus der Liste
@@ -117,7 +117,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         {
             bool result = allLoot.Remove(item);
             if (result)
-                OnLootPoolChanged(this, new LootChangedEventArgs<T>(item, EditType.ItemsRemoved));
+                OnLootChanged(this, new LootChangedEventArgs<T>(item, EditType.ItemsRemoved));
             return result;
         }
         /// <summary>
@@ -136,7 +136,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                 result = result && temp;
             });
             if (changed.Count != 0)
-                OnLootPoolChanged(this, new LootChangedEventArgs<T>(changed, EditType.ItemsRemoved));
+                OnLootChanged(this, new LootChangedEventArgs<T>(changed, EditType.ItemsRemoved));
             return result; 
         }
         /// <summary>
