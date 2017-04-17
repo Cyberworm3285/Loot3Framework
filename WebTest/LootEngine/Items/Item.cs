@@ -23,7 +23,7 @@ namespace Items
             name = "Item1";
             type = "Both1";
             isQuestItem = true;
-            attributes = new IItemProperty[]
+            attributes = new IItemProperty<string>[]
             {
                 new NameOnlyProp("Unkaputtbar"),
                 new SingleIntervallProp("Basisschaden", new Intervall(5,10)),
@@ -42,10 +42,10 @@ namespace Items
             rarity = 50;
             isQuestItem = false;
             type = "Space2";
-            attributes = new IItemProperty[]
+            attributes = new IItemProperty<string>[]
             {
-                new RandomMultiProp(
-                    new IItemProperty[]
+                new RandomMultiProp<string>(
+                    new IItemProperty<string>[]
                     {
                         new NameOnlyProp("NameOnly"),
                         new SingleIntervallProp("Energie Schaden", new Intervall(123,1222)),
@@ -62,7 +62,7 @@ namespace Items
             rarity = 400;
 			type = "Pirates1";
             rarityTable = new RarityForwardTable("FischermensFriend");
-            attributes = new IItemProperty[]
+            attributes = new IItemProperty<string>[]
             {
                 new SingleIntervallProp("Draufhauen", new Intervall(0,133))
             };

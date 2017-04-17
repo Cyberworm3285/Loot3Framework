@@ -38,10 +38,6 @@ namespace Loot3Framework.Interfaces
         /// </summary>
         string Name { get; }
         /// <summary>
-        /// Gibt aus, ob das Objekt ein Quest-Item ist
-        /// </summary>
-        bool IsQuestItem { get; }
-        /// <summary>
         /// Gibt die Seltenheits-Referenztabelle des Objekts aus (wird normalerweis für RarityName verwendet)
         /// </summary>
         ILootRarityTable rarTable { get; }

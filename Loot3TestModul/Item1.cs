@@ -135,7 +135,7 @@ namespace Containers
     {
         public ObjectContainerExtension() : base("ObjektExtension", "Objekt") 
         {
-            this.SetProps(false, "Objekt", 123, "Objekt");
+            this.SetProps("Objekt", 123, "Objekt");
         }
     }
 
@@ -143,7 +143,7 @@ namespace Containers
     {
         public FunctionContainerExtension() : base(() => "FunktionExtension", "Funktion")
         {
-            this.SetProps(false, "Funktion", 123, "Funktion");
+            this.SetProps("Funktion", 123, "Funktion");
         }
     }
 
@@ -151,14 +151,14 @@ namespace Containers
     {
         public ContainerProvider() : base(new ILootable<string>[]
             {
-                new LootObjectContainer<string>("Mettwurst2").SetProps(true, "Mettwurst", 599, "Artefakt"),
-                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen2").SetProps(true, "Func", 400, "LootFunction"),
-                new LootFunctionContainer<string>(() => "!FunctionKek").SetProps(true, "blaaa", 350, "BackFuck"),
-                new LootObjectContainer<string>("Achteck").SetProps(true, "Achteck", 260, "Achteck"),
-                new LootObjectContainer<string>("Würfel").SetProps(false, "Quader", 450, "Objekt"),
-                new LootObjectContainer<string>("Peter").SetProps(false, "Peter", 5, "Sklave"),
-                new LootObjectContainer<string>("null").SetProps(false, "null", 25, "leere"),
-                new LootObjectContainer<string>("Satan").DoWith(i => i.SetProps(true, "HerrDerSiebenHöllen", 5, "PrimeEvil"))
+                new LootObjectContainer<string>("Mettwurst2").SetProps("Mettwurst", 599, "Artefakt"),
+                new LootFunctionContainer<string>(() => GlobalRandom.Next(13, 667) + " Euronen2").SetProps("Func", 400, "LootFunction"),
+                new LootFunctionContainer<string>(() => "!FunctionKek").SetProps("blaaa", 350, "BackFuck"),
+                new LootObjectContainer<string>("Achteck").SetProps("Achteck", 260, "Achteck"),
+                new LootObjectContainer<string>("Würfel").SetProps("Quader", 450, "Objekt"),
+                new LootObjectContainer<string>("Peter").SetProps("Peter", 5, "Sklave"),
+                new LootObjectContainer<string>("null").SetProps("null", 25, "leere"),
+                new LootObjectContainer<string>("Satan").DoWith(i => i.SetProps("HerrDerSiebenHöllen", 5, "PrimeEvil"))
             }) { }
     }
 
@@ -169,8 +169,8 @@ namespace Containers
             TCollection result = new TCollection();
             new ILootable<int>[]
             {
-                new LootObjectContainer<int>(13).SetProps(true, "Zahl", 400, "Integer"),
-                new LootFunctionContainer<int>(() => GlobalRandom.Next(0,501)).SetProps(true, "Func<Integer>",500, "Integer"),
+                new LootObjectContainer<int>(13).SetProps("Zahl", 400, "Integer"),
+                new LootFunctionContainer<int>(() => GlobalRandom.Next(0,501)).SetProps("Func<Integer>",500, "Integer"),
             }.DoAction(l => result.Add(l));
             return result;
         }

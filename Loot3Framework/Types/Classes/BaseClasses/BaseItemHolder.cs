@@ -153,7 +153,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         public virtual void AddAllLootObjects()
         {
-            AddRange(ObjectFetcherAccess<T>.GetObjects());
+            allLoot.AddRange(ObjectFetcherAccess<T>.GetObjects());
         }
 
         #endregion

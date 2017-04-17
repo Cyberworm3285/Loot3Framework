@@ -41,11 +41,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// Die Generierungsfunktion
         /// </summary>
         protected Func<T> innerFunction;
-
-        /// <summary>
-        /// Flag die anzeigt, ob das generierte Item ein Quest-Item ist
-        /// </summary>
-        protected bool containerIsQuestItem;
         /// <summary>
         /// Der Name des generierten Items
         /// </summary>
@@ -101,15 +96,13 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Setzt alle Lootingrelevanten Eigenschaften
         /// </summary>
-        /// <param name="isQuest">Quest Flag</param>
         /// <param name="name">Name</param>
         /// <param name="rar">Seltenheit</param>
         /// <param name="type">Typ</param>
         /// <param name="table">Seltenheits-Referenztabelle</param>
         /// <returns>Sich selbst (also in einer Zeile erstellbar und initialisierbar)</returns>
-        public LootFunctionContainer<T> SetProps(bool isQuest, string name, int rar, string type, ILootRarityTable table)
+        public LootFunctionContainer<T> SetProps(string name, int rar, string type, ILootRarityTable table)
         {
-            containerIsQuestItem = isQuest;
             containerName = name;
             containerRarity = rar;
             containerType = type;
@@ -120,14 +113,12 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Setzt alle Lootingrelevanten Eigenschaften
         /// </summary>
-        /// <param name="isQuest">Quest Flag</param>
         /// <param name="name">Name</param>
         /// <param name="rar">Seltenheit</param>
         /// <param name="type">Typ</param>
         /// <returns>Sich selbst (verkettbar / also in einer Zeile erstellbar und initialisierbar)</returns>
-        public LootFunctionContainer<T> SetProps(bool isQuest, string name, int rar, string type)
+        public LootFunctionContainer<T> SetProps(string name, int rar, string type)
         {
-            containerIsQuestItem = isQuest;
             containerName = name;
             containerRarity = rar;
             containerType = type;
@@ -157,17 +148,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             get
             {
                 return innerFunction();
-            }
-        }
-
-        /// <summary>
-        /// Flag die anzeigt, ob das generierte Item ein Quest-Item ist
-        /// </summary>
-        public virtual bool IsQuestItem
-        {
-            get
-            {
-                return containerIsQuestItem;
             }
         }
         /// <summary>

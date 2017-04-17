@@ -87,7 +87,7 @@ namespace WebTest.LootEngine
 
         public void InitLootables(ILootTypeFetcher<string> fetcher)
         {
-            ILootable<string>[] newLoot = fetcher.GetAllLootableTypes().GetInstances().DoFunc(o => o as ILootable<string>);
+            ILootable<string>[] newLoot = fetcher.GetAllLootableTypes().GetInstances().Select(o => o as ILootable<string>).ToArray();
             if (currMode != ItemLibraryMode.All)
                 lootHashMap[currMode].AddRange(newLoot);
             allLoot.AddRange(newLoot);

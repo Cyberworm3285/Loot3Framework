@@ -77,7 +77,6 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
                 ((l.RarityName.CompareToString(rarityName,  modes[2]))  || (rarityName == "") || (rarityName == null))          &&
                 ((allowedTypes==null)?true:(allowedTypes.Contains(l.Type)))                         &&
                 ((allowedRarities == null)?true:(allowedRarities.Contains(l.RarityName)))           &&
-                ((allowQuestItems == l.IsQuestItem) || !l.IsQuestItem)                              &&
                 ((l.Rarity >= rarityLowerBound && l.Rarity <= rarityUpperBound) || (rarityLowerBound == 0 && rarityUpperBound == 0))
 
             ).ToArray();

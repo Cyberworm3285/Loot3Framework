@@ -140,10 +140,5 @@ namespace Loot3Vorbereitung
         {
             GlobalItems.Instance.AddAllLootObjects();
         }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            GlobalItems.Instance.Remove(i => i.IsQuestItem);
-        }
     }
 }
