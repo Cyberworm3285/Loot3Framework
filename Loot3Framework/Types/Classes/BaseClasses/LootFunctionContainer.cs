@@ -152,7 +152,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Die Generierungsfunktion wird aufgerufen und gibt das Item aus
         /// </summary>
-        public T Item
+        public virtual T Item
         {
             get
             {
@@ -163,7 +163,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Flag die anzeigt, ob das generierte Item ein Quest-Item ist
         /// </summary>
-        public bool IsQuestItem
+        public virtual bool IsQuestItem
         {
             get
             {
@@ -173,7 +173,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Der Name des generierten Items
         /// </summary>
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -183,7 +183,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Die Seltenheit des generierten Items
         /// </summary>
-        public int Rarity
+        public virtual int Rarity
         {
             get
             {
@@ -193,7 +193,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Der Typ des generierten Items
         /// </summary>
-        public string Type
+        public virtual string Type
         {
             get
             {
@@ -203,7 +203,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Die Seltenheits-Referenztabelle des generierten Items
         /// </summary>
-        public ILootRarityTable rarTable
+        public virtual ILootRarityTable rarTable
         {
             get
             {
@@ -213,7 +213,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Der Name der Seltenheit anhand der eigenen Seltenheits-Referenztabelle
         /// </summary>
-        public string RarityName
+        public virtual string RarityName
         {
             get
             {
@@ -223,7 +223,7 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// <summary>
         /// Die momentane Loot-Funktion
         /// </summary>
-        public Func<T> LootFunction
+        public virtual Func<T> LootFunction
         {
             get
             {
