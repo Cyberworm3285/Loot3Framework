@@ -39,10 +39,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
         /// </summary>
         protected IItemProperty<string>[] attributes = new IItemProperty<string>[0];
         /// <summary>
-        /// Flag die anzeigt, ob das Item ein Quest-Objekt ist
-        /// </summary>
-        protected bool isQuestItem;
-        /// <summary>
         /// Der Name des Items (für Algorthmen und ggf. auch Darstellung relevant)
         /// </summary>
         protected string name = "[No Name]";
@@ -111,16 +107,6 @@ namespace Loot3Framework.Types.Classes.BaseClasses
             get
             {
                 return string.Join("|", new string[] { name, type, string.Join("|", attributes.Select(a => a.Generate()).ToArray()), "[" + RarityName + "]" });
-            }
-        }
-        /// <summary>
-        /// Flag die anzeigt, ob das Item ein Quest-Objekt ist
-        /// </summary>
-        public virtual bool IsQuestItem
-        {
-            get
-            {
-                return isQuestItem;
             }
         }
         /// <summary>

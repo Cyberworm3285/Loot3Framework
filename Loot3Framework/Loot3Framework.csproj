@@ -76,7 +76,7 @@
     <Compile Include="Types\Classes\Algorithms\Looting\RandomLoot.cs" />
     <Compile Include="Types\Classes\Algorithms\Filter\StandardNCSFilter.cs" />
     <Compile Include="Types\Classes\BaseClasses\BasePP_StringItem.cs" />
-    <Compile Include="Types\Classes\BaseClasses\BaseItemHolder.cs" />
+    <Compile Include="Types\Classes\BaseClasses\BaseLootHolder.cs" />
     <Compile Include="Types\Classes\BaseClasses\LootFunctionContainer.cs" />
     <Compile Include="Types\Classes\BaseClasses\LootObjectContainer.cs" />
     <Compile Include="Types\Classes\BaseClasses\BaseSplitItemHandler.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="Types\Classes\HelperClasses\LootHandlingEventArgs.cs" />
     <Compile Include="Types\Classes\HelperClasses\FusionContainer.cs" />
     <Compile Include="Types\Classes\HelperClasses\FusionTuple.cs" />
+    <Compile Include="Types\Classes\ItemProperties\FuncProp.cs" />
     <Compile Include="Types\Classes\RarityTables\DefaultRarityTable.cs" />
     <Compile Include="Types\Classes\RarityTables\DynamicRarityTable.cs" />
     <Compile Include="Types\Classes\RarityTables\RarityForwardTable.cs" />

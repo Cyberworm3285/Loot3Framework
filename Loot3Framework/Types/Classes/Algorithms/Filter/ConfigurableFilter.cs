@@ -6,6 +6,7 @@ using System.Text;
 
 using Loot3Framework.Interfaces;
 using Loot3Framework.ExtensionMethods.Other;
+using Loot3Framework.Types.Attributes;
 
 namespace Loot3Framework.Types.Classes.Algorithms.Filter
 {
@@ -22,10 +23,10 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
         private string rarityName;
         private string[] allowedTypes;
         private string[] allowedRarities;
+        private string[] allowedAttributes;
         private int rarityLowerBound;
         private int rarityUpperBound;
         private StringComparing[] modes;
-        private bool allowQuestItems;
         /// <summary>
         /// Konstruktor mit standardisierten Parametern (final)
         /// </summary>
@@ -35,9 +36,9 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
         /// <param name="_nameContains">Name-Attribut Einschränkungen</param>
         /// <param name="_typeContains">Type-Attribut Einschränkungen</param>
         /// <param name="_rarityName">RarityName-Attribut Einschränkungen</param>
-        /// <param name="_allowQuestItems">Einschränkung für das benutzen von QuestItems</param>
         /// <param name="_allowedTypes">Einschränkung für erlaubte Type-Attribute</param>
         /// <param name="_allowedRarities">Einschränkung für erlaubte Seltenheiten</param>
+        /// <param name="_allowedAtrributes">Einschränkung für erlaubte <see cref="Loot3Framework.Types.Attributes"/></param>
         /// <param name="_rarityLowerBound">Einschränkung für die untere Grenze des Rarity-Attributs</param>
         /// <param name="_rarityUpperBound">Einschränkung für für die obere Grenze des Rarity-Attributs</param>
         public ConfigurableFilter(
@@ -47,9 +48,9 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
             string _nameContains = "", 
             string _typeContains = "", 
             string _rarityName= "", 
-            bool _allowQuestItems = true ,
             string[] _allowedTypes = null ,
             string[] _allowedRarities = null,
+            string[]_allowedAtrributes = null,
             int _rarityLowerBound = 0, int _rarityUpperBound = 1000)
         {
             modes = new StringComparing[] { _modeName, _modeType, _modeRarity };
@@ -58,7 +59,7 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
             rarityName = _rarityName;
             allowedTypes = _allowedTypes;
             allowedRarities = _allowedRarities;
-            allowQuestItems = _allowQuestItems;
+            allowedAttributes = _allowedAtrributes;
             rarityLowerBound = _rarityLowerBound;
             rarityUpperBound = _rarityUpperBound;
         }
@@ -72,12 +73,13 @@ namespace Loot3Framework.Types.Classes.Algorithms.Filter
         {
             return allLoot.Where(l =>
 
-                ((l.Name.CompareToString(nameContains,      modes[0]))  || (nameContains == "") || (nameContains == null))    &&
-                ((l.Type.CompareToString(typeContains,      modes[1]))  || (typeContains == "") || (typeContains == null))    &&
-                ((l.RarityName.CompareToString(rarityName,  modes[2]))  || (rarityName == "") || (rarityName == null))          &&
-                ((allowedTypes==null)?true:(allowedTypes.Contains(l.Type)))                         &&
-                ((allowedRarities == null)?true:(allowedRarities.Contains(l.RarityName)))           &&
-                ((l.Rarity >= rarityLowerBound && l.Rarity <= rarityUpperBound) || (rarityLowerBound == 0 && rarityUpperBound == 0))
+                ((l.Name.CompareToString(nameContains,      modes[0]))  || (nameContains == "") || (nameContains == null))              &&
+                ((l.Type.CompareToString(typeContains,      modes[1]))  || (typeContains == "") || (typeContains == null))              &&
+                ((l.RarityName.CompareToString(rarityName,  modes[2]))  || (rarityName == "") || (rarityName == null))                  &&
+                ((allowedTypes==null)?true:(allowedTypes.Contains(l.Type)))                                                             &&
+                ((allowedRarities == null)?true:(allowedRarities.Contains(l.RarityName)))                                               &&
+                ((l.Rarity >= rarityLowerBound && l.Rarity <= rarityUpperBound) || (rarityLowerBound == 0 && rarityUpperBound == 0))    &&
+                (l.GetType().GetCustomAttributes(true).Where(a => a is LootTagAttribute).ToArray().Length == 0 ||l.GetType().GetCustomAttributes(true).Where(a => a is LootTagAttribute).Any(a => allowedAttributes.Contains(((LootTagAttribute)a).LootTag)))
 
             ).ToArray();
         }

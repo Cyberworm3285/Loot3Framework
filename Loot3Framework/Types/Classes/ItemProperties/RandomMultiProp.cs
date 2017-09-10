@@ -24,7 +24,7 @@ namespace Loot3Framework.Types.Classes.ItemProperties
         /// Konstruktor, der die inneren Eigenschaften setzt
         /// </summary>
         /// <param name="_props">Die inneren Eigenschaften</param>
-        public RandomMultiProp(IItemProperty<T>[] _props)
+        public RandomMultiProp(params IItemProperty<T>[] _props)
         {
             props = _props;
         }

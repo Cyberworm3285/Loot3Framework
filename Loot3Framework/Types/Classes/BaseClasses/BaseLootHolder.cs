@@ -9,6 +9,7 @@ using Loot3Framework.ExtensionMethods.Other;
 using Loot3Framework.ExtensionMethods.CollectionOperations;
 using Loot3Framework.Types.Classes.Algorithms.ObjectFetching;
 using Loot3Framework.Types.Classes.EventArguments;
+using Loot3Framework.Types.Attributes;
 
 namespace Loot3Framework.Types.Classes.BaseClasses
 {
@@ -197,6 +198,28 @@ namespace Loot3Framework.Types.Classes.BaseClasses
                     if (!rarityNames.Contains(l.RarityName)) rarityNames.Add(l.RarityName);
                 }
                 return rarityNames.ToArray();
+            }
+        }
+
+        public virtual string[] AllAttributes
+        {
+            get
+            {
+                List<string> attributes = new List<string>();
+                foreach (ILootable<T> l in allLoot)
+                {
+                    var x = l.GetType().GetCustomAttributes(true).Where(a => a is LootTagAttribute).ToArray();
+                    if (x.Length > 0)
+                    {
+                        foreach(LootTagAttribute ll in x)
+                        {
+                            if (!attributes.Contains(ll.LootTag))
+                                attributes.Add(ll.LootTag);
+                        }
+                    }
+                }
+
+                return attributes.ToArray();
             }
         }
 

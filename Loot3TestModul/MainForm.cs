@@ -31,12 +31,23 @@ namespace Loot3Vorbereitung
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            GlobalItems.Instance.AddAllLootObjects();
             checkedListBox1.Items.Clear();
             checkedListBox2.Items.Clear();
             checkedListBox3.Items.Clear();
+            attributeCheckBox.Items.Clear();
+            checkedListBox1.CheckOnClick = true;
+            checkedListBox2.CheckOnClick = true;
+            checkedListBox3.CheckOnClick = true;
+            attributeCheckBox.CheckOnClick = true;
+            checkedListBox1.Sorted = true;
+            checkedListBox3.Sorted = true;
             GlobalItems.Instance.AllTypeNames.DoAction(n => checkedListBox1.Items.Add(n, true));
             GlobalItems.Instance.AllRarityNames.DoAction(r => checkedListBox2.Items.Add(r, true));
             GlobalItems.Instance.AllLoot.DoAction(l => checkedListBox3.Items.Add(l, true));
+            GlobalItems.Instance.AllAttributes.DoAction(a => attributeCheckBox.Items.Add(a, true));
+
+
             GlobalItems.Instance.OnLootChanged +=
                 (send, args) =>
                 {
@@ -48,6 +59,7 @@ namespace Loot3Vorbereitung
                     GlobalItems.Instance.AllRarityNames.DoAction(r => checkedListBox2.Items.Add(r, true));
                     GlobalItems.Instance.AllLoot.DoAction(l => checkedListBox3.Items.Add(l, true));
                 };
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -78,7 +90,7 @@ namespace Loot3Vorbereitung
                                 _nameContains: textBox1.Text,
                                 _allowedTypes: checkedListBox1.CheckedItems.Cast<string>().ToArray(),
                                 _allowedRarities: checkedListBox2.CheckedItems.Cast<string>().ToArray(),
-                                _allowQuestItems: checkBox1.Checked
+                                _allowedAtrributes: attributeCheckBox.CheckedItems.Cast<string>().ToArray()
                             )
                         ).Item
                     );
